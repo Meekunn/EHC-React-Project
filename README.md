@@ -1,4 +1,4 @@
-# Getting Statrted with EHC-React-Project
+# Getting Started with EHC-React-Project
 
 1. Clone the repository to your local machine. You can watch [this video](https://www.youtube.com/watch?v=fQLK8Ib_SKk&list=PL4cUxeGkcC9goXbgTDQ0n_4TBzOO0ocPR&index=10) on how to clone a repository.
 2. Wait till you are assigned a task.
