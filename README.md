@@ -5,6 +5,15 @@
 3. Create a new branch tp push your commits. You can watch [this video](https://www.youtube.com/watch?v=MnUd31TvBoU&list=PL4cUxeGkcC9goXbgTDQ0n_4TBzOO0ocPR&index=11) on how to create new branches.
 **Do not PUSH to the MAIN BRANCH**
 
+## Tasks
+| SR No | Task | Issue No. | Member |
+| ----- | ------------------| --------- | ------ |
+| 1     | Authentication (Login and Signup Page) | -- | Mikun |
+| 2     | School Collection | -- | Jessica |
+| 3     | Personal Collection | -- | Ifeoma |
+| 4     | Work Collection | -- | Rophah |
+| 5     | Collection Page | -- | -- |
+
 # Getting Started with Create React App
 
 ## Available Scripts
