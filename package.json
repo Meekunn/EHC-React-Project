@@ -1,49 +1,62 @@
 {
-  "name": "ehc-react-project",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@chakra-ui/react": "^2.1.2",
-    "@emotion/react": "^11.9.0",
-    "@emotion/styled": "^11.8.1",
-    "@fontsource/open-sans": "^4.5.10",
-    "@fontsource/raleway": "^4.5.9",
-    "@testing-library/jest-dom": "^5.16.4",
-    "@testing-library/react": "^13.3.0",
-    "@testing-library/user-event": "^13.5.0",
-    "env-cmd": "^10.1.0",
-    "firebase": "^9.8.2",
-    "framer-motion": "^6.3.10",
-    "react": "^18.1.0",
-    "react-dom": "^18.1.0",
-    "react-icons": "^4.4.0",
-    "react-router-dom": "^6.3.0",
-    "react-scripts": "5.0.1",
-    "sass": "^1.52.2",
-    "web-vitals": "^2.1.4"
-  },
-  "scripts": {
-    "start": "env-cmd -f .env.development react-scripts start",
-    "build": "env-cmd -f .env.production react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  }
+    "name": "ehc-react-project",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "@chakra-ui/react": "^2.1.2",
+        "@emotion/react": "^11.9.0",
+        "@emotion/styled": "^11.8.1",
+        "@fontsource/open-sans": "^4.5.10",
+        "@fontsource/raleway": "^4.5.9",
+        "@testing-library/jest-dom": "^5.16.4",
+        "@testing-library/react": "^13.3.0",
+        "@testing-library/user-event": "^13.5.0",
+        "env-cmd": "^10.1.0",
+        "firebase": "^9.8.2",
+        "framer-motion": "^6.3.10",
+        "react": "^18.1.0",
+        "react-dom": "^18.1.0",
+        "react-icons": "^4.4.0",
+        "react-router-dom": "^6.3.0",
+        "react-scripts": "5.0.1",
+        "sass": "^1.52.2",
+        "uuid": "^8.3.2",
+        "web-vitals": "^2.1.4"
+    },
+    "scripts": {
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "test": "react-scripts test",
+        "eject": "react-scripts eject"
+    },
+    "eslintConfig": {
+        "extends": [
+            "react-app",
+            "react-app/jest"
+        ]
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "description": "1. Clone the repository to your local machine. You can watch [this video](https://www.youtube.com/watch?v=fQLK8Ib_SKk&list=PL4cUxeGkcC9goXbgTDQ0n_4TBzOO0ocPR&index=10) on how to clone a repository.\r 2. Wait till you are assigned a task.\r 3. Create a new branch tp push your commits. You can watch [this video](https://www.youtube.com/watch?v=MnUd31TvBoU&list=PL4cUxeGkcC9goXbgTDQ0n_4TBzOO0ocPR&index=11) on how to create new branches.\r **Do not PUSH to the MAIN BRANCH**",
+    "main": "index.js",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ForJessicaSake/EHC-React-Project.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/ForJessicaSake/EHC-React-Project/issues"
+    },
+    "homepage": "https://github.com/ForJessicaSake/EHC-React-Project#readme"
 }
