@@ -7,10 +7,14 @@ import {
     Text,
 } from '@chakra-ui/react'
 import { FaCheck } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import './mainnav.scss'
 
 const MainNav = () => {
+
+    // let styleActiveLink = {
+    //     border: none
+    // }
 
     return (
         <Flex bg='#07070A' m='1.5rem 1rem' align='center' justify='space-between' w='70%' >
@@ -33,9 +37,9 @@ const MainNav = () => {
             </Flex>
             <Spacer w='5px' />
             <Flex>
-                <Link to='/login' className='nav-links active' >Log in</Link>
+                <NavLink to='/login' className='nav-links' >Log in</NavLink>
                 <Spacer />
-                <Link to='/signup' className='nav-links' >Sign up</Link>
+                <NavLink to='/signup' className='nav-links' >Sign up</NavLink>
             </Flex>
         </Flex>
     )
