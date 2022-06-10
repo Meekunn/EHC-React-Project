@@ -22,18 +22,17 @@ import { auth} from '../../config/firebase'
 import MainNav from '../MainNav/MainNav'
 import { MdVisibility, MdVisibilityOff } from 'react-icons/md'
 import { FcGoogle } from 'react-icons/fc'
-import GoogleAuth from '../../HOC/GoogleAuth'
 
-const SignUp = () => {
+const SignUp = ({signInGoogle}) => {
 
     const router = useNavigate()
+    
     const [userInfo, setUserInfo] = useState({ username: '', email: '', password: ''})
     const [confirmPass, setConfirmPass] = useState('')
     const [showPass, setShowPass] = useState(false)
     const [showConfirm, setShowConfirm] = useState(false)
     const [signUp, setSignUp] = useState({success: false, error: ''})
-    const { signInGoogle } = GoogleAuth()
-
+    
 
     const signUpEmail = (e) => {
         e.preventDefault()

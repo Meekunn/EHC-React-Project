@@ -13,25 +13,26 @@ import {
     Container,
 } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
-import MainNav from '../MainNav/MainNav'
-import GoogleAuth from '../../HOC/GoogleAuth'
 import { MdVisibility, MdVisibilityOff } from 'react-icons/md'
 import { FcGoogle } from 'react-icons/fc'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '../../config/firebase'
+import MainNav from '../MainNav/MainNav'
 
-const Login = () => {
+const Login = ({ signInGoogle, setAuthStatus }) => {
 
     const router = useNavigate()
     const [userInfo, setUserInfo] = useState({ email: '', password: ''})
     const [show, setShow] = useState(false)
     const [signin, setSignin] = useState({ success: false, error: ''})
+    //const [authStatus, setAuthStatus] = useState(false)
 
-    const { signInGoogle } = GoogleAuth()
+    //const { signInGoogle } = GoogleAuth()
 
     const signInEmail = (e) => {
         e.preventDefault()
         setSignin({...signin, success: true})
+        setAuthStatus(true)
 
         signInWithEmailAndPassword(auth, userInfo.email, userInfo.password)
         .then(userinfo => {
