@@ -11,11 +11,7 @@ import { NavLink } from 'react-router-dom'
 import './mainnav.scss'
 
 const MainNav = () => {
-
-    // let styleActiveLink = {
-    //     border: none
-    // }
-
+    
     return (
         <Flex bg='#07070A' m='1.5rem 1rem' align='center' justify='space-between' w='70%' >
             <Flex>
