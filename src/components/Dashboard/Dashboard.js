@@ -1,7 +1,12 @@
+import { VStack } from "@chakra-ui/react"
+import Navbar from "../Navbar/Navbar"
+
 const Dashboard = () => {
 
     return (
-        <h1>Dashboard</h1>
+        <VStack bg='#07070A'>
+            <Navbar />
+        </VStack>
     )
     
 }

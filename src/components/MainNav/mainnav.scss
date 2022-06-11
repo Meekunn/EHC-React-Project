@@ -9,6 +9,9 @@
     border: 1px solid a.$text-color;
     border-radius: 10px;
 }
+.nav-links:hover {
+    color: a.$text-hover-color;
+}
 .active {
     border: none;
 }
