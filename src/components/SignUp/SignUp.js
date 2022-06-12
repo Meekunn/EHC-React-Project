@@ -51,7 +51,7 @@ const SignUp = ({signInGoogle}) => {
                 })
                 sendEmailVerification(auth.currentUser)
                 alert('SignUp Successful,Verify Email and Proceed to Login Page')
-                console.log(userinfo, userinfo.user)
+                console.log(userinfo.user)
                 router('/login')
                 setUserInfo({email: '', username: '', password: ''})
             })

@@ -1,13 +1,15 @@
 import { useState } from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useNavigate } from 'react-router-dom'
+import { createContext } from 'react'
 import Login from './components/Login/Login'
 import SignUp from './components/SignUp/SignUp'
 import Dashboard from './components/Dashboard/Dashboard'
-import './App.css'
 import PrivateRoute from './HOC/PrivateRoute'
-import { useNavigate } from 'react-router-dom'
 import { auth, provider } from './config/firebase'
-import { signInWithPopup } from 'firebase/auth'
+import { signInWithPopup, signOut } from 'firebase/auth'
+import './App.css'
+
+const userContext = createContext()
 
 function App() {
 
@@ -27,17 +29,27 @@ function App() {
     })
   }
 
+  const signOutAccount = () => {
+    signOut(auth)
+    .then(() => {
+      setAuthStatus(false)
+      router('/login')
+    }).catch((error) => {
+      console.log('logged out', error)
+    });
+  }
+
   return (
     <div className="App">
       <Routes>
         <Route path="/login" element={<Login setAuthStatus={setAuthStatus} signInGoogle={signInGoogle} />} />
         <Route path="/signup" element={<SignUp signInGoogle={signInGoogle} />} />
         <Route element={<PrivateRoute auth={authStatus} />} >
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dashboard signOutAccount={signOutAccount} />} />
         </Route>
       </Routes>
     </div>
-  );
+  )
 }
 
 export default App

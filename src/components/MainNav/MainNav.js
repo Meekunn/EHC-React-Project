@@ -6,6 +6,7 @@ import {
     Spacer,
     Text,
 } from '@chakra-ui/react'
+import { useContext } from 'react'
 import { FaCheck } from 'react-icons/fa'
 import { NavLink } from 'react-router-dom'
 import './mainnav.scss'

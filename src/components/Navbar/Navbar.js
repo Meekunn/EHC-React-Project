@@ -13,9 +13,10 @@ import { IoNotifications, IoPersonCircleOutline } from 'react-icons/io5'
 import '../MainNav/mainnav.scss'
 
 
-const Navbar = () => {
+const Navbar = ({signOutAccount}) => {
+    
     return (
-        <HStack p='0.5rem 1rem' w='100%' >
+        <HStack p='0.5rem 1rem' w='100%'>
             <Flex>
                 <Button
                     bgGradient='linear(to-tr, #BC248C, #F75F8C)' 
@@ -24,13 +25,18 @@ const Navbar = () => {
                     variant='solid'
                     size='xs'
                     p='1rem'
+                    onClick={signOutAccount}
                 >
                     LOGOUT &#128075;
                 </Button>
                 <NavLink 
                     to='#' 
                     className='nav-links' 
-                    style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}
+                    style={{
+                        display: 'flex', 
+                        flexDirection: 'row', 
+                        alignItems: 'center',
+                    }}
                 >
                     <Icon as={MdEventNote} w={5} h={5} />
                     <Text p='0 0.2rem' >Collections</Text>
