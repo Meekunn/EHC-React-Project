@@ -9,10 +9,10 @@ function SchoolCollection() {
     const [todos, setTodos] = useState([]);
 
     const addTodo = async () => {
-        let time = new Date().getTime();
+        let day = new Date().getDay();
          await addDoc(collection(db, "school/school/todo"), {
             todo,
-            time
+            day
         });
         getColl();
     };
