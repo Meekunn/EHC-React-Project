@@ -1,10 +1,10 @@
-import './App.css';
 import SchoolCollection from './Components/schoolCollection';
 
 function App() {
   return (
     <div className="App">
       <SchoolCollection />
+      <h1>Heloooo</h1>
     </div>
   );
 }
