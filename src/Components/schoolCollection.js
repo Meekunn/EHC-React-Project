@@ -1,58 +1,45 @@
-// import {signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut} from "firebase/auth";
-// import { auth, db } from "../config/firebase";
-// import {doc, setDoc, collection, getDocs, query, where} from "firebase/firestore";
 
-import { useState, useEffect } from 'react'
-
+import "./schoolcollection.css";
+import { useState, useEffect } from "react";
+import { addDoc, collection, getDocs } from "firebase/firestore";
+import { db } from "../config/firebase";
 
 function SchoolCollection() {
-    const [todos, setTodos] = useState('');
+    const [todo, setTodo] = useState("");
+    const [todos, setTodos] = useState([]);
+
+    const addTodo = async () => {
+        let time = new Date().getTime();
+         await addDoc(collection(db, "school/school/todo"), {
+            todo,
+            time
+        });
+        getColl();
+    };
+
+    const getColl = async () => {
+        const querySnapshot = await getDocs(collection(db, "school/school/todo"));
+        let items = [];
+        querySnapshot.forEach((doc) => {
+            items = [...items, {...doc.data(), id: doc.id}];
+        });
+        setTodos(items);
+    };
     useEffect(() => {
-    }, [todos])
+        getColl();
+    }, []);
 
-    const handleSubmit=(e)=>{
-        e.preventDefault();
-        // const newTodos = { todos }
-        // setTodos([newTodos, ...todos]);
-
-    }
-  
-return(
-    <section>
-        <section className='navigation'>
-            <section className='navbar-menu'>
-                <p>Dashboard</p>
-                <p>Collections</p>
-                <section className='navbar-icons'>
-                    <p>Search</p>
-                    <p>Notification</p>
-                    <p>Profile Icon</p>
-                </section>
-            </section>
-        </section>
-        <section className='collection-sidebar'>
-            <h1>Collections</h1>
-            <p>School</p>
-            <p>Personal</p>
-            <p>Work</p>
-        </section>
-        <main className='main-container'>
-            <h1>School</h1>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type='text'
-                    placeholder='Add a task'
-                    value={todos}
-                    onChange={(e) => setTodos(e.target.value) }
-                />
-                <input type='submit' text= 'Add todo'/>
-            </form>
-            <p>{todos}</p>
-            <p>{todos}</p>
-
-        </main>
-    </section>
-
-)
+    return (
+        <div className="App">
+            <input value={todo} onChange={(e) => setTodo(e.target.value)} />
+            <button onClick={addTodo}>add</button>
+            <ul>
+                {todos.map((td) => {
+                    return <li key={td.id}>{td.todo}</li>;
+                })}
+            </ul>
+        </div>
+    );
 }
+
 export default SchoolCollection;
