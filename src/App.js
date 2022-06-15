@@ -1,15 +1,14 @@
 import { useState } from 'react'
 import { Routes, Route, useNavigate } from 'react-router-dom'
-import { createContext } from 'react'
 import Login from './components/Login/Login'
 import SignUp from './components/SignUp/SignUp'
 import Dashboard from './components/Dashboard/Dashboard'
+import SchoolCollection from './components/SchoolCollection/SchoolCollection'
 import PrivateRoute from './HOC/PrivateRoute'
 import { auth, provider } from './config/firebase'
 import { signInWithPopup, signOut } from 'firebase/auth'
 import './App.css'
 
-const userContext = createContext()
 
 function App() {
 
@@ -46,6 +45,7 @@ function App() {
         <Route path="/signup" element={<SignUp signInGoogle={signInGoogle} />} />
         <Route element={<PrivateRoute auth={authStatus} />} >
           <Route path="/dashboard" element={<Dashboard signOutAccount={signOutAccount} />} />
+          <Route path="/dashboard/school" element={<SchoolCollection />} />
         </Route>
       </Routes>
     </div>

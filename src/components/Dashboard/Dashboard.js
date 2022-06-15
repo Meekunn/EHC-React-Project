@@ -7,39 +7,80 @@ import {
     Text,
 } from "@chakra-ui/react"
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { doc, setDoc } from 'firebase/firestore'
+import { onAuthStateChanged } from 'firebase/auth'
 import { IoSchool, IoPersonSharp } from 'react-icons/io5'
 import { MdWork } from 'react-icons/md'
-import { onAuthStateChanged } from "firebase/auth"
-import { auth } from '../../config/firebase'
+import { auth, db } from '../../config/firebase'
 import Navbar from "../Navbar/Navbar"
 
 const Dashboard = ({signOutAccount}) => {
 
+    const router = useNavigate()
     const [userName, setUserName] = useState('')
+    const [userUid, setUserUid] = useState('')
 
     useEffect(() => {
-        getUsername()
+        getUserDetails()
     }, [])
 
-    const getUsername = () => {
+    const getUserDetails = () => {
         const user = auth.currentUser
         if(user !== null) {
             user.providerData.forEach((profile) => {
                 setUserName(profile.displayName)
+                setUserUid(profile.uid)
             })
             const username = user.displayName
             setUserName(username)
-            console.log(userName)
+            setUserUid(user.uid)
         } else {
             console.log('no user found')
         }
     }
 
+    const createSchoolCollection = async () => {
+        const docRef = doc(db, 'school', userUid)
+        const payload = {
+            userName
+        }
+        const setDocRef = await setDoc(docRef, payload)
+        router('/dashboard/school')
+    }
+
+    const createWorkCollection = async () => {
+        const docRef = doc(db, 'work', userUid)
+        const payload = {
+            userName
+        }
+        const setDocRef = await setDoc(docRef, payload)
+        router('/dashboard/school')
+    }
+
+    const createPersonalCollection = async () => {
+        const docRef = doc(db, 'personal', userUid)
+        const payload = {
+            userName
+        }
+        const setDocRef = await setDoc(docRef, payload)
+        router('/dashboard/school')
+    }
+
     return (
         <VStack bg='#07070A'>
             <Navbar signOutAccount={signOutAccount} />
-            <Container>
-                <Text>Hello {userName}</Text>
+            <Container pt='3rem'>
+                <Text
+                    fontSize='4xl'
+                    fontWeight='bold'
+                    bgGradient='linear(to-tr, #D3B8BA, #F75F8C)'
+                    bgClip='text'
+                    textAlign='left'
+                    m='2rem 0.5rem'
+                >
+                    Hello {userName}
+                </Text>
                 <Flex>
                     <Box
                         as='button'
@@ -57,6 +98,7 @@ const Dashboard = ({signOutAccount}) => {
                         display='flex'
                         flexDirection='column'
                         gap='40px'
+                        onClick={createSchoolCollection}
                     >
                         <Box
                             color='#fff'
@@ -88,6 +130,7 @@ const Dashboard = ({signOutAccount}) => {
                         display='flex'
                         flexDirection='column'
                         gap='40px'
+                        onClick={createPersonalCollection}
                     >
                         <Box
                             color='#fff'
@@ -119,6 +162,7 @@ const Dashboard = ({signOutAccount}) => {
                         display='flex'
                         flexDirection='column'
                         gap='40px'
+                        onClick={createWorkCollection}
                     >
                         <Box
                             color='#fff'

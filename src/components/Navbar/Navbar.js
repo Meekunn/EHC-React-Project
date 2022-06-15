@@ -16,7 +16,7 @@ import '../MainNav/mainnav.scss'
 const Navbar = ({signOutAccount}) => {
     
     return (
-        <HStack p='0.5rem 1rem' w='100%'>
+        <HStack p='0.5rem 1rem' w='100%' bg='#272728'>
             <Flex>
                 <Button
                     bgGradient='linear(to-tr, #BC248C, #F75F8C)' 
@@ -68,9 +68,9 @@ const Navbar = ({signOutAccount}) => {
                     bg='transparent'
                     size='xs'
                     color='#D3B8BA'
-                    // _hover={{
-                    //     color: '#F75F8C'
-                    // }}
+                    _hover={{
+                        color: '#F75F8C'
+                    }}
                 >
                     <Icon as={IoPersonCircleOutline} w={7} h={7} />
                 </Button>
