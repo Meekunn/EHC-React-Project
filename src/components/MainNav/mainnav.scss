@@ -1,0 +1,17 @@
+@use '../../styles/base' as a;
+
+.nav-links {
+    color: a.$text-color;
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    font-family: a.$text-family;
+    border: 1px solid a.$text-color;
+    border-radius: 10px;
+}
+.nav-links:hover {
+    color: a.$text-hover-color;
+}
+.active {
+    border: none;
+}
