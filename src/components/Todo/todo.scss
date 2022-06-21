@@ -1,0 +1,29 @@
+@use '../../styles/base' as a;
+
+.todo-wrapper {
+    width: 100%;
+    display: flex;
+    color: a.$text-color;
+    background: a.$nav-background;
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+    border: 2px solid a.$nav-background;
+    border-radius: 10px;
+    justify-content: space-between;
+
+    .content {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+
+        .uncheck {
+            border: 2px solid a.$text-hover-color;
+            border-radius: 10px;
+            background: transparent;
+        }
+        .task {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+    }
+}

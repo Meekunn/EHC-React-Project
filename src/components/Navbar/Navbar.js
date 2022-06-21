@@ -8,7 +8,7 @@ import {
 } from "@chakra-ui/react"
 import { NavLink } from "react-router-dom"
 import { BiSearchAlt } from "react-icons/bi"
-import { MdEventNote } from 'react-icons/md'
+import { BsCollectionFill } from "react-icons/bs"
 import { IoNotifications, IoPersonCircleOutline } from 'react-icons/io5'
 import '../MainNav/mainnav.scss'
 
@@ -38,7 +38,7 @@ const Navbar = ({signOutAccount}) => {
                         alignItems: 'center',
                     }}
                 >
-                    <Icon as={MdEventNote} w={5} h={5} />
+                    <Icon as={BsCollectionFill} w={5} h={5} />
                     <Text p='0 0.2rem' >Collections</Text>
                 </NavLink>
             </Flex>

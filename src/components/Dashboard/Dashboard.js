@@ -9,7 +9,6 @@ import {
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { doc, setDoc } from 'firebase/firestore'
-import { onAuthStateChanged } from 'firebase/auth'
 import { IoSchool, IoPersonSharp } from 'react-icons/io5'
 import { MdWork } from 'react-icons/md'
 import { auth, db } from '../../config/firebase'
