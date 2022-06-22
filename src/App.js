@@ -3,7 +3,7 @@ import { Routes, Route, useNavigate } from 'react-router-dom'
 import Login from './components/Login/Login'
 import SignUp from './components/SignUp/SignUp'
 import Dashboard from './components/Dashboard/Dashboard'
-import SchoolCollection from './components/SchoolCollection/SchoolCollection'
+import SchoolCollection from './components/Collections/SchoolCollection'
 import PrivateRoute from './HOC/PrivateRoute'
 import { auth, provider } from './config/firebase'
 import { signInWithPopup, signOut } from 'firebase/auth'
@@ -47,6 +47,8 @@ function App() {
           <Route path="/dashboard" element={<Dashboard signOutAccount={signOutAccount} />} />
           <Route path="/dashboard/school" element={<SchoolCollection />} />
         </Route>
+        {/* <Route path="/dashboard" element={<Dashboard signOutAccount={signOutAccount} />} />
+        <Route path="/dashboard/school" element={<SchoolCollection />} /> */}
       </Routes>
     </div>
   )

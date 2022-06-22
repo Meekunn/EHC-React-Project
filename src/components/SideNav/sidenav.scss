@@ -1,0 +1,26 @@
+@use '../../styles/base' as a;
+
+.sidenav-wrapper {
+    width: 20%;
+    background-color: #272728;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    h2 {
+        text-align: left;
+        color: #979191;
+        padding: 0.5rem;
+        font-weight: 800;
+    }
+}
+.sidenav-btn {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    font-weight: 700;
+}
+.sidenav-btn:hover {
+    background-color: #434345;
+}
