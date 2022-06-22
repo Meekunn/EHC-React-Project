@@ -7,6 +7,7 @@ import {
     onSnapshot, 
     orderBy 
 } from "firebase/firestore"
+import { useNavigate } from "react-router-dom"
 import { db, auth } from "../../config/firebase"
 import { MdOutlineKeyboardArrowLeft } from 'react-icons/md'
 import { HiPlusSm } from 'react-icons/hi'
@@ -25,6 +26,7 @@ function School() {
     const [todos, setTodos] = useState([])
     const [numOfTasks, setNumOfTasks] = useState(0)
 
+    const router = useNavigate()
     const user = auth.currentUser
 
     useEffect(() => {
@@ -41,6 +43,7 @@ function School() {
                 complete: false
             })
         }
+        setTodo('')
         getSchoolCollection()
     };
 
@@ -74,7 +77,7 @@ function School() {
                     <div className='wrapper'>
                         <div className="heading">
                             <span>
-                                <button className="back-arrow">
+                                <button className="back-arrow" onClick={() => {router('/dashboard')}}>
                                     <MdOutlineKeyboardArrowLeft />
                                 </button>
                                 School
