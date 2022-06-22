@@ -21,8 +21,9 @@ import SideNav from "../SideNav/SideNav"
 
 function School() {
 
-    const [todo, setTodo] = useState("");
+    const [todo, setTodo] = useState("")
     const [todos, setTodos] = useState([])
+    const [numOfTasks, setNumOfTasks] = useState(0)
 
     const user = auth.currentUser
 
@@ -35,6 +36,7 @@ function School() {
             const uid = user.uid
             await addDoc(collection(db, `school/${uid}/todoList`), {
                 todo,
+                //creates a timestamp which is unique so we use this as the key when returning documents in the subcollection.
                 time: serverTimestamp(),
                 complete: false
             })
@@ -44,17 +46,20 @@ function School() {
 
     const getSchoolCollection = () => {
         if (user !== null ){
+            //fetches the user's uid
             const uid = user.uid
+            //uses the uid as the document id in school collection and then creates a subcollection called todoList
             const q = query(collection(db, `school/${uid}/todoList`), orderBy('time', 'desc'))
             const unsub = onSnapshot(q, (querySnapshot) => {
-                let items = [];
+                let items = []
                 querySnapshot.forEach(doc => {
                     items.push({...doc.data()})
                 })
                 console.log(items)
                 setTodos(items)
+                setNumOfTasks(items.length)
             })
-            return () => unsub();
+            return () => unsub()
         } else {
             console.log('no user found')
         }
@@ -89,7 +94,7 @@ function School() {
                             />
                         </div>
                         <div className="tasks-container">
-                            <p>Tasks - </p>
+                            <p>Tasks - {numOfTasks} </p>
                             <div className="tasks-wrapper">
                                 {todos.map((task) => {
                                     return (

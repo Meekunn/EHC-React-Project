@@ -26,4 +26,18 @@
             font-weight: 500;
         }
     }
+
+    .btns {
+        display: flex;
+        gap: 10px;
+        margin-right: 10px;
+
+        button {
+            
+            svg {
+                font-size: 1.2rem;
+                color: a.$text-hover-color;
+            }
+        }
+    }
 }
