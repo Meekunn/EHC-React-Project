@@ -18,8 +18,38 @@
 
         .uncheck {
             border: 2px solid a.$text-hover-color;
-            border-radius: 10px;
+            border-radius: 9px;
             background: transparent;
+            padding: 2px;
+            width: 20px;
+            height: 20px;
+            position: relative;
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            user-select: none;
+
+            .checkmark {
+                display: none;
+            }  
+        }
+        .check {
+            background: a.$text-hover-color;
+
+            .checkmark {
+                display: block;
+                position: absolute;
+                height: 12px;
+                width: 6px;
+                bottom: 3px;
+                left: 5px;
+                border-width: 0 2px 2px 0;
+                border-color: a.$nav-background;
+                -o-transform: rotate(45deg);
+                -ms-transform: rotate(45deg);
+                -moz-transform: rotate(45deg);
+                -webkit-transform: rotate(45deg);
+                transform: rotate(45deg);
+            }
         }
         .task {
             font-size: 0.9rem;

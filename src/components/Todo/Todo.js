@@ -1,14 +1,24 @@
+import { useState } from 'react'
 import { MdModeEdit } from 'react-icons/md'
 import { TbTrash } from 'react-icons/tb'
 import './todo.scss'
 
 const Todo = ({task}) => {
 
-    //const [title, setTitle] = useState(task.task)
+    const [completed, setCompleted] = useState(true)
+
+    const checkToggle = () => {
+        setCompleted(!completed)
+    }
+    
     return (
         <div id={task.time} className='todo-wrapper'>
             <div className='content'>
-                <input type='checkbox' className='uncheck' />
+                {/* <input type="checkbox" checked="checked" /> */}
+                <span onClick={checkToggle} className={completed ? "uncheck check" : "uncheck"}>
+                    {/* <input type="checkbox" checked="checked" /> */}
+                    <span className='checkmark'></span>
+                </span>
                 <span className='task'>
                     {task.todo}
                 </span>
