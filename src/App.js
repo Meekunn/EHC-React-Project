@@ -5,8 +5,9 @@ import SignUp from './components/SignUp/SignUp'
 import Dashboard from './components/Dashboard/Dashboard'
 import SchoolCollection from './components/Collections/SchoolCollection'
 import PrivateRoute from './HOC/PrivateRoute'
-import { auth, provider } from './config/firebase'
+import { auth, provider, db } from './config/firebase'
 import { signInWithPopup, signOut } from 'firebase/auth'
+import { deleteDoc, doc } from 'firebase/firestore'
 import './App.css'
 
 
@@ -38,6 +39,7 @@ function App() {
     });
   }
 
+
   return (
     <div className="App">
       <Routes>
@@ -55,3 +57,14 @@ function App() {
 }
 
 export default App
+
+export const deleteTodo = async (id) => {
+  const user = auth.currentUser
+  if (user !== null ){
+      //fetches the user's uid
+      const uid = user.uid
+      const docRef = doc(db, `/school/${uid}/todoList`, id)
+      await deleteDoc(docRef)
+      console.log('deleted')
+  }
+}

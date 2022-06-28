@@ -1,20 +1,19 @@
 import { useState, useEffect } from "react"
 import { 
-    addDoc, 
-    collection, 
+    deleteDoc, 
+    addDoc,
+    collection,
+    doc, 
     query, 
     serverTimestamp, 
     onSnapshot, 
-    orderBy 
+    orderBy, 
+    setDoc
 } from "firebase/firestore"
 import { useNavigate } from "react-router-dom"
 import { db, auth } from "../../config/firebase"
 import { MdOutlineKeyboardArrowLeft } from 'react-icons/md'
 import { HiPlusSm } from 'react-icons/hi'
-// import { BsCollectionFill } from 'react-icons/bs'
-// import { IoIosNotificationsOutline } from 'react-icons/io'
-// import { BiSearch } from 'react-icons/bi'
-// import { CgProfile } from 'react-icons/cg'
 import Todo from "../Todo/Todo"
 import './collection.scss'
 import Navbar from "../Navbar/Navbar"
@@ -24,6 +23,7 @@ function School() {
 
     const [todo, setTodo] = useState("")
     const [todos, setTodos] = useState([])
+    const [completed, setCompleted] = useState(false)
     const [numOfTasks, setNumOfTasks] = useState(0)
 
     const router = useNavigate()
@@ -36,15 +36,17 @@ function School() {
     const addTodo = async () => {
         if (user !== null) {
             const uid = user.uid
-            await addDoc(collection(db, `school/${uid}/todoList`), {
+            const collectionRef = collection(db, `school/${uid}/todoList`)
+            const payload = {
                 todo,
                 //creates a timestamp which is unique so we use this as the key when returning documents in the subcollection.
                 time: serverTimestamp(),
-                complete: false
-            })
+                complete: completed
+            }
+            const docRef = await addDoc(collectionRef, payload)
+            setTodo('')
         }
-        setTodo('')
-        getSchoolCollection()
+        //getSchoolCollection()
     };
 
     const getSchoolCollection = () => {
@@ -55,16 +57,30 @@ function School() {
             const q = query(collection(db, `school/${uid}/todoList`), orderBy('time', 'desc'))
             const unsub = onSnapshot(q, (querySnapshot) => {
                 let items = []
-                querySnapshot.forEach(doc => {
-                    items.push({...doc.data()})
+                querySnapshot.docs.map((doc) => {
+                    items.push({...doc.data(), id: doc.id})
                 })
-                console.log(items)
                 setTodos(items)
                 setNumOfTasks(items.length)
             })
-            return () => unsub()
-        } else {
-            console.log('no user found')
+        }
+    }
+
+    const checkToggle = () => {
+        setCompleted(!completed)
+        if (user !== null ){
+            //fetches the user's uid
+            const uid = user.uid
+        }
+    }
+
+    const deleteTodo = async (id) => {
+        if (user !== null ){
+            //fetches the user's uid
+            const uid = user.uid
+            const docRef = doc(db, `/school/${uid}/todoList`, id)
+            await deleteDoc(docRef)
+            console.log('deleted')
         }
     }
 
@@ -101,7 +117,13 @@ function School() {
                             <div className="tasks-wrapper">
                                 {todos.map((task) => {
                                     return (
-                                        <Todo key={task.time} task={task} />
+                                        <Todo 
+                                            key={task.id} 
+                                            task={task} 
+                                            checkToggle={checkToggle} 
+                                            completed={completed} 
+                                            deleteTodo={deleteTodo}
+                                        />
                                     )
                                 })}
                             </div>
