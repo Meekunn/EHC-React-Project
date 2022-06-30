@@ -1,22 +1,27 @@
 import { NavLink } from "react-router-dom"
-import { BiSearchAlt } from "react-icons/bi"
+import { GoThreeBars } from 'react-icons/go'
+import { FaTimes } from 'react-icons/fa'
 import { BsCollectionFill } from "react-icons/bs"
 import { IoNotifications, IoPersonCircleOutline } from 'react-icons/io5'
 import './navbar.scss'
 
 
-const Navbar = ({signOutAccount}) => {
+const Navbar = ({isMobile, toggleSideNav, signOutAccount}) => {
+    
     
     return (
         <nav className="nav-wrapper">
             <div className="action-btns1">
+                <button className='toggle' onClick={toggleSideNav}>
+                    {isMobile ? <FaTimes /> : <GoThreeBars />}
+                </button>
                 <button
                     onClick={signOutAccount}
                 >
                     LOGOUT &#128075;
                 </button>
                 <NavLink 
-                    to='#' 
+                    to='/dashboard' 
                     className='nav-links' 
                     style={{
                         display: 'flex', 
@@ -29,9 +34,6 @@ const Navbar = ({signOutAccount}) => {
                 </NavLink>
             </div>
             <div className="action-btns2">
-                <button>
-                    <BiSearchAlt />
-                </button>
                 <button>
                     <IoNotifications />
                 </button>

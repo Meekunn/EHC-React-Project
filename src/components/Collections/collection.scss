@@ -1,22 +1,24 @@
 @use '../../styles/base' as a;
 
 main {
-    background-color: a.$background-color;
     font-family: a.$text-family;
 
     .todos-wrapper {
         display: flex;
-        height: 100%;
+        justify-content: center;
+        height: 100vh;
+        position: relative;
 
         .todolist {
             width: 80%;
+            height: 100%;
             display: flex;
             justify-content: center;
-            padding: 4rem;
-            background-color: a.$background-color;
+            position: relative;
+            top: 5rem;
 
             .wrapper {
-                width: 55%;
+                width: 65%;
                 display: flex;
                 flex-direction: column;
                 align-items: flex-start;

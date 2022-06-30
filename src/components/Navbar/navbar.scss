@@ -31,6 +31,13 @@
         background: transparent;
         border: 2px solid a.$text-hover-color;
     }
+    .toggle {
+        color: a.$text-hover-color;
+        background: transparent;
+    }
+    .toggle:hover {
+        border: none;
+    }
     .nav-links {
         color: a.$text-color;
         padding: 0.5rem;
