@@ -125,7 +125,7 @@ function School() {
         <main>
             <Navbar isMobile={isMobile} toggleSideNav={toggleSideNav} />
             <div className="todos-wrapper">
-                <SideNav isMobile={isMobile} />
+                <SideNav isMobile={isMobile} toggleSideNav={toggleSideNav}/>
                 <div className="todolist">
                     <div className='wrapper'>
                         <div className="heading">

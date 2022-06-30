@@ -32,11 +32,14 @@
         border: 2px solid a.$text-hover-color;
     }
     .toggle {
-        color: a.$text-hover-color;
+        color: a.$text-color;
         background: transparent;
+        font-size: 1rem;
+        padding: 0;
     }
     .toggle:hover {
         border: none;
+        color: a.$text-hover-color;
     }
     .nav-links {
         color: a.$text-color;
@@ -77,6 +80,10 @@
     .action-btns1 {
         button {
             font-size: 0.8rem;
+        }
+        .toggle {
+            font-size: 1.3rem;
+            padding: 0.5rem 1rem;
         }
         .nav-links {
             padding: 0.5rem 1rem;
