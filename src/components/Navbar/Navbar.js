@@ -1,34 +1,20 @@
-import { 
-    Button,
-    Flex, 
-    HStack, 
-    Icon, 
-    Spacer,
-    Text
-} from "@chakra-ui/react"
 import { NavLink } from "react-router-dom"
 import { BiSearchAlt } from "react-icons/bi"
 import { BsCollectionFill } from "react-icons/bs"
 import { IoNotifications, IoPersonCircleOutline } from 'react-icons/io5'
-import '../MainNav/mainnav.scss'
+import './navbar.scss'
 
 
 const Navbar = ({signOutAccount}) => {
     
     return (
-        <div className="nav-wrapper">
-            <Flex>
-                <Button
-                    bgGradient='linear(to-tr, #BC248C, #F75F8C)' 
-                    color='#07070A'
-                    fontWeight='bold'
-                    variant='solid'
-                    size='xs'
-                    p='1rem'
+        <nav className="nav-wrapper">
+            <div className="action-btns1">
+                <button
                     onClick={signOutAccount}
                 >
                     LOGOUT &#128075;
-                </Button>
+                </button>
                 <NavLink 
                     to='#' 
                     className='nav-links' 
@@ -38,44 +24,22 @@ const Navbar = ({signOutAccount}) => {
                         alignItems: 'center',
                     }}
                 >
-                    <Icon as={BsCollectionFill} w={5} h={5} />
-                    <Text p='0 0.2rem' >Collections</Text>
+                    <BsCollectionFill/>
+                    <p>Collections</p>
                 </NavLink>
-            </Flex>
-            <Spacer />
-            <Flex spacing={2} align='center' >
-                <Button m='0 0.5rem'
-                    bg='transparent'
-                    size='xs'
-                    color='#D3B8BA'
-                    _hover={{
-                        color: '#F75F8C'
-                    }}
-                >
-                    <Icon as={BiSearchAlt}  w={5} h={5} />
-                </Button>
-                <Button m='0 0.5rem'
-                    bg='transparent'
-                    size='xs'
-                    color='#D3B8BA'
-                    _hover={{
-                        color: '#F75F8C'
-                    }}
-                >
-                    <Icon as={IoNotifications}  w={5} h={5} />
-                </Button>
-                <Button m='0 0.5rem'
-                    bg='transparent'
-                    size='xs'
-                    color='#D3B8BA'
-                    _hover={{
-                        color: '#F75F8C'
-                    }}
-                >
-                    <Icon as={IoPersonCircleOutline} w={7} h={7} />
-                </Button>
-            </Flex>
-        </div>
+            </div>
+            <div className="action-btns2">
+                <button>
+                    <BiSearchAlt />
+                </button>
+                <button>
+                    <IoNotifications />
+                </button>
+                <button>
+                    <IoPersonCircleOutline />
+                </button>
+            </div>
+        </nav>
     )
 }
 
