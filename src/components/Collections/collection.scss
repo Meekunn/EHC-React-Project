@@ -46,6 +46,9 @@ main {
                             font-size: 1.5rem;
                             background-color: a.$nav-background;
                             border-radius: 12px;
+                            border: none;
+                            color: a.$text-color;
+                            display: flex;
                         }
                     }
                 }
@@ -63,6 +66,7 @@ main {
                         padding: 0.3rem;
                         border-radius: 10px;
                         margin-right: 0.8rem;
+                        border: none;
                     }
                     .input {
                         background: transparent;

@@ -8,7 +8,6 @@ import {
     serverTimestamp, 
     onSnapshot, 
     orderBy, 
-    setDoc,
     updateDoc
 } from "firebase/firestore"
 import { useNavigate } from "react-router-dom"
@@ -135,7 +134,7 @@ function School() {
                                 </button>
                                 School
                             </span>
-                            <button>
+                            <button style={{border: 'none', background: 'transparent'}}>
                                 ...
                             </button>
                         </div>

@@ -25,6 +25,7 @@
         padding: 0.5rem 1rem;
         border-radius: 10px;
         font-size: 0.7rem;
+        border: none;
     }
     button:hover {
         color: a.$text-hover-color;
@@ -36,6 +37,7 @@
         background: transparent;
         font-size: 1rem;
         padding: 0;
+        border: none;
     }
     .toggle:hover {
         border: none;
@@ -43,6 +45,7 @@
     }
     .nav-links {
         color: a.$text-color;
+        text-decoration: none;
         padding: 0.5rem;
         font-size: 0.75rem;
         font-weight: 800;
@@ -66,6 +69,7 @@
         background: transparent;
         color: a.$text-color;
         font-size: 1rem;
+        border: none;
 
         &:last-child {
             font-size: 1.3rem;
