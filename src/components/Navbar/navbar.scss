@@ -1,0 +1,7 @@
+@use '../../styles/base' as a;
+
+.nav-wrapper {
+    padding: 0.5rem 1rem;
+    width: 100%;
+    background: a.$nav-background;
+}

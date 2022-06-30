@@ -5,16 +5,14 @@ import './todo.scss'
 
 const Todo = ({task, checkToggle, deleteTodo, completed}) => {
     
-
-    
     return (
         <div id={task.id} className='todo-wrapper'>
             <div className='content'>
                 {/* <input type="checkbox" checked="checked" /> */}
-                <span onClick={checkToggle} className={completed ? "uncheck check" : "uncheck"}>
+                <button onClick={() => {checkToggle(task.id)}} className="uncheck">
                     {/* <input type="checkbox" checked="checked" /> */}
                     <span className='checkmark'></span>
-                </span>
+                </button>
                 <span className='task'>
                     {task.todo}
                 </span>

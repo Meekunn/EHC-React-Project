@@ -8,7 +8,8 @@ import {
     serverTimestamp, 
     onSnapshot, 
     orderBy, 
-    setDoc
+    setDoc,
+    updateDoc
 } from "firebase/firestore"
 import { useNavigate } from "react-router-dom"
 import { db, auth } from "../../config/firebase"
@@ -18,6 +19,7 @@ import Todo from "../Todo/Todo"
 import './collection.scss'
 import Navbar from "../Navbar/Navbar"
 import SideNav from "../SideNav/SideNav"
+import CompletedTodo from "../Todo/CompletedTodo"
 
 function School() {
 
@@ -25,6 +27,8 @@ function School() {
     const [todos, setTodos] = useState([])
     const [completed, setCompleted] = useState(false)
     const [numOfTasks, setNumOfTasks] = useState(0)
+    const [completedTasks, setCompletedTasks] = useState([])
+    const [uncompletedTasks, setUncompletedTasks] = useState([])
 
     const router = useNavigate()
     const user = auth.currentUser
@@ -41,7 +45,7 @@ function School() {
                 todo,
                 //creates a timestamp which is unique so we use this as the key when returning documents in the subcollection.
                 time: serverTimestamp(),
-                complete: completed
+                complete: false
             }
             const docRef = await addDoc(collectionRef, payload)
             setTodo('')
@@ -66,11 +70,39 @@ function School() {
         }
     }
 
-    const checkToggle = () => {
-        setCompleted(!completed)
+    const checkToggle = (id) => {
+        //setCompleted(!completed)
         if (user !== null ){
-            //fetches the user's uid
             const uid = user.uid
+            const docRef = doc(db, `/school/${uid}/todoList`, id)
+            if (completed === false ) {
+                let items = []
+                items = todos.map(async (item) =>  {
+                    if (item.id === id) {
+                        await updateDoc (docRef, {
+                            complete : true
+                        })
+                    }
+                    return item
+                })
+                setCompletedTasks(items)
+                setCompleted(true)
+                console.log(completedTasks)
+            }
+            else {
+                let items = []
+                items = todos.map(async (item) =>  {
+                    if (item.id === id) {
+                        await updateDoc (docRef, {
+                            complete : false
+                        })
+                    }
+                    return item
+                })
+                setUncompletedTasks(items)
+                setCompleted(false)
+                console.log(uncompletedTasks)
+            }
         }
     }
 
@@ -115,9 +147,25 @@ function School() {
                         <div className="tasks-container">
                             <p>Tasks - {numOfTasks} </p>
                             <div className="tasks-wrapper">
-                                {todos.map((task) => {
+                                { todos.map((task) => {
                                     return (
                                         <Todo 
+                                            key={task.id} 
+                                            task={task} 
+                                            checkToggle={checkToggle} 
+                                            completed={completed} 
+                                            deleteTodo={deleteTodo}
+                                        />
+                                    )
+                                })}
+                            </div>
+                        </div>
+                        <div className="tasks-container">
+                            <p>Completed - 0 </p>
+                            <div className="tasks-wrapper">
+                                {todos.map((task) => {
+                                    return (
+                                        <CompletedTodo 
                                             key={task.id} 
                                             task={task} 
                                             checkToggle={checkToggle} 

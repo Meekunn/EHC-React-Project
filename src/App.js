@@ -1,13 +1,12 @@
 import { useState } from 'react'
 import { Routes, Route, useNavigate } from 'react-router-dom'
-import Login from './components/Login/Login'
-import SignUp from './components/SignUp/SignUp'
+import Login from './components/Auth/Login'
+import SignUp from './components/Auth/SignUp'
 import Dashboard from './components/Dashboard/Dashboard'
 import SchoolCollection from './components/Collections/SchoolCollection'
 import PrivateRoute from './HOC/PrivateRoute'
-import { auth, provider, db } from './config/firebase'
+import { auth, provider } from './config/firebase'
 import { signInWithPopup, signOut } from 'firebase/auth'
-import { deleteDoc, doc } from 'firebase/firestore'
 import './App.css'
 
 
@@ -44,7 +43,7 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/login" element={<Login setAuthStatus={setAuthStatus} signInGoogle={signInGoogle} />} />
-        <Route path="/signup" element={<SignUp signInGoogle={signInGoogle} />} />
+        <Route path="signup" element={<SignUp signInGoogle={signInGoogle} />} />
         <Route element={<PrivateRoute auth={authStatus} />} >
           <Route path="/dashboard" element={<Dashboard signOutAccount={signOutAccount} />} />
           <Route path="/dashboard/school" element={<SchoolCollection />} />
@@ -58,13 +57,13 @@ function App() {
 
 export default App
 
-export const deleteTodo = async (id) => {
-  const user = auth.currentUser
-  if (user !== null ){
-      //fetches the user's uid
-      const uid = user.uid
-      const docRef = doc(db, `/school/${uid}/todoList`, id)
-      await deleteDoc(docRef)
-      console.log('deleted')
-  }
-}
+// export const deleteTodo = async (id) => {
+//   const user = auth.currentUser
+//   if (user !== null ){
+//       //fetches the user's uid
+//       const uid = user.uid
+//       const docRef = doc(db, `/school/${uid}/todoList`, id)
+//       await deleteDoc(docRef)
+//       console.log('deleted')
+//   }
+// }

@@ -16,7 +16,7 @@ import '../MainNav/mainnav.scss'
 const Navbar = ({signOutAccount}) => {
     
     return (
-        <HStack p='0.5rem 1rem' w='100%' bg='#272728'>
+        <div className="nav-wrapper">
             <Flex>
                 <Button
                     bgGradient='linear(to-tr, #BC248C, #F75F8C)' 
@@ -75,7 +75,7 @@ const Navbar = ({signOutAccount}) => {
                     <Icon as={IoPersonCircleOutline} w={7} h={7} />
                 </Button>
             </Flex>
-        </HStack>
+        </div>
     )
 }
 
