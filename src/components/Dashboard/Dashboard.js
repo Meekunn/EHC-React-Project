@@ -1,14 +1,19 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Typewriter from 'typewriter-effect'
-import { doc, setDoc } from 'firebase/firestore'
 import { IoSchool, IoPersonSharp } from 'react-icons/io5'
 import { MdWork } from 'react-icons/md'
-import { auth, db } from '../../config/firebase'
+import { auth } from '../../config/firebase'
 import Navbar from "../Navbar/Navbar"
+import SideNav from '../SideNav/SideNav'
+import { 
+    createPersonalCollection, 
+    createSchoolCollection, 
+    createWorkCollection
+} from '../../HOC/utils'
 import './dashboard.scss'
 
-const Dashboard = ({signOutAccount}) => {
+const Dashboard = () => {
 
     const router = useNavigate()
     const [userName, setUserName] = useState('')
@@ -33,41 +38,12 @@ const Dashboard = ({signOutAccount}) => {
         }
     }
 
-    const createSchoolCollection = async () => {
-        const docRef = doc(db, 'school', userUid)
-        const payload = {
-            userName
-        }
-        const setDocRef = await setDoc(docRef, payload)
-        router('/dashboard/school')
-    }
-
-    const createWorkCollection = async () => {
-        const docRef = doc(db, 'work', userUid)
-        const payload = {
-            userName
-        }
-        const setDocRef = await setDoc(docRef, payload)
-        router('/dashboard/school')
-    }
-
-    const createPersonalCollection = async () => {
-        const docRef = doc(db, 'personal', userUid)
-        const payload = {
-            userName
-        }
-        const setDocRef = await setDoc(docRef, payload)
-        router('/dashboard/school')
-    }
-
     return (
         <>
-            <Navbar signOutAccount={signOutAccount} />
+            <Navbar />
             <div className='dash-wrapper'>
+                <SideNav />
                 <div className="dash-container">
-                    {/* <p>
-                        Hello {userName}
-                    </p> */}
                     <div className='typewriter'>
                         <Typewriter
                             options={{
@@ -82,7 +58,7 @@ const Dashboard = ({signOutAccount}) => {
                     </div>
                     <div className="btns-wrapper">
                         <button
-                            onClick={createSchoolCollection}
+                            onClick={()=>{createSchoolCollection(userUid, userName); router('/dashboard/school')}}
                         >
                             <span className='icons'
                                 style={{backgroundColor: '#F75F8C'}}
@@ -92,7 +68,7 @@ const Dashboard = ({signOutAccount}) => {
                             School
                         </button>
                         <button
-                            onClick={createPersonalCollection}
+                            onClick={()=>{createPersonalCollection(userUid, userName); router('/dashboard/school')}}
                         >
                             <span className='icons'
                                 style={{backgroundColor: '#33948D'}}
@@ -102,7 +78,7 @@ const Dashboard = ({signOutAccount}) => {
                             Personal
                         </button>
                         <button
-                            onClick={createWorkCollection}
+                            onClick={()=>{createWorkCollection(userUid, userName); router('/dashboard/school')}}
                         >
                             <span className='icons' 
                                 style={{backgroundColor: '#AC6089'}}

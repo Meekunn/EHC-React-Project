@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, createContext } from 'react'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 import Login from './components/Auth/Login'
 import SignUp from './components/Auth/SignUp'
@@ -9,10 +9,13 @@ import { auth, provider } from './config/firebase'
 import { signInWithPopup, signOut } from 'firebase/auth'
 import './App.css'
 
+export const AuthContext = createContext()
+export const SideNavContext = createContext()
 
 function App() {
-
+  
   const [authStatus, setAuthStatus] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
   const router = useNavigate()
 
   const signInGoogle = () => {  
@@ -29,6 +32,7 @@ function App() {
   }
 
   const signOutAccount = () => {
+    console.log('signout here')
     signOut(auth)
     .then(() => {
       setAuthStatus(false)
@@ -38,6 +42,9 @@ function App() {
     });
   }
 
+  const sideNavState = {
+    isMobile, setIsMobile
+  }
 
   return (
     <div className="App">
@@ -45,11 +52,21 @@ function App() {
         <Route path="/login" element={<Login setAuthStatus={setAuthStatus} signInGoogle={signInGoogle} />} />
         <Route path="signup" element={<SignUp signInGoogle={signInGoogle} />} />
         <Route element={<PrivateRoute auth={authStatus} />} >
-          <Route path="/dashboard" element={<Dashboard signOutAccount={signOutAccount} />} />
-          <Route path="/dashboard/school" element={<SchoolCollection />} />
+          <Route path="/dashboard" element={
+              <AuthContext.Provider value={signOutAccount}>
+                <SideNavContext.Provider value={sideNavState} >
+                  <Dashboard />
+                </SideNavContext.Provider>
+              </AuthContext.Provider>
+          } />
+          <Route path="/dashboard/school" element={
+            <AuthContext.Provider value={signOutAccount}>
+              <SideNavContext.Provider value={sideNavState} >
+                <SchoolCollection />
+              </SideNavContext.Provider>
+            </AuthContext.Provider>
+          } />
         </Route>
-        {/* <Route path="/dashboard" element={<Dashboard signOutAccount={signOutAccount} />} />
-        <Route path="/dashboard/school" element={<SchoolCollection />} /> */}
       </Routes>
     </div>
   )
@@ -57,13 +74,3 @@ function App() {
 
 export default App
 
-// export const deleteTodo = async (id) => {
-//   const user = auth.currentUser
-//   if (user !== null ){
-//       //fetches the user's uid
-//       const uid = user.uid
-//       const docRef = doc(db, `/school/${uid}/todoList`, id)
-//       await deleteDoc(docRef)
-//       console.log('deleted')
-//   }
-// }

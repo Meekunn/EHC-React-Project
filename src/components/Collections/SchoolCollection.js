@@ -28,7 +28,7 @@ function School() {
     const [numOfTasks, setNumOfTasks] = useState(0)
     const [completedTasks, setCompletedTasks] = useState([])
     const [uncompletedTasks, setUncompletedTasks] = useState([])
-    const [isMobile, setIsMobile] = useState(false)
+    
 
     const router = useNavigate()
     const user = auth.currentUser
@@ -116,15 +116,11 @@ function School() {
         }
     }
 
-    const toggleSideNav = () => {
-        setIsMobile(!isMobile)
-    }
-
     return (
         <main>
-            <Navbar isMobile={isMobile} toggleSideNav={toggleSideNav} />
+            <Navbar />
             <div className="todos-wrapper">
-                <SideNav isMobile={isMobile} toggleSideNav={toggleSideNav}/>
+                <SideNav />
                 <div className="todolist">
                     <div className='wrapper'>
                         <div className="heading">

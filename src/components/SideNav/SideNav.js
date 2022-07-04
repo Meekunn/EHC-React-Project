@@ -1,14 +1,17 @@
+import { useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { IoSchool, IoPersonAddSharp } from 'react-icons/io5'
 import { MdWork } from 'react-icons/md'
-import { useNavigate } from 'react-router-dom'
+import { SideNavContext } from "../../App"
 import './sidenav.scss'
 
-const SideNav = ({isMobile}) => {
+const SideNav = () => {
 
+    const sideNavToggle = useContext(SideNavContext)
     const router = useNavigate()
 
     return (
-        <div className={isMobile? 'sidenav-wrapper mobile' : 'sidenav-wrapper'}>
+        <div className={sideNavToggle.isMobile? 'sidenav-wrapper mobile' : 'sidenav-wrapper'}>
             <div className='sidenav-container'>
                 <h2>Collections</h2>
                 <div className='sidenav-links'>

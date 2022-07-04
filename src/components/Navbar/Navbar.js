@@ -1,22 +1,30 @@
+import { memo, useContext } from "react"
 import { NavLink } from "react-router-dom"
 import { GoThreeBars } from 'react-icons/go'
 import { FaTimes } from 'react-icons/fa'
 import { BsCollectionFill } from "react-icons/bs"
 import { IoNotifications, IoPersonCircleOutline } from 'react-icons/io5'
+import { AuthContext, SideNavContext } from "../../App"
 import './navbar.scss'
 
 
-const Navbar = ({isMobile, toggleSideNav, signOutAccount}) => {
-    
+const Navbar = () => {
+
+    const signOut = useContext(AuthContext)
+    const sideNavToggle = useContext(SideNavContext)
+    //console.log('rendering navbar')
+    const toggleNav = () => {
+        sideNavToggle.setIsMobile(!sideNavToggle.isMobile)
+    }
     
     return (
         <nav className="nav-wrapper">
             <div className="action-btns1">
-                <button className='toggle' onClick={toggleSideNav}>
-                    {isMobile ? <FaTimes /> : <GoThreeBars />}
+                <button className='toggle' onClick={toggleNav}>
+                    {sideNavToggle.isMobile ? <FaTimes /> : <GoThreeBars />}
                 </button>
                 <button
-                    onClick={signOutAccount}
+                    onClick={signOut}
                 >
                     LOGOUT &#128075;
                 </button>
@@ -45,4 +53,4 @@ const Navbar = ({isMobile, toggleSideNav, signOutAccount}) => {
     )
 }
 
-export default Navbar
+export default memo(Navbar)
