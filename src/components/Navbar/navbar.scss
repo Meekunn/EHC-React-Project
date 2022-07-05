@@ -26,11 +26,13 @@
         border-radius: 10px;
         font-size: 0.7rem;
         border: none;
+        transition: all 0.3s ease-in-out;
     }
     button:hover {
         color: a.$text-hover-color;
         background: transparent;
         border: 2px solid a.$text-hover-color;
+        transition: all 0.3s ease-in-out;
     }
     .toggle {
         color: a.$text-color;
@@ -38,10 +40,12 @@
         font-size: 1rem;
         padding: 0;
         border: none;
+        transition: all 0.3s ease-out;
     }
     .toggle:hover {
         border: none;
         color: a.$text-hover-color;
+        transition: all 0.3s ease-in;
     }
     .nav-links {
         color: a.$text-color;
@@ -70,6 +74,7 @@
         color: a.$text-color;
         font-size: 1rem;
         border: none;
+        transition: all 0.3s ease-in-out;
 
         &:last-child {
             font-size: 1.3rem;
@@ -77,6 +82,7 @@
     }
     button:hover {
         color: a.$text-hover-color;
+        transition: all 0.3s ease-in-out;
     }
 }
 

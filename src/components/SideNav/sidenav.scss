@@ -42,6 +42,7 @@
     background: transparent;
     border: none;
     font-size: 1rem;
+    transition: all 0.3s ease;
 
     span {
         border-radius: 10px;
@@ -56,6 +57,7 @@
 }
 .sidenav-btn:hover {
     background-color: #434345;
+    transition: all 0.3s ease;
 }
 
 @media only screen and (min-width: 600px) {

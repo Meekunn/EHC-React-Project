@@ -55,9 +55,11 @@
     font-family: a.$text-family;
     border: 1px solid a.$text-color;
     border-radius: 10px;
+    transition: all 0.3s ease-in-out;
 }
 .nav-links:hover {
     color: a.$text-hover-color;
+    transition: all 0.3s ease-in-out;
 }
 .activelink {
     border: none;
