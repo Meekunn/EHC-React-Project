@@ -11,20 +11,21 @@ import './App.css'
 
 export const AuthContext = createContext()
 export const SideNavContext = createContext()
+export const SnackbarContext = createContext()
 
 function App() {
   
   const [authStatus, setAuthStatus] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
+  const [success, setSuccess] = useState(false)
   const router = useNavigate()
 
   const signInGoogle = () => {  
-    setAuthStatus(true) 
     signInWithPopup(auth, provider)
-    .then((res) => {
-        console.log("success", res)
-        alert("Success with Google")
-        router('/dashboard')
+    .then(() => {
+      setAuthStatus(true) 
+      setSuccess(true)
+      router('/dashboard')
     })
     .catch(error => {
         console.log(error.code, error.message)
@@ -32,30 +33,49 @@ function App() {
   }
 
   const signOutAccount = () => {
-    console.log('signout here')
     signOut(auth)
     .then(() => {
       setAuthStatus(false)
       router('/login')
-    }).catch((error) => {
-      console.log('logged out', error)
+    }).catch((err) => {
     });
+  }
+
+  const handleCloseSuccess = (reason) => {
+    if (reason === 'clickaway') {
+      return
+    }
+    setSuccess(false)
   }
 
   const sideNavState = {
     isMobile, setIsMobile
   }
+  
+  const snackbarValues = {
+    success, setSuccess, handleCloseSuccess
+  }
 
   return (
     <div className="App">
       <Routes>
-        <Route path="/login" element={<Login setAuthStatus={setAuthStatus} signInGoogle={signInGoogle} />} />
-        <Route path="signup" element={<SignUp signInGoogle={signInGoogle} />} />
+        <Route path="/login" element={
+          <SnackbarContext.Provider value={snackbarValues}>
+            <Login setAuthStatus={setAuthStatus} signInGoogle={signInGoogle} />
+          </SnackbarContext.Provider>
+        } />
+        <Route path="signup" element={
+          <SnackbarContext.Provider value={snackbarValues}>
+            <SignUp signInGoogle={signInGoogle} />
+          </SnackbarContext.Provider>
+        } />
         <Route element={<PrivateRoute auth={authStatus} />} >
           <Route path="/dashboard" element={
               <AuthContext.Provider value={signOutAccount}>
                 <SideNavContext.Provider value={sideNavState} >
-                  <Dashboard />
+                  <SnackbarContext.Provider value={snackbarValues} >
+                    <Dashboard />
+                  </SnackbarContext.Provider>
                 </SideNavContext.Provider>
               </AuthContext.Provider>
           } />

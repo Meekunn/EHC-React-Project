@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Typewriter from 'typewriter-effect'
 import { IoSchool, IoPersonSharp } from 'react-icons/io5'
@@ -6,14 +6,20 @@ import { MdWork } from 'react-icons/md'
 import { auth } from '../../config/firebase'
 import Navbar from "../Navbar/Navbar"
 import SideNav from '../SideNav/SideNav'
+import { Snackbar } from '@material-ui/core'
+import { AlertTitle } from '@material-ui/lab'
+import { SnackbarContext } from '../../App'
 import { 
     createPersonalCollection, 
     createSchoolCollection, 
-    createWorkCollection
+    createWorkCollection,
+    Alert
 } from '../../HOC/utils'
 import './dashboard.scss'
 
 const Dashboard = () => {
+    
+    const snackbar = useContext(SnackbarContext)
 
     const router = useNavigate()
     const [userName, setUserName] = useState('')
@@ -89,6 +95,22 @@ const Dashboard = () => {
                         </button>
                     </div>
                 </div>
+                {snackbar.success && (
+                    <Snackbar
+                    anchorOrigin={{
+                        vertical: "bottom",
+                        horizontal: "right"
+                    }} 
+                    open={snackbar.success} 
+                    autoHideDuration={5000} 
+                    onClose={snackbar.handleCloseSuccess}
+                    >
+                        <Alert onClose={snackbar.handleCloseSuccess} severity="success" >
+                            <AlertTitle>Success</AlertTitle>
+                            Login Successful
+                        </Alert>
+                    </Snackbar>
+                )}
             </div>
         </>
     )

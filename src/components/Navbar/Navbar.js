@@ -12,7 +12,7 @@ const Navbar = () => {
 
     const signOut = useContext(AuthContext)
     const sideNavToggle = useContext(SideNavContext)
-    //console.log('rendering navbar')
+    
     const toggleNav = () => {
         sideNavToggle.setIsMobile(!sideNavToggle.isMobile)
     }

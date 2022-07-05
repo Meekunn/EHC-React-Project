@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import { MdModeEdit } from 'react-icons/md'
 import { TbTrash } from 'react-icons/tb'
+import { deleteTodo } from '../../HOC/utils'
 import './todo.scss'
 
-const Todo = ({task, checkToggle, deleteTodo, completed}) => {
+const Todo = ({task, checkToggle, completed}) => {
     
     return (
         <div id={task.id} className='todo-wrapper'>

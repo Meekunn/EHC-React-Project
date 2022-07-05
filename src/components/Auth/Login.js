@@ -1,40 +1,72 @@
-import { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { MdVisibility, MdVisibilityOff } from 'react-icons/md'
 import { FcGoogle } from 'react-icons/fc'
 import { signInWithEmailAndPassword } from 'firebase/auth'
+import { Snackbar } from '@material-ui/core'
+import { AlertTitle } from '@material-ui/lab'
 import { auth } from '../../config/firebase'
 import MainNav from '../MainNav/MainNav'
+import { Alert } from '../../HOC/utils'
+import { SnackbarContext } from '../../App'
 import '../../styles/auth.scss'
 
 const Login = ({ signInGoogle, setAuthStatus }) => {
 
+    const snackbar = useContext(SnackbarContext)
+
     const router = useNavigate()
     const [userInfo, setUserInfo] = useState({ email: '', password: ''})
     const [show, setShow] = useState(false)
-    const [signin, setSignin] = useState({ success: false, error: ''})
+    const [signin, setSignin] = useState({ failed: false, verified: false})
+    const [error, setError] = useState('')
+
+    const handleCloseError = (reason) => {
+        if (reason === 'clickaway') {
+          return
+        }
+        setSignin({...signin, failed: false})
+    }
+
+    const handleCloseVerified = (reason) => {
+        if (reason === 'clickaway') {
+          return
+        }
+        setSignin({...signin, verified: false})
+    }
 
     const signInEmail = (e) => {
         e.preventDefault()
-        setSignin({...signin, success: true})
-        setAuthStatus(true)
 
         signInWithEmailAndPassword(auth, userInfo.email, userInfo.password)
-        .then(userinfo => {
+        .then(() => {
             if(auth.currentUser.emailVerified) {
-                alert('successful login')
+                snackbar.setSuccess(true)
+                setAuthStatus(true)
                 router('/dashboard')
-                console.log(userinfo.user)
             } else {
-                alert('verify your email')
+                setSignin({...signin, verified: true})
             }
             setUserInfo({email: '', password: ''})
         })
-        .catch(err => {
-            alert('Invalid Email or Password')
-            console.log(signin.error)
-            setSignin({...signin, success: false})
-            setSignin({...signin, error: err.message})
+        .catch(error => {
+            if(error.code === 'auth/wrong-password'){
+                setError('Invalid Password')
+            } 
+            else if (error.code === 'auth/user-not-found') {
+                setError('Invalid Email')
+            }
+            else if (error.code === 'auth/user-disabled') {
+                setError('Account disabled')
+            }
+            else if (userInfo.email === '' || userInfo.password === '') {
+                setError("Fields can't be empty")
+            }
+            else {
+                setError('Unable to Login. Try again later.')
+            }
+            setSignin({...signin, verified: false})
+            setSignin({...signin, failed: true})
         })
     }
 
@@ -50,6 +82,7 @@ const Login = ({ signInGoogle, setAuthStatus }) => {
                                 <p>Email: </p>
                                 <div className='input-with-icon'>
                                     <input 
+                                        type='email'
                                         placeholder='janedoe@email.com'
                                         value={userInfo.email}
                                         onChange={ e => setUserInfo({...userInfo, email: e.target.value})}
@@ -92,6 +125,54 @@ const Login = ({ signInGoogle, setAuthStatus }) => {
                         </div>
                     </div>
                 </div>
+                {snackbar.success && (
+                    <Snackbar 
+                    anchorOrigin={{
+                        vertical: "bottom",
+                        horizontal: "right"
+                    }}
+                    open={snackbar.success} 
+                    autoHideDuration={5000} 
+                    onClose={snackbar.handleCloseSuccess}
+                    >
+                        <Alert onClose={snackbar.handleCloseSuccess} severity="success" >
+                            <AlertTitle>Success</AlertTitle>
+                            Verify Email
+                        </Alert>
+                    </Snackbar>
+                )}
+                {signin.failed && (
+                    <Snackbar 
+                    anchorOrigin={{
+                        vertical: "bottom",
+                        horizontal: "right"
+                    }}
+                    open={signin.failed} 
+                    autoHideDuration={5000} 
+                    onClose={handleCloseError}
+                    >
+                        <Alert onClose={handleCloseError} severity="error" >
+                            <AlertTitle>Error</AlertTitle>
+                            {error}
+                        </Alert>
+                    </Snackbar>
+                )}
+                {signin.verified && (
+                    <Snackbar 
+                    anchorOrigin={{
+                        vertical: "bottom",
+                        horizontal: "right"
+                    }}
+                    open={signin.verified} 
+                    autoHideDuration={5000} 
+                    onClose={handleCloseVerified}
+                    >
+                        <Alert onClose={handleCloseVerified} severity="warning" >
+                            <AlertTitle>Warning</AlertTitle>
+                            Verify Your Email
+                        </Alert>
+                    </Snackbar>
+                )}
             </div>
         </>
     )

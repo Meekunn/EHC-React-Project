@@ -14,11 +14,12 @@ import { useNavigate } from "react-router-dom"
 import { db, auth } from "../../config/firebase"
 import { MdOutlineKeyboardArrowLeft } from 'react-icons/md'
 import { HiPlusSm } from 'react-icons/hi'
+import { addTodo } from "../../HOC/utils"
 import Todo from "../Todo/Todo"
-import './collection.scss'
 import Navbar from "../Navbar/Navbar"
 import SideNav from "../SideNav/SideNav"
 import CompletedTodo from "../Todo/CompletedTodo"
+import './collection.scss'
 
 function School() {
 
@@ -36,22 +37,6 @@ function School() {
     useEffect(() => {
         getSchoolCollection()
     }, [])
-
-    const addTodo = async () => {
-        if (user !== null) {
-            const uid = user.uid
-            const collectionRef = collection(db, `school/${uid}/todoList`)
-            const payload = {
-                todo,
-                //creates a timestamp which is unique so we use this as the key when returning documents in the subcollection.
-                time: serverTimestamp(),
-                complete: false
-            }
-            const docRef = await addDoc(collectionRef, payload)
-            setTodo('')
-        }
-        //getSchoolCollection()
-    };
 
     const getSchoolCollection = () => {
         if (user !== null ){
@@ -106,16 +91,6 @@ function School() {
         }
     }
 
-    const deleteTodo = async (id) => {
-        if (user !== null ){
-            //fetches the user's uid
-            const uid = user.uid
-            const docRef = doc(db, `/school/${uid}/todoList`, id)
-            await deleteDoc(docRef)
-            console.log('deleted')
-        }
-    }
-
     return (
         <main>
             <Navbar />
@@ -135,7 +110,7 @@ function School() {
                             </button>
                         </div>
                         <div className="todo-form">
-                            <button className='add-btn' onClick={addTodo}><HiPlusSm /></button>
+                            <button className='add-btn' onClick={() => {addTodo(todo); setTodo('')}}><HiPlusSm /></button>
                             <input 
                                 type='text' 
                                 className='input' 
@@ -153,8 +128,7 @@ function School() {
                                             key={task.id} 
                                             task={task} 
                                             checkToggle={checkToggle} 
-                                            completed={completed} 
-                                            deleteTodo={deleteTodo}
+                                            completed={completed}
                                         />
                                     )
                                 })}
@@ -169,8 +143,7 @@ function School() {
                                             key={task.id} 
                                             task={task} 
                                             checkToggle={checkToggle} 
-                                            completed={completed} 
-                                            deleteTodo={deleteTodo}
+                                            completed={completed}
                                         />
                                     )
                                 })}
