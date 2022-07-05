@@ -54,6 +54,17 @@
         .task {
             font-size: 0.9rem;
             font-weight: 500;
+            color: a.$text-color;
+        }
+        input {
+            font-size: 0.95rem;
+            font-weight: 500;
+            border: none;
+            border-bottom: 1px solid a.$text-hover-color;
+            background: transparent;
+            color: a.$text-hover-color;
+            padding-bottom: 2rem;
+            outline: none;
         }
         .check ~ span {
             text-decoration: line-through;
@@ -64,6 +75,13 @@
         display: flex;
         gap: 10px;
         margin-right: 10px;
+
+        .edit.isactive {
+            display: none;
+        }
+        .edit {
+            display: block;
+        }
 
         button {
             background-color: transparent;

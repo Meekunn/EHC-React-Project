@@ -6,6 +6,7 @@ import {
     doc,  
     setDoc,
     serverTimestamp,
+    updateDoc,
 } from "firebase/firestore"
 import { auth, db } from "../config/firebase"
 import MuiAlert from "@material-ui/lab/Alert"
@@ -56,6 +57,17 @@ export const deleteTodo = async (id) => {
         const uid = user.uid
         const docRef = doc(db, `/school/${uid}/todoList`, id)
         await deleteDoc(docRef)
+    }
+}
+
+export const editTodo = async (id, todo) => {
+    if (user !== null) {
+        const uid = user.uid
+        const todoRef = doc(db, `school/${uid}/todoList/${id}`)
+        await setDoc (todoRef, {
+            todo: todo
+        }, {merge: true})
+        console.log('edited')
     }
 }
 

@@ -1,25 +1,46 @@
 import { useState } from 'react'
-import { MdModeEdit } from 'react-icons/md'
+import { MdModeEdit, MdCloudDone } from 'react-icons/md'
 import { TbTrash } from 'react-icons/tb'
-import { deleteTodo } from '../../HOC/utils'
+import { deleteTodo, editTodo } from '../../HOC/utils'
 import './todo.scss'
 
 const Todo = ({task, checkToggle, completed}) => {
     
+    const [todoEdit, setTodoEdit] = useState("")
+    const [edit, setEdit] = useState(false)
+
     return (
         <div id={task.id} className='todo-wrapper'>
             <div className='content'>
-                {/* <input type="checkbox" checked="checked" /> */}
                 <button onClick={() => {checkToggle(task.id)}} className="uncheck">
-                    {/* <input type="checkbox" checked="checked" /> */}
                     <span className='checkmark'></span>
                 </button>
-                <span className='task'>
-                    {task.todo}
-                </span>
+                { edit ? 
+                    (
+                        <input 
+                        className='input'
+                        value= {todoEdit}
+                        onChange= {(e) => setTodoEdit(e.target.value)}
+                        />
+                    ) : (
+                        <span
+                            className='task'
+                        >
+                            {task.todo}
+                        </span>
+                    )
+                }
             </div>
             <div className='btns'>
-                <button className="edit"><MdModeEdit /></button>
+                {
+                    edit ? (
+                        <button onClick={() => {editTodo(task.id, todoEdit); setEdit(false)}}>
+                                <MdCloudDone />
+                        </button>
+                    ) : (
+                        <button className="edit" onClick={()=>setEdit(true)}><MdModeEdit /></button>
+                    )
+                }
                 <button className="delete" onClick={() => {deleteTodo(task.id)}}><TbTrash /></button>
             </div>
         </div>
