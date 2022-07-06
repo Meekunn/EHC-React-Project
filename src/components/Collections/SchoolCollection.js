@@ -1,14 +1,13 @@
 import { useState, useEffect } from "react"
-import { 
-    deleteDoc, 
-    addDoc,
+import {
     collection,
     doc, 
     query, 
-    serverTimestamp, 
     onSnapshot, 
-    orderBy, 
-    updateDoc
+    orderBy,
+    setDoc, 
+    where,
+    serverTimestamp
 } from "firebase/firestore"
 import { useNavigate } from "react-router-dom"
 import { db, auth } from "../../config/firebase"
@@ -24,9 +23,8 @@ import './collection.scss'
 function School() {
 
     const [todo, setTodo] = useState("")
-    const [todos, setTodos] = useState([])
-    const [completed, setCompleted] = useState(false)
-    const [numOfTasks, setNumOfTasks] = useState(0)
+    const [numOfUncomplete, setNumOfUncomplete] = useState()
+    const [numOfComplete, setNumOfComplete] = useState()
     const [completedTasks, setCompletedTasks] = useState([])
     const [uncompletedTasks, setUncompletedTasks] = useState([])
     
@@ -35,59 +33,70 @@ function School() {
     const user = auth.currentUser
 
     useEffect(() => {
-        getSchoolCollection()
+        getUncompleteTasks()
+        getCompleteTasks()
     }, [])
 
-    const getSchoolCollection = () => {
+    const getUncompleteTasks = () => {
         if (user !== null ){
             //fetches the user's uid
             const uid = user.uid
             //uses the uid as the document id in school collection and then creates a subcollection called todoList
-            const q = query(collection(db, `school/${uid}/todoList`), orderBy('time', 'desc'))
-            const unsub = onSnapshot(q, (querySnapshot) => {
+            //returns an array of documents with "complete: false"
+            const q = query(collection(db, `school/${uid}/todoList`), where('complete', '==', false), orderBy('time', 'desc'))
+            onSnapshot(q, (querySnapshot) => {
                 let items = []
                 querySnapshot.docs.map((doc) => {
-                    items.push({...doc.data(), id: doc.id})
+                    return (
+                        items.push({...doc.data(), id: doc.id})
+                    )
                 })
-                setTodos(items)
-                setNumOfTasks(items.length)
+                setUncompletedTasks(items)
+                setNumOfUncomplete(items.length)
             })
         }
     }
 
-    const checkToggle = (id) => {
-        //setCompleted(!completed)
+    const getCompleteTasks = () => {
+        if (user !== null ){
+            //fetches the user's uid
+            const uid = user.uid
+            //uses the uid as the document id in school collection and then creates a subcollection called todoList
+            //returns an array of documents with "complete: true"
+            const q = query(collection(db, `school/${uid}/todoList`), where('complete', '==', true), orderBy('time', 'desc'))
+            onSnapshot(q, (querySnapshot) => {
+                let items = []
+                querySnapshot.docs.map((doc) => {
+                    return (
+                        items.push({...doc.data(), id: doc.id})
+                    )
+                })
+                setCompletedTasks(items)
+                setNumOfComplete(items.length)
+            })
+        }
+    }
+
+    const checkComplete = async (id) => {
         if (user !== null ){
             const uid = user.uid
             const docRef = doc(db, `/school/${uid}/todoList`, id)
-            if (completed === false ) {
-                let items = []
-                items = todos.map(async (item) =>  {
-                    if (item.id === id) {
-                        await updateDoc (docRef, {
-                            complete : true
-                        })
-                    }
-                    return item
-                })
-                setCompletedTasks(items)
-                setCompleted(true)
-                console.log(completedTasks)
+            const payload = {
+                complete : true,
+                time: serverTimestamp()
             }
-            else {
-                let items = []
-                items = todos.map(async (item) =>  {
-                    if (item.id === id) {
-                        await updateDoc (docRef, {
-                            complete : false
-                        })
-                    }
-                    return item
-                })
-                setUncompletedTasks(items)
-                setCompleted(false)
-                console.log(uncompletedTasks)
+            await setDoc(docRef, payload, {merge: true})
+        }
+    }
+
+    const checkUncomplete = async (id) => {
+        if (user !== null ){
+            const uid = user.uid
+            const docRef = doc(db, `/school/${uid}/todoList`, id)
+            const payload = {
+                complete : false
             }
+            await setDoc(docRef, payload, {merge: true})
         }
     }
 
@@ -120,30 +129,28 @@ function School() {
                             />
                         </div>
                         <div className="tasks-container">
-                            <p>Tasks - {numOfTasks} </p>
+                            <p>Tasks - {numOfUncomplete} </p>
                             <div className="tasks-wrapper">
-                                { todos.map((task) => {
+                                { uncompletedTasks.map((task) => {
                                     return (
                                         <Todo 
                                             key={task.id} 
                                             task={task} 
-                                            checkToggle={checkToggle} 
-                                            completed={completed}
+                                            checkComplete={checkComplete} 
                                         />
                                     )
                                 })}
                             </div>
                         </div>
                         <div className="tasks-container">
-                            <p>Completed - 0 </p>
+                            <p>Completed - {numOfComplete} </p>
                             <div className="tasks-wrapper">
-                                {todos.map((task) => {
+                                { completedTasks.map((task) => {
                                     return (
                                         <CompletedTodo 
                                             key={task.id} 
                                             task={task} 
-                                            checkToggle={checkToggle} 
-                                            completed={completed}
+                                            checkUncomplete={checkUncomplete} 
                                         />
                                     )
                                 })}

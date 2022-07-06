@@ -4,7 +4,7 @@ import { TbTrash } from 'react-icons/tb'
 import { deleteTodo, editTodo } from '../../HOC/utils'
 import './todo.scss'
 
-const Todo = ({task, checkToggle, completed}) => {
+const Todo = ({task, checkComplete}) => {
     
     const [todoEdit, setTodoEdit] = useState("")
     const [edit, setEdit] = useState(false)
@@ -12,7 +12,7 @@ const Todo = ({task, checkToggle, completed}) => {
     return (
         <div id={task.id} className='todo-wrapper'>
             <div className='content'>
-                <button onClick={() => {checkToggle(task.id)}} className="uncheck">
+                <button onClick={() => {checkComplete(task.id)}} className="uncheck">
                     <span className='checkmark'></span>
                 </button>
                 { edit ? 

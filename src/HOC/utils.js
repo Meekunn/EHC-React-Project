@@ -6,7 +6,6 @@ import {
     doc,  
     setDoc,
     serverTimestamp,
-    updateDoc,
 } from "firebase/firestore"
 import { auth, db } from "../config/firebase"
 import MuiAlert from "@material-ui/lab/Alert"
@@ -67,7 +66,6 @@ export const editTodo = async (id, todo) => {
         await setDoc (todoRef, {
             todo: todo
         }, {merge: true})
-        console.log('edited')
     }
 }
 
