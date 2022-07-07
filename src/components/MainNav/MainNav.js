@@ -3,8 +3,6 @@ import { NavLink } from 'react-router-dom'
 import './mainnav.scss'
 
 const MainNav = () => {
-    
-    //let activeClassName = "activelink"
 
     return (
         <nav className="mainnav-wrapper" >

@@ -25,7 +25,7 @@ const SideNav = () => {
                     </span>
                         School
                     </button>
-                    <button className='sidenav-btn'>
+                    <button className='sidenav-btn' onClick={() => {router('/dashboard/personal'); sideNavToggle.setIsMobile(false)}}>
                     <span
                         style={{
                             backgroundColor: '#33948D'
@@ -35,7 +35,7 @@ const SideNav = () => {
                     </span>
                         Personal
                     </button>
-                    <button className='sidenav-btn'>
+                    <button className='sidenav-btn' onClick={() => {router('/dashboard/work'); sideNavToggle.setIsMobile(false)}}>
                     <span
                         style={{
                             backgroundColor: '#AC4089'

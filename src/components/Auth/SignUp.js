@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { 
     createUserWithEmailAndPassword,
     sendEmailVerification,
@@ -12,12 +12,14 @@ import { FcGoogle } from 'react-icons/fc'
 import { Snackbar } from '@material-ui/core'
 import { AlertTitle } from '@material-ui/lab'
 import { Alert } from '../../HOC/utils'
+import { UserAuth } from '../../HOC/AuthContext'
 import { SnackbarContext } from '../../App'
 import '../../styles/auth.scss'
 
-const SignUp = ({signInGoogle}) => {
+const SignUp = () => {
 
     const router = useNavigate()
+    const { signInGoogle, user } = UserAuth()
     const snackbar = useContext(SnackbarContext)
     
     const [userInfo, setUserInfo] = useState({ username: '', email: '', password: ''})
@@ -26,6 +28,12 @@ const SignUp = ({signInGoogle}) => {
     const [showConfirm, setShowConfirm] = useState(false)
     const [signUp, setSignUp] = useState({failed: false, verified: false})
     const [error, setError] = useState('')
+
+    useEffect(() => {
+        if (user != null ){
+            router('/dashboard')
+        }
+    }, [user])
 
     const handleCloseError = (reason) => {
         if (reason === 'clickaway') {
@@ -43,6 +51,13 @@ const SignUp = ({signInGoogle}) => {
         setSignUp({...signUp, verified: false})
     }
     
+    const handleSignUpGoogle = async () => {
+        try {
+            await signInGoogle()
+        } catch (err) {
+            console.log(err)
+        }
+    }
 
     const signUpEmail = (e) => {
         e.preventDefault()
@@ -164,7 +179,7 @@ const SignUp = ({signInGoogle}) => {
                             </button>
                             <p className='or'>OR</p>
                             <button className="google-btn"
-                                onClick={signInGoogle}
+                                onClick={handleSignUpGoogle}
                             >
                                 Sign Up with Google <FcGoogle />
                             </button>

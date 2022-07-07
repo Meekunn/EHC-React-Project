@@ -1,8 +1,7 @@
 import { TbTrash } from 'react-icons/tb'
-import { deleteTodo } from '../../HOC/utils'
 import './todo.scss'
 
-const CompletedTodo = ({checkUncomplete, task}) => {
+const CompletedTodo = ({checkUncomplete, task, deleteTodo}) => {
     return (
         <div id={task.id} className='todo-wrapper'>
             <div className='content'>

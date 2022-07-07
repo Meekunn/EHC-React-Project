@@ -4,13 +4,14 @@ import { GoThreeBars } from 'react-icons/go'
 import { FaTimes } from 'react-icons/fa'
 import { BsCollectionFill } from "react-icons/bs"
 import { IoNotifications, IoPersonCircleOutline } from 'react-icons/io5'
-import { AuthContext, SideNavContext } from "../../App"
+import { SideNavContext } from "../../App"
+import { UserAuth } from '../../HOC/AuthContext'
 import './navbar.scss'
 
 
 const Navbar = () => {
 
-    const signOut = useContext(AuthContext)
+    const { signOutAccount } = UserAuth()
     const sideNavToggle = useContext(SideNavContext)
     
     const toggleNav = () => {
@@ -24,7 +25,7 @@ const Navbar = () => {
                     {sideNavToggle.isMobile ? <FaTimes /> : <GoThreeBars />}
                 </button>
                 <button
-                    onClick={signOut}
+                    onClick={signOutAccount}
                 >
                     LOGOUT &#128075;
                 </button>

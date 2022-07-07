@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { MdVisibility, MdVisibilityOff } from 'react-icons/md'
 import { FcGoogle } from 'react-icons/fc'
@@ -8,11 +8,13 @@ import { AlertTitle } from '@material-ui/lab'
 import { auth } from '../../config/firebase'
 import MainNav from '../MainNav/MainNav'
 import { Alert } from '../../HOC/utils'
+import { UserAuth } from '../../HOC/AuthContext'
 import { SnackbarContext } from '../../App'
 import '../../styles/auth.scss'
 
-const Login = ({ signInGoogle, setAuthStatus }) => {
+const Login = () => {
 
+    const { signInGoogle, user } = UserAuth()
     const snackbar = useContext(SnackbarContext)
 
     const router = useNavigate()
@@ -20,6 +22,12 @@ const Login = ({ signInGoogle, setAuthStatus }) => {
     const [show, setShow] = useState(false)
     const [signin, setSignin] = useState({ failed: false, verified: false})
     const [error, setError] = useState('')
+
+    useEffect(() => {
+        if(user !== null) {
+            router('/dashboard')
+        }
+    }, [user])
 
     const handleCloseError = (reason) => {
         if (reason === 'clickaway') {
@@ -42,7 +50,6 @@ const Login = ({ signInGoogle, setAuthStatus }) => {
         .then(() => {
             if(auth.currentUser.emailVerified) {
                 snackbar.setSuccess(true)
-                setAuthStatus(true)
                 router('/dashboard')
             } else {
                 setSignin({...signin, verified: true})
@@ -68,6 +75,14 @@ const Login = ({ signInGoogle, setAuthStatus }) => {
             setSignin({...signin, verified: false})
             setSignin({...signin, failed: true})
         })
+    }
+
+    const handleSignInGoogle = async () => {
+        try {
+            await signInGoogle()
+        } catch (err) {
+            console.log(err)
+        }
     }
 
     return (
@@ -118,7 +133,7 @@ const Login = ({ signInGoogle, setAuthStatus }) => {
                             <p className='or'>OR</p>
                             <button
                                 className='google-btn'
-                                onClick={signInGoogle}
+                                onClick={handleSignInGoogle}
                             >
                                 Continue with Google <FcGoogle />
                             </button>

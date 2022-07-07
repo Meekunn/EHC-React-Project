@@ -1,10 +1,9 @@
 import { useState } from 'react'
 import { MdModeEdit, MdCloudDone } from 'react-icons/md'
 import { TbTrash } from 'react-icons/tb'
-import { deleteTodo, editTodo } from '../../HOC/utils'
 import './todo.scss'
 
-const Todo = ({task, checkComplete}) => {
+const Todo = ({task, checkComplete, editTodo, deleteTodo}) => {
     
     const [todoEdit, setTodoEdit] = useState("")
     const [edit, setEdit] = useState(false)
