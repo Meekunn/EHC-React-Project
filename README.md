@@ -1,50 +1,19 @@
-# Getting Started with EHC-React-Project
+# ✔️ EHC-TodoApp v1.0.0
+An activity app that helps keep track of daily tasks and give that satisfaction upon completion. This version has the basic functionalities which include add, edit, delete, toggle togo. Also, it has the email and google authentication features.
+
+## 🧰 Tools used
+<p align="left"> </a> <a href="https://firebase.google.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/firebase/firebase-icon.svg" alt="firebase" width="40" height="40"/> </a> <a href="https://reactjs.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original-wordmark.svg" alt="react" width="40" height="40"/> </a> <a href="https://sass-lang.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/sass/sass-original.svg" alt="sass" width="40" height="40"/> </a> </p>
+
+Check out the Design Inspiration [Click Here](https://dribbble.com/shots/15111239-Landing-page-WIP?utm_source=Clipboard_Shot&utm_campaign=oliver&utm_content=Landing%20page%20WIP&utm_medium=Social_Share&utm_source=Clipboard_Shot&utm_campaign=oliver&utm_content=Landing%20page%20WIP&utm_medium=Social_Share)
+
+## ✍🏽 Contributors
+1. [https://github.com/forJessicaSake](https://github.com/forJessicaSake) 
+
+## Getting Started with EHC-React-Project
 
 1. Clone the repository to your local machine. You can watch [this video](https://www.youtube.com/watch?v=fQLK8Ib_SKk&list=PL4cUxeGkcC9goXbgTDQ0n_4TBzOO0ocPR&index=10) on how to clone a repository.
-2. Wait till you are assigned a task.
 3. Create a new branch tp push your commits. You can watch [this video](https://www.youtube.com/watch?v=MnUd31TvBoU&list=PL4cUxeGkcC9goXbgTDQ0n_4TBzOO0ocPR&index=11) on how to create new branches.
+4. Create a pull request to merge with main branch
 **Do not PUSH to the MAIN BRANCH**
 
-## Tasks
-| SR No | Task | Issue No. | Member |
-| ----- | ------------------| --------- | ------ |
-| 1     | Authentication (Login and Signup Page) | -- | Mikun |
-| 2     | School Collection | -- | Jessica |
-| 3     | Personal Collection | -- | Ifeoma |
-| 4     | Work Collection | -- | Rophah |
-| 5     | Collection Page | -- | -- |
 
-## **[Click Here For the Design](https://dribbble.com/shots/15111239-Landing-page-WIP?utm_source=Clipboard_Shot&utm_campaign=oliver&utm_content=Landing%20page%20WIP&utm_medium=Social_Share&utm_source=Clipboard_Shot&utm_campaign=oliver&utm_content=Landing%20page%20WIP&utm_medium=Social_Share)**
-
-# Getting Started with Create React App
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-## Learn More
-
-To learn React, check out the [React documentation](https://reactjs.org/).
