@@ -1,36 +1,46 @@
-import { 
-    Button,
-    Flex, 
-    HStack, 
-    Icon, 
-    Spacer,
-    Text
-} from "@chakra-ui/react"
-import { NavLink } from "react-router-dom"
-import { BiSearchAlt } from "react-icons/bi"
+import { memo } from "react"
+import { NavLink, useNavigate } from "react-router-dom"
+import { GoThreeBars } from 'react-icons/go'
+import { FaTimes } from 'react-icons/fa'
 import { BsCollectionFill } from "react-icons/bs"
 import { IoNotifications, IoPersonCircleOutline } from 'react-icons/io5'
-import '../MainNav/mainnav.scss'
+import { UserAuth } from '../../HOC/AuthContext'
+import { UseSideNav } from '../../HOC/SidenavContext'
+import './navbar.scss'
 
 
-const Navbar = ({signOutAccount}) => {
+const Navbar = () => {
+
+    const { signOutAccount } = UserAuth()
+    const { isMobile, setIsMobile } = UseSideNav()
+    const router = useNavigate()
+
+    const handleSignOut = async () => {
+        try {
+            await signOutAccount()
+            router('/login')
+        } catch (err) {
+            console.log(err)
+        }
+    }
+    
+    const toggleNav = () => {
+        setIsMobile(!isMobile)
+    }
     
     return (
-        <HStack p='0.5rem 1rem' w='100%' bg='#272728'>
-            <Flex>
-                <Button
-                    bgGradient='linear(to-tr, #BC248C, #F75F8C)' 
-                    color='#07070A'
-                    fontWeight='bold'
-                    variant='solid'
-                    size='xs'
-                    p='1rem'
-                    onClick={signOutAccount}
+        <nav className="nav-wrapper">
+            <div className="action-btns1">
+                <button className='toggle' onClick={toggleNav}>
+                    {isMobile ? <FaTimes /> : <GoThreeBars />}
+                </button>
+                <button
+                    onClick={handleSignOut}
                 >
                     LOGOUT &#128075;
-                </Button>
+                </button>
                 <NavLink 
-                    to='#' 
+                    to='/dashboard' 
                     className='nav-links' 
                     style={{
                         display: 'flex', 
@@ -38,45 +48,20 @@ const Navbar = ({signOutAccount}) => {
                         alignItems: 'center',
                     }}
                 >
-                    <Icon as={BsCollectionFill} w={5} h={5} />
-                    <Text p='0 0.2rem' >Collections</Text>
+                    <BsCollectionFill/>
+                    <p>Collections</p>
                 </NavLink>
-            </Flex>
-            <Spacer />
-            <Flex spacing={2} align='center' >
-                <Button m='0 0.5rem'
-                    bg='transparent'
-                    size='xs'
-                    color='#D3B8BA'
-                    _hover={{
-                        color: '#F75F8C'
-                    }}
-                >
-                    <Icon as={BiSearchAlt}  w={5} h={5} />
-                </Button>
-                <Button m='0 0.5rem'
-                    bg='transparent'
-                    size='xs'
-                    color='#D3B8BA'
-                    _hover={{
-                        color: '#F75F8C'
-                    }}
-                >
-                    <Icon as={IoNotifications}  w={5} h={5} />
-                </Button>
-                <Button m='0 0.5rem'
-                    bg='transparent'
-                    size='xs'
-                    color='#D3B8BA'
-                    _hover={{
-                        color: '#F75F8C'
-                    }}
-                >
-                    <Icon as={IoPersonCircleOutline} w={7} h={7} />
-                </Button>
-            </Flex>
-        </HStack>
+            </div>
+            <div className="action-btns2">
+                <button>
+                    <IoNotifications />
+                </button>
+                <button>
+                    <IoPersonCircleOutline />
+                </button>
+            </div>
+        </nav>
     )
 }
 
-export default Navbar
+export default memo(Navbar)

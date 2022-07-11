@@ -1,26 +1,73 @@
 @use '../../styles/base' as a;
 
 .sidenav-wrapper {
-    width: 20%;
-    background-color: #272728;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+    width: 50%;
+    background-color: a.$nav-background;
+    position: absolute;
+    left: -100%;
+    z-index: 9;
+    transition: all 0.5s ease;
+    height: 100%;
+}
+.sidenav-wrapper.mobile {
+    position: fixed;
+    left: 0;
+    transition: all 0.5s ease;
+}
+.sidenav-container {
+    position: absolute;
+    width: 100%;
+    top: 5rem;
 
     h2 {
         text-align: left;
-        color: #979191;
+        color: #ddd5d5;
         padding: 0.5rem;
         font-weight: 800;
     }
 }
+.sidenav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    color: #ddd5d5;
+    margin-top: 1rem;
+}
 .sidenav-btn {
     display: flex;
     align-items: center;
-    padding: 0.5rem 1rem;
+    padding: 0.75rem 1rem;
     font-weight: 700;
+    color: #ddd5d5;
+    background: transparent;
+    border: none;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+
+    span {
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 35px;
+        width: 35px;
+        margin-right: 1rem;
+        color: #fff;
+    }
 }
 .sidenav-btn:hover {
     background-color: #434345;
+    transition: all 0.3s ease;
+}
+
+@media only screen and (min-width: 600px) {
+    .sidenav-wrapper {
+        width: 30%;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .sidenav-wrapper {
+        width: 20%;
+    }
 }

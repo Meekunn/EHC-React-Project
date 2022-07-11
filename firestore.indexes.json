@@ -1,0 +1,19 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "todoList",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "complete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "time",
+          "order": "DESCENDING"
+        }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}

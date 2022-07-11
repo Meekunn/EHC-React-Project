@@ -1,23 +1,25 @@
 @use '../../styles/base' as a;
 
 main {
-    background-color: a.$background-color;
-    height: 100vh;
     font-family: a.$text-family;
 
     .todos-wrapper {
         display: flex;
-        height: 100%;
+        justify-content: center;
+        height: 100vh;
+        position: relative;
 
         .todolist {
-            width: 80%;
+            width: 100%;
+            height: 100%;
             display: flex;
             justify-content: center;
-            padding: 4rem;
-            background-color: a.$background-color;
+            position: relative;
+            top: 5rem;
+            margin-top: 1.5rem;
 
             .wrapper {
-                width: 55%;
+                width: 80%;
                 display: flex;
                 flex-direction: column;
                 align-items: flex-start;
@@ -44,6 +46,9 @@ main {
                             font-size: 1.5rem;
                             background-color: a.$nav-background;
                             border-radius: 12px;
+                            border: none;
+                            color: a.$text-color;
+                            display: flex;
                         }
                     }
                 }
@@ -61,6 +66,8 @@ main {
                         padding: 0.3rem;
                         border-radius: 10px;
                         margin-right: 0.8rem;
+                        border: none;
+                        display: flex;
                     }
                     .input {
                         background: transparent;
@@ -95,101 +102,33 @@ main {
     }
     
 }
-// ul {
-//     list-style: none;
-// }
-// .nav {
-//     display: flex;
-//     justify-content: space-between;
-//     background-color: #20212c;
-//     padding: 1.5%;
-//     align-items: center;
-// }
-// .navigation-left {
-//     display: flex;
-//     gap: 2rem;
-// }
-// .navigation-right {
-//     display: flex;
-//     gap: 2rem;
-// }
-// .sidebar {
-//     display: grid;
-//     grid-template-columns: repeat(1, 1fr);
-//     padding: 2% 0% 0% 0%;
-//     width: 15%;
-//     background-color: #20212c;
-//     margin-top: 0.1%;
-//     position: fixed;
-// }
-// .sidebar h1 {
-//     padding: 2% 0% 7% 8%;
-// }
-// .sidebar-list {
-//     line-height: 4;
-//     margin-bottom: 100vh;
-// }
-// .sidebar-list li {
-//     padding-left: 8%;
-// }
-// .sidebar-list li:hover {
-//     background-color: #272833;
-// }
-// .todo-wrapper {
-//     display: flex;
-//     height: 100vh;
-//     justify-content: space-between;
-// }
-// .todolist {
-//     margin: 50px auto;
-// }
-// .todolist h1 {
-//     font-size: 1.7rem;
-//     margin-bottom: 5%;
-// }
-// .todolist input {
-//     width: 600px;
-//     padding: 13px;
-//     border-radius: 20px;
-//     border: 0.1px solid #272833;
-//     background-color: #17181e;
-// }
-// input[type='text'] {
-//     color: #8f9198;
-//     padding-left: 8%;
-//     font-size: 0.8em;
-// }
-// .todolist h2 {
-//     margin-top: 7%;
-//     font-size: 1.3em;
-//     margin-bottom: 3%;
-// }
-// .icons {
-//     font-size: 1.2em;
-// }
-// .school {
-//     color: #e27c9f;
-//     font-size: 1.2em;
-// }
-// .personal {
-//     color: #7cc8c2;
-//     font-size: 1.2em;
-// }
-// .work {
-//     font-size: 1.2em;
-//     color: #ac6ae3
-// }
-// .todos {
-//     width: 600px;
-//     padding: 15px;
-//     border-radius: 15px;
-//     border: 0.1px solid #272833;
-//     background-color: #17181e;
-// }
-// .input-icon {
-//     position: absolute;
-//     margin-left: 1%;
-//     margin-top: 0.65%;
-//     font-size: 1.6em;
-//     color: #e27c9f;
-// }
+
+@media only screen and (min-width: 600px) {
+    main {
+        .todos-wrapper{
+
+            .todolist {
+                width: 80%;
+        
+                .wrapper {
+                    width: 75%;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    main {
+        .todos-wrapper{
+
+            .todolist {
+                width: 80%;
+        
+                .wrapper {
+                    width: 65%;
+                }
+            }
+        }
+    }
+}

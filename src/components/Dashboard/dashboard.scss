@@ -1,0 +1,68 @@
+@use '../../styles/base' as a;
+
+.dash-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    position: relative;
+    height: 100vh;
+}
+.dash-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+    .typewriter {
+        font-size: 1.5rem;
+        font-weight: 700;
+        background: linear-gradient(to top right, #D3B8BA, #F75F8C);
+        text-align: center;
+        margin: 2rem 0.5rem;
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+}
+.btns-wrapper {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    margin: 0 0.2rem;   
+
+    button {
+        height: 150px;
+        width: 150px;
+        line-height: 1.2;
+        border: 1px solid a.$nav-background;
+        border-radius: 20px;
+        font-size: 1.3rem;
+        font-weight: 700;
+        background-color: a.$nav-background;
+        color: #fff;
+        padding: 1rem;
+        margin: 0.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+
+        .icons {
+            color: #fff;
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 45px;
+            width: 45px;
+        }
+    }
+}
+
+@media only screen and  (min-width: 600px) {
+    .typewriter {
+        font-size: 2rem;
+        text-align: left;
+    }
+}
