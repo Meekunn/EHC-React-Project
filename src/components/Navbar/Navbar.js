@@ -1,31 +1,41 @@
-import { memo, useContext } from "react"
-import { NavLink } from "react-router-dom"
+import { memo } from "react"
+import { NavLink, useNavigate } from "react-router-dom"
 import { GoThreeBars } from 'react-icons/go'
 import { FaTimes } from 'react-icons/fa'
 import { BsCollectionFill } from "react-icons/bs"
 import { IoNotifications, IoPersonCircleOutline } from 'react-icons/io5'
-import { SideNavContext } from "../../App"
 import { UserAuth } from '../../HOC/AuthContext'
+import { UseSideNav } from '../../HOC/SidenavContext'
 import './navbar.scss'
 
 
 const Navbar = () => {
 
     const { signOutAccount } = UserAuth()
-    const sideNavToggle = useContext(SideNavContext)
+    const { isMobile, setIsMobile } = UseSideNav()
+    const router = useNavigate()
+
+    const handleSignOut = async () => {
+        try {
+            await signOutAccount()
+            router('/login')
+        } catch (err) {
+            console.log(err)
+        }
+    }
     
     const toggleNav = () => {
-        sideNavToggle.setIsMobile(!sideNavToggle.isMobile)
+        setIsMobile(!isMobile)
     }
     
     return (
         <nav className="nav-wrapper">
             <div className="action-btns1">
                 <button className='toggle' onClick={toggleNav}>
-                    {sideNavToggle.isMobile ? <FaTimes /> : <GoThreeBars />}
+                    {isMobile ? <FaTimes /> : <GoThreeBars />}
                 </button>
                 <button
-                    onClick={signOutAccount}
+                    onClick={handleSignOut}
                 >
                     LOGOUT &#128075;
                 </button>

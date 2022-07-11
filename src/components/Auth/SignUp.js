@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState } from 'react'
 import { 
     createUserWithEmailAndPassword,
     sendEmailVerification,
@@ -6,75 +6,35 @@ import {
 } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
 import { auth} from '../../config/firebase'
-import MainNav from '../MainNav/MainNav'
 import { MdVisibility, MdVisibilityOff } from 'react-icons/md'
-import { FcGoogle } from 'react-icons/fc'
-import { Snackbar } from '@material-ui/core'
-import { AlertTitle } from '@material-ui/lab'
-import { Alert } from '../../HOC/utils'
-import { UserAuth } from '../../HOC/AuthContext'
-import { SnackbarContext } from '../../App'
-import '../../styles/auth.scss'
+import MainNav from '../MainNav/MainNav'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import './auth.scss'
 
 const SignUp = () => {
 
     const router = useNavigate()
-    const { signInGoogle, user } = UserAuth()
-    const snackbar = useContext(SnackbarContext)
     
     const [userInfo, setUserInfo] = useState({ username: '', email: '', password: ''})
     const [confirmPass, setConfirmPass] = useState('')
     const [showPass, setShowPass] = useState(false)
     const [showConfirm, setShowConfirm] = useState(false)
-    const [signUp, setSignUp] = useState({failed: false, verified: false})
-    const [error, setError] = useState('')
-
-    useEffect(() => {
-        if (user != null ){
-            router('/dashboard')
-        }
-    }, [user])
-
-    const handleCloseError = (reason) => {
-        if (reason === 'clickaway') {
-            console.log('handclose')
-            return
-        }
-        setSignUp({...signUp, failed: false})
-    }
-
-    const handleCloseVerified = (reason) => {
-        if (reason === 'clickaway') {
-            console.log('handclose')
-          return
-        }
-        setSignUp({...signUp, verified: false})
-    }
-    
-    const handleSignUpGoogle = async () => {
-        try {
-            await signInGoogle()
-        } catch (err) {
-            console.log(err)
-        }
-    }
 
     const signUpEmail = (e) => {
         e.preventDefault()
 
         if (userInfo.password !== confirmPass ) {
-            setError('Password do not match!')
-            setSignUp({...signUp, verified: true})
+            toast.warn('Password do not match!')
         } 
         else if (userInfo.username === '' || userInfo.email === '' || userInfo.password === '' ) {
-            setError("Fields can't be empty")
-            setSignUp({...signUp, failed: true})
+            toast.warn('Fields cannot be empty')
         }
         else {
             createUserWithEmailAndPassword(auth, userInfo.email, userInfo.password)
             .then (() => {
-                snackbar.setSuccess(true)
-                setSignUp({...signUp, verified: false})
+                toast.success('Sign Up Successful')
+                toast.warn('Verify Your Email')
                 updateProfile(auth.currentUser, {
                     displayName: userInfo.username
                 })
@@ -85,15 +45,14 @@ const SignUp = () => {
             .catch((error) => {
 
                 if(error.code === 'auth/weak-password'){
-                    setError('Please enter a strong password')
+                    toast.error('Please enter a strong password')
                 } 
                 else if (error.code === 'auth/email-already-in-use') {
-                    setError('Email is already in use')
+                    toast.error('Email is already in use')
                 } 
                 else{
-                    setError('Unable to Sign Up. Try again later.')
+                    toast.error('Unable to Sign Up. Try again later.')
                 }
-                setSignUp({...signUp, failed: true})
             })
         }
     }
@@ -102,6 +61,7 @@ const SignUp = () => {
         <>
             <MainNav />
             <div div className='auth-wrapper'>
+                    <ToastContainer position="bottom-left" style={{width: '70%', margin: '1rem'}} />
                 <div className='auth-container'>
                     <div className='auth-form-wrapper'>
                         <h1> Sign Up </h1>
@@ -177,47 +137,9 @@ const SignUp = () => {
                             >
                                 Sign Up
                             </button>
-                            <p className='or'>OR</p>
-                            <button className="google-btn"
-                                onClick={handleSignUpGoogle}
-                            >
-                                Sign Up with Google <FcGoogle />
-                            </button>
                         </div>
                     </div>
                 </div>
-                {signUp.failed && (
-                    <Snackbar 
-                    anchorOrigin={{
-                        vertical: "bottom",
-                        horizontal: "right"
-                    }}
-                    open={signUp.failed} 
-                    autoHideDuration={6000} 
-                    onClose={handleCloseError}
-                    >
-                        <Alert onClose={handleCloseError} severity="error" >
-                            <AlertTitle>Error</AlertTitle>
-                            {error}
-                        </Alert>
-                    </Snackbar>
-                )}
-                {signUp.verified && (
-                    <Snackbar 
-                    anchorOrigin={{
-                        vertical: "bottom",
-                        horizontal: "right"
-                    }}
-                    open={signUp.verified} 
-                    autoHideDuration={6000} 
-                    onClose={handleCloseVerified}
-                    >
-                        <Alert onClose={handleCloseVerified} severity="warning" >
-                            <AlertTitle>Warning</AlertTitle>
-                            Passwords do not Match
-                        </Alert>
-                    </Snackbar>
-                )}
             </div>
         </>
     )

@@ -15,12 +15,10 @@ import { useNavigate } from "react-router-dom"
 import { db, auth } from "../../config/firebase"
 import { MdOutlineKeyboardArrowLeft } from 'react-icons/md'
 import { HiPlusSm } from 'react-icons/hi'
-//import { addTodo } from "../../HOC/utils"
 import Todo from "../Todo/Todo"
 import Navbar from "../Navbar/Navbar"
 import SideNav from "../SideNav/SideNav"
 import CompletedTodo from "../Todo/CompletedTodo"
-import { UserAuth } from "../../HOC/AuthContext"
 import './collection.scss'
 
 const School = () => {
@@ -30,12 +28,11 @@ const School = () => {
     const [numOfComplete, setNumOfComplete] = useState()
     const [completedTasks, setCompletedTasks] = useState([])
     const [uncompletedTasks, setUncompletedTasks] = useState([])
-    const { user } = UserAuth()
-    //let school = 'school'
+    let school = 'school'
     
 
     const router = useNavigate()
-    //const user = auth.currentUser
+    const user = auth.currentUser
 
     useEffect(() => {
         getUncompleteTasks()
@@ -43,45 +40,50 @@ const School = () => {
     }, [])
 
     const addTodo = async () => {
-        // if (user !== null) {
-            // const uid = user.uid
-            const collectionRef = collection(db, `school/${user?.uid}/todoList`)
-            const payload = {
-                todo,
-                //creates a timestamp which is unique so we use this as the key when returning documents in the subcollection.
-                time: serverTimestamp(),
-                complete: false
+        if (user !== null) {
+            const uid = user.uid
+            if(todo !== '' ){
+                const collectionRef = collection(db, `school/${uid}/todoList`)
+                const payload = {
+                    todo,
+                    //creates a timestamp which is unique so we use this as the key when returning documents in the subcollection.
+                    time: serverTimestamp(),
+                    complete: false
+                }
+                await addDoc(collectionRef, payload)
+            } else {
+                setTodo('')
             }
-            await addDoc(collectionRef, payload)
-        //}
+        }
+        setTodo('')
     }
 
     const deleteTodo = async (id) => {
-        //if (user !== null ){
+        if (user !== null ){
             //fetches the user's uid
-            // const uid = user.uid
-            const docRef = doc(db, `/school/${user?.uid}/todoList`, id)
+            const uid = user.uid
+            const docRef = doc(db, `/school/${uid}/todoList`, id)
             await deleteDoc(docRef)
-        //}
+        }
     }
 
     const editTodo = async (id, todo) => {
-        // if (user !== null) {
-            // const uid = user.uid
-            const todoRef = doc(db, `school/${user?.uid}/todoList/${id}`)
+        if (user !== null) {
+            const uid = user.uid
+            const todoRef = doc(db, `school/${uid}/todoList/${id}`)
             await setDoc (todoRef, {
                 todo: todo
             }, {merge: true})
-        //}
+        }
     }
 
     const getUncompleteTasks = () => {
-        //if (user !== null ){
+        if (user !== null ){
             //fetches the user's uid
-            //const uid = user.uid
+            const uid = user.uid
             //uses the uid as the document id in school collection and then creates a subcollection called todoList
             //returns an array of documents with "complete: false"
-            const q = query(collection(db, `school/${user?.uid}/todoList`), where('complete', '==', false), orderBy('time', 'desc'))
+            const q = query(collection(db, `school/${uid}/todoList`), where('complete', '==', false), orderBy('time', 'desc'))
             onSnapshot(q, (querySnapshot) => {
                 let items = []
                 querySnapshot.docs.map((doc) => {
@@ -92,16 +94,16 @@ const School = () => {
                 setUncompletedTasks(items)
                 setNumOfUncomplete(items.length)
             })
-        //}
+        }
     }
 
     const getCompleteTasks = () => {
-        //if (user !== null ){
+        if (user !== null ){
             //fetches the user's uid
             const uid = user.uid
             //uses the uid as the document id in school collection and then creates a subcollection called todoList
             //returns an array of documents with "complete: true"
-            const q = query(collection(db, `school/${user?.uid}/todoList`), where('complete', '==', true), orderBy('time', 'desc'))
+            const q = query(collection(db, `school/${uid}/todoList`), where('complete', '==', true), orderBy('time', 'desc'))
             onSnapshot(q, (querySnapshot) => {
                 let items = []
                 querySnapshot.docs.map((doc) => {
@@ -112,30 +114,30 @@ const School = () => {
                 setCompletedTasks(items)
                 setNumOfComplete(items.length)
             })
-        //}
+        }
     }
 
     const checkComplete = async (id) => {
-        //if (user !== null ){
+        if (user !== null ){
             const uid = user.uid
-            const docRef = doc(db, `/school/${user?.uid}/todoList`, id)
+            const docRef = doc(db, `/school/${uid}/todoList`, id)
             const payload = {
                 complete : true,
                 time: serverTimestamp()
             }
             await setDoc(docRef, payload, {merge: true})
-       //}
+        }
     }
 
     const checkUncomplete = async (id) => {
-        //if (user !== null ){
-            // const uid = user.uid
-            const docRef = doc(db, `/school/${user?.uid}/todoList`, id)
+        if (user !== null ){
+            const uid = user.uid
+            const docRef = doc(db, `/school/${uid}/todoList`, id)
             const payload = {
                 complete : false
             }
             await setDoc(docRef, payload, {merge: true})
-        //}
+        }
     }
 
     return (
@@ -157,7 +159,7 @@ const School = () => {
                             </button>
                         </div>
                         <div className="todo-form">
-                            <button className='add-btn' onClick={() => {addTodo(); setTodo('')}}><HiPlusSm /></button>
+                            <button className='add-btn' onClick={addTodo}><HiPlusSm /></button>
                             <input 
                                 type='text' 
                                 className='input' 

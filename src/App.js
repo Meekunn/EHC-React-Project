@@ -1,5 +1,4 @@
-import { useState, createContext } from 'react'
-import { Routes, Route, useNavigate } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import Login from './components/Auth/Login'
 import SignUp from './components/Auth/SignUp'
 import Dashboard from './components/Dashboard/Dashboard'
@@ -7,94 +6,40 @@ import School from './components/Collections/School'
 import Personal from './components/Collections/Personal'
 import Work from './components/Collections/Work'
 import PrivateRoute from './HOC/PrivateRoute'
-import { AuthContextProvider, UserAuth } from './HOC/AuthContext'
-import './App.css'
+import { AuthContextProvider } from './HOC/AuthContext'
+import { SidenavContextProvider } from './HOC/SidenavContext'
+import './App.scss'
+import LandingPage from './components/LandingPage/LandingPage'
 
-export const SideNavContext = createContext()
-export const SnackbarContext = createContext()
 
 function App() {
-  
-  const [isMobile, setIsMobile] = useState(false)
-  const [success, setSuccess] = useState(false)
-  const router = useNavigate()
-  //const { authStatus } = UserAuth()
-
-  // const signInGoogle = () => {  
-  //   signInWithPopup(auth, provider)
-  //   .then(() => {
-  //     setAuthStatus(true) 
-  //     setSuccess(true)
-  //     router('/dashboard')
-  //   })
-  //   .catch(error => {
-  //       console.log(error.code, error.message)
-  //   })
-  // }
-
-  // const signInGoogle = () => {  
-  //   signInWithRedirect(auth, provider)
-  //   .then(() => {
-  //     setAuthStatus(true) 
-  //     setSuccess(true)
-  //     router('/dashboard')
-  //   })
-  //   .catch(error => {
-  //       console.log(error.code, error.message)
-  //   })
-  // }
-
-  // const signOutAccount = () => {
-  //   signOut(auth)
-  //   .then(() => {
-  //     setAuthStatus(false)
-  //     router('/login')
-  //   }).catch((err) => {
-  //   });
-  // }
-
-  const handleCloseSuccess = (reason) => {
-    if (reason === 'clickaway') {
-      return
-    }
-    setSuccess(false)
-  }
-
-  const sideNavState = {
-    isMobile, setIsMobile
-  }
-  
-  const snackbarValues = {
-    success, setSuccess, handleCloseSuccess
-  }
 
   return (
     <div className="App">
       <AuthContextProvider>
         <Routes>
+          <Route path="/" 
+              element={
+                  <LandingPage />
+              } 
+            />
           <Route path="/login" 
             element={
-              <SnackbarContext.Provider value={snackbarValues}>
                 <Login />
-              </SnackbarContext.Provider>
             } 
           />
           <Route path="signup" 
             element={
-              <SnackbarContext.Provider value={snackbarValues}>
                 <SignUp />
-              </SnackbarContext.Provider>
             }
           />
           <Route 
             path="/dashboard"
             element={
               <PrivateRoute>
-                <SideNavContext.Provider value={sideNavState} >
-                    <SnackbarContext.Provider value={snackbarValues} >
+                <SidenavContextProvider>
                       <Dashboard />
-                    </SnackbarContext.Provider>
-                  </SideNavContext.Provider>
+                  </SidenavContextProvider>
               </PrivateRoute>
             } 
           />
@@ -102,9 +47,9 @@ function App() {
             path="/dashboard/school" 
             element={
               <PrivateRoute>
-                <SideNavContext.Provider value={sideNavState} >
+                <SidenavContextProvider>
                   <School />
-                </SideNavContext.Provider>
+                </SidenavContextProvider>
               </PrivateRoute>
             } 
           />
@@ -112,9 +57,9 @@ function App() {
             path="/dashboard/personal" 
             element={
               <PrivateRoute>
-                <SideNavContext.Provider value={sideNavState} >
+                <SidenavContextProvider>
                   <Personal />
-                </SideNavContext.Provider>
+                </SidenavContextProvider>
               </PrivateRoute>
             } 
           />
@@ -122,9 +67,9 @@ function App() {
             path="/dashboard/work" 
             element={
               <PrivateRoute>
-                <SideNavContext.Provider value={sideNavState} >
+                <SidenavContextProvider >
                   <Work />
-                </SideNavContext.Provider>
+                </SidenavContextProvider>
               </PrivateRoute>
             } 
           />

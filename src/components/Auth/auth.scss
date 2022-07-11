@@ -1,4 +1,4 @@
-@use './base' as a;
+@use '../../styles/base' as a;
 
 .auth-wrapper {
     display: flex;
@@ -7,6 +7,7 @@
     width: 100%;
     position: relative;
     top: 7rem;
+    flex-direction: column;
 }
 .auth-container {
     display: flex;
