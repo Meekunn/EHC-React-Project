@@ -7,12 +7,12 @@ import {
     onSnapshot, 
     orderBy,
     setDoc, 
-    where,
     deleteDoc,
     serverTimestamp
 } from "firebase/firestore"
 import { useNavigate } from "react-router-dom"
-import { db, auth } from "../../config/firebase"
+import { db } from "../../config/firebase"
+import { UserAuth } from "../../HOC/AuthContext"
 import { MdOutlineKeyboardArrowLeft } from 'react-icons/md'
 import { HiPlusSm } from 'react-icons/hi'
 import Todo from "../Todo/Todo"
@@ -22,21 +22,41 @@ import CompletedTodo from "../Todo/CompletedTodo"
 import './collection.scss'
 
 const Work = () => {
+    const { user } = UserAuth()
 
     const [todo, setTodo] = useState("")
-    const [numOfUncomplete, setNumOfUncomplete] = useState()
-    const [numOfComplete, setNumOfComplete] = useState()
     const [completedTasks, setCompletedTasks] = useState([])
     const [uncompletedTasks, setUncompletedTasks] = useState([])
     
 
     const router = useNavigate()
-    const user = auth.currentUser
 
     useEffect(() => {
-        getUncompleteTasks()
-        getCompleteTasks()
-    }, [])
+        if (typeof user?.uid !== "undefined") {
+            const uid = user.uid
+            const q = query(collection(db, `work/${uid}/todoList`), orderBy('time', 'desc'))
+            const unsubscribe = onSnapshot(q, (querySnapshot) => {
+                querySnapshot.docs.map((doc) => {
+                    const data = doc.data()
+                    if (data.complete === false) {
+                        return setUncompletedTasks(prevTasks => {
+                            const itExists = prevTasks.find(task => task.id === doc.id)
+                            if (itExists) return prevTasks
+                            return [...prevTasks, {...data, id: doc.id}]
+                        })
+                    }
+                    return setCompletedTasks(prevTasks => {
+                        const itExists = prevTasks.find(task => task.id === doc.id)
+                        if (itExists) return prevTasks
+                        return [...prevTasks, {...data, id: doc.id}]
+                    })
+                })
+            })
+            return () => {
+                unsubscribe()
+            }
+        }
+    }, [user])
 
     const addTodo = async () => {
         if (user !== null) {
@@ -76,66 +96,28 @@ const Work = () => {
         }
     }
 
-    const getUncompleteTasks = () => {
-        if (user !== null ){
-            //fetches the user's uid
+    const toggleTodo = async (id, complete) => {
+        if (typeof user?.uid !== "undefined") {
             const uid = user.uid
-            //uses the uid as the document id in work collection and then creates a subcollection called todoList
-            //returns an array of documents with "complete: false"
-            const q = query(collection(db, `work/${uid}/todoList`), where('complete', '==', false), orderBy('time', 'desc'))
-            onSnapshot(q, (querySnapshot) => {
-                let items = []
-                querySnapshot.docs.map((doc) => {
-                    return (
-                        items.push({...doc.data(), id: doc.id})
-                    )
-                })
-                setUncompletedTasks(items)
-                setNumOfUncomplete(items.length)
-            })
-        }
-    }
-
-    const getCompleteTasks = () => {
-        if (user !== null ){
-            //fetches the user's uid
-            const uid = user.uid
-            //uses the uid as the document id in work collection and then creates a subcollection called todoList
-            //returns an array of documents with "complete: true"
-            const q = query(collection(db, `work/${uid}/todoList`), where('complete', '==', true), orderBy('time', 'desc'))
-            onSnapshot(q, (querySnapshot) => {
-                let items = []
-                querySnapshot.docs.map((doc) => {
-                    return (
-                        items.push({...doc.data(), id: doc.id})
-                    )
-                })
-                setCompletedTasks(items)
-                setNumOfComplete(items.length)
-            })
-        }
-    }
-
-    const checkComplete = async (id) => {
-        if (user !== null ){
-            const uid = user.uid
-            const docRef = doc(db, `/work/${uid}/todoList`, id)
-            const payload = {
-                complete : true,
-                time: serverTimestamp()
+            const todoRef = doc(db, `work/${uid}/todoList/${id}`)
+            try {
+                await setDoc (todoRef, {
+                    complete,
+                    time: complete ? serverTimestamp() : null
+                }, {merge: true})
+                if (complete) {
+                    setUncompletedTasks(prevTasks => {
+                        const newArray = prevTasks.filter(task => task.id !== id)
+                        return [...newArray];
+                    })
+                } else {
+                    setCompletedTasks(prevTasks => {
+                        const newArray = prevTasks.filter(task => task.id !== id)
+                        return [...newArray];
+                    })
+                }
+            } catch (error) {
             }
-            await setDoc(docRef, payload, {merge: true})
-        }
-    }
-
-    const checkUncomplete = async (id) => {
-        if (user !== null ){
-            const uid = user.uid
-            const docRef = doc(db, `/work/${uid}/todoList`, id)
-            const payload = {
-                complete : false
-            }
-            await setDoc(docRef, payload, {merge: true})
         }
     }
 
@@ -168,31 +150,26 @@ const Work = () => {
                             />
                         </div>
                         <div className="tasks-container">
-                            <p>Tasks - {numOfUncomplete} </p>
+                            <p>Tasks - {uncompletedTasks.length} </p>
                             <div className="tasks-wrapper">
                                 { uncompletedTasks.map((task) => {
                                     return (
                                         <Todo 
-                                            key={task.id} 
-                                            task={task} 
-                                            checkComplete={checkComplete} 
-                                            editTodo={editTodo}
-                                            deleteTodo={deleteTodo}
+                                            key={task.id}
+                                            {...({task, toggleTodo, editTodo, deleteTodo})}
                                         />
                                     )
                                 })}
                             </div>
                         </div>
                         <div className="tasks-container">
-                            <p>Completed - {numOfComplete} </p>
+                            <p>Completed - {completedTasks.length} </p>
                             <div className="tasks-wrapper">
                                 { completedTasks.map((task) => {
                                     return (
                                         <CompletedTodo 
                                             key={task.id} 
-                                            task={task} 
-                                            checkUncomplete={checkUncomplete} 
-                                            deleteTodo={deleteTodo}
+                                            {...({task, toggleTodo, deleteTodo})}
                                         />
                                     )
                                 })}
