@@ -3,7 +3,7 @@ import { MdModeEdit, MdCloudDone } from 'react-icons/md'
 import { TbTrash } from 'react-icons/tb'
 import './todo.scss'
 
-const Todo = ({task, checkComplete, editTodo, deleteTodo}) => {
+const Todo = ({task, toggleTodo, editTodo, deleteTodo}) => {
     
     const [todoEdit, setTodoEdit] = useState("")
     const [edit, setEdit] = useState(false)
@@ -11,7 +11,7 @@ const Todo = ({task, checkComplete, editTodo, deleteTodo}) => {
     return (
         <div id={task.id} className='todo-wrapper'>
             <div className='content'>
-                <button onClick={() => {checkComplete(task.id)}} className="uncheck">
+                <button onClick={() => toggleTodo(task.id, !task.complete)} className="uncheck">
                     <span className='checkmark'></span>
                 </button>
                 { edit ? 

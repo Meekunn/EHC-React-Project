@@ -1,11 +1,11 @@
 import { TbTrash } from 'react-icons/tb'
 import './todo.scss'
 
-const CompletedTodo = ({checkUncomplete, task, deleteTodo}) => {
+const CompletedTodo = ({toggleTodo, task, deleteTodo}) => {
     return (
         <div id={task.id} className='todo-wrapper'>
             <div className='content'>
-                <button onClick={() => {checkUncomplete(task.id)}} className="uncheck check">
+                <button onClick={() => {toggleTodo(task.id, !task.complete)}} className="uncheck check">
                     <span className='checkmark'></span>
                 </button>
                 <span className='task'>
