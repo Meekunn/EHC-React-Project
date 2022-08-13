@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 import { 
     createUserWithEmailAndPassword,
-    sendEmailVerification,
+    //sendEmailVerification,
     updateProfile,
 } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
 import { auth} from '../../config/firebase'
 import { MdVisibility, MdVisibilityOff } from 'react-icons/md'
 import MainNav from '../MainNav'
+import { UserAuth } from '../../HOC/AuthContext'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import './auth.scss'
@@ -21,6 +22,8 @@ const SignUp = () => {
     const [showPass, setShowPass] = useState(false)
     const [showConfirm, setShowConfirm] = useState(false)
 
+    const { signOutAccount } = UserAuth()
+
     const signUpEmail = (e) => {
         e.preventDefault()
 
@@ -32,21 +35,18 @@ const SignUp = () => {
         }
         else {
             createUserWithEmailAndPassword(auth, userInfo.email, userInfo.password)
-            .then (() => {
-                toast.success('Sign Up Successful')
-                toast.warn('Verify Your Email')
-                updateProfile(auth.currentUser, {
+            .then (async () => {
+                await updateProfile(auth.currentUser, {
                     displayName: userInfo.username
                 })
-                sendEmailVerification(auth.currentUser)
-                router('/login')
                 setUserInfo({email: '', username: '', password: ''})
+                await signOutAccount()
+                router('/login')
             })
             .catch((error) => {
-
-                if(error.code === 'auth/weak-password'){
+                if(error.code === 'auth/weak-password') {
                     toast.error('Please enter a strong password')
-                } 
+                }
                 else if (error.code === 'auth/email-already-in-use') {
                     toast.error('Email is already in use')
                 } 
@@ -54,7 +54,7 @@ const SignUp = () => {
                     toast.error('Unable to Sign Up. Try again later.')
                 }
             })
-        }
+        } 
     }
 
     return (

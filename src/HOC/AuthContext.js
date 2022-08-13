@@ -16,10 +16,15 @@ const AuthContext = createContext()
 export const AuthContextProvider = ({ children }) => {
     
     const [user, setUser] = useState({})
+    const [userName, setUserName] = useState('')
+    const [userUid, setUserUid] = useState('')
 
     useEffect(() => {
         const sub = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser)
+            const username = currentUser.displayName.charAt(0).toUpperCase() + currentUser.displayName.substring(1)
+            setUserName(username)
+            setUserUid(currentUser.uid)
         })
         return () => sub()
     }, [])
@@ -29,12 +34,15 @@ export const AuthContextProvider = ({ children }) => {
     }
 
     const signOutAccount = () => {
-        signOut(auth) 
+        signOut(auth)
+        .then(() => {
+            console.log('sign Out')
+        })
     }
 
 
     return (
-        <AuthContext.Provider value={{ signInGoogle, signOutAccount, user }}>
+        <AuthContext.Provider value={{ signInGoogle, signOutAccount, user, userName, userUid }}>
             {children}
         </AuthContext.Provider>
     )

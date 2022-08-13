@@ -22,14 +22,16 @@ const Login = () => {
 
     useEffect(() => {
         if (user !== null) {
-            setIsLoading(true)
-            getRedirectResult(auth)
-            .then(() => {
-                setIsLoading(false)
-                if(auth.currentUser.emailVerified) {
-                    router('/dashboard')
-                } 
-            })
+            if (user.providerId === 'google.com') {
+                setIsLoading(true)
+                getRedirectResult(auth)
+                .then(() => {
+                    setIsLoading(false)
+                    if(auth.currentUser) {
+                        router('/dashboard')
+                    } 
+                })
+            }
         }
     }, [user])
 
@@ -38,11 +40,7 @@ const Login = () => {
 
         signInWithEmailAndPassword(auth, userInfo.email, userInfo.password)
         .then(() => {
-            if(auth.currentUser.emailVerified) {
-                router('/dashboard')
-            } else {
-                toast.warn('Verify Your Email')
-            }
+            router('/dashboard')
             setUserInfo({email: '', password: ''})
         })
         .catch(error => {

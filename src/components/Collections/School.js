@@ -14,7 +14,7 @@ import {
 import { useNavigate } from "react-router-dom"
 import { db, auth } from "../../config/firebase"
 import { MdOutlineKeyboardArrowLeft } from 'react-icons/md'
-import { HiPlusSm } from 'react-icons/hi'
+import { HiPlusSm } from 'react-icons/hi' 
 import Todo from "../Todo/Todo"
 import Navbar from "../Navbar"
 import SideNav from "../SideNav"

@@ -16,21 +16,7 @@ import './dashboard.scss'
 const Dashboard = () => {
 
     const router = useNavigate()
-    const { user } = UserAuth()
-    const [userName, setUserName] = useState('')
-    const [userUid, setUserUid] = useState('')
-
-    useEffect(() => {
-        getUserDetails()
-    }, [])
-
-    const getUserDetails = () => {
-        if(user !== null) {
-            const username = user.displayName
-            setUserName(username)
-            setUserUid(user.uid)
-        } 
-    }
+    const { userName, userUid } = UserAuth()
 
     return (
         <>
