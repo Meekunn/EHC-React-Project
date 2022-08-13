@@ -7,7 +7,7 @@ import {
 import { useNavigate } from 'react-router-dom'
 import { auth} from '../../config/firebase'
 import { MdVisibility, MdVisibilityOff } from 'react-icons/md'
-import MainNav from '../MainNav/MainNav'
+import MainNav from '../MainNav'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import './auth.scss'

@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import MainNav from "../MainNav/MainNav"
+import MainNav from "../MainNav"
 import "./landingpage.scss"
 const LandingPage = () => {
 

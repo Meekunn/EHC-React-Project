@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import Typewriter from 'typewriter-effect'
 import { IoSchool, IoPersonSharp } from 'react-icons/io5'
 import { MdWork } from 'react-icons/md'
-import Navbar from "../Navbar/Navbar"
-import SideNav from '../SideNav/SideNav'
+import Navbar from "../Navbar"
+import SideNav from "../SideNav"
 import { 
     createPersonalCollection, 
     createSchoolCollection, 

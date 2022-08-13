@@ -4,6 +4,7 @@ service cloud.firestore {
     match /school/{schoolID} {
       match /todoList/{todoListID} {
       	allow read:  if request.auth.token.email_verified;
+        allow write:  if request.auth.token.email_verified;
       	allow write: if request.resource.data.todo is string &&
       		request.resource.data.complete is bool;
         allow delete: if request.auth.token.email_verified;
@@ -12,6 +13,7 @@ service cloud.firestore {
     match /personal/{personalID} {
       match /todoList/{todoListID} {
       	allow read:  if request.auth.token.email_verified;
+        allow write:  if request.auth.token.email_verified;
       	allow write: if request.resource.data.todo is string &&
       		request.resource.data.complete is bool
         allow delete: if request.auth.token.email_verified;
@@ -20,6 +22,7 @@ service cloud.firestore {
     match /work/{workID} {
      match /todoList/{todoListID} {
       	allow read:  if request.auth.token.email_verified;
+        allow write:  if request.auth.token.email_verified;
       	allow write: if request.resource.data.todo is string &&
       		request.resource.data.complete is bool
         allow delete: if request.auth.token.email_verified;

@@ -5,7 +5,7 @@ import './todo.scss'
 
 const Todo = ({task, toggleTodo, editTodo, deleteTodo}) => {
     
-    const [todoEdit, setTodoEdit] = useState("")
+    const [todoEdit, setTodoEdit] = useState(`${task.todo}`)
     const [edit, setEdit] = useState(false)
 
     return (
@@ -25,7 +25,7 @@ const Todo = ({task, toggleTodo, editTodo, deleteTodo}) => {
                         <span
                             className='task'
                         >
-                            {task.todo}
+                            {todoEdit}
                         </span>
                     )
                 }

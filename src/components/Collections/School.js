@@ -16,8 +16,8 @@ import { db, auth } from "../../config/firebase"
 import { MdOutlineKeyboardArrowLeft } from 'react-icons/md'
 import { HiPlusSm } from 'react-icons/hi'
 import Todo from "../Todo/Todo"
-import Navbar from "../Navbar/Navbar"
-import SideNav from "../SideNav/SideNav"
+import Navbar from "../Navbar"
+import SideNav from "../SideNav"
 import CompletedTodo from "../Todo/CompletedTodo"
 import './collection.scss'
 
