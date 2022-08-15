@@ -4,7 +4,7 @@ import { TbTrash } from 'react-icons/tb'
 import './todo.scss'
 
 const Todo = ({task, toggleTodo, editTodo, deleteTodo}) => {
-    
+     
     const [todoEdit, setTodoEdit] = useState(`${task.todo}`)
     const [edit, setEdit] = useState(false)
 
@@ -25,7 +25,7 @@ const Todo = ({task, toggleTodo, editTodo, deleteTodo}) => {
                         <span
                             className='task'
                         >
-                            {todoEdit}
+                            {task.todo}
                         </span>
                     )
                 }

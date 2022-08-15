@@ -7,7 +7,6 @@ import {
     onSnapshot, 
     orderBy,
     setDoc, 
-    where,
     deleteDoc,
     serverTimestamp
 } from "firebase/firestore"
@@ -24,20 +23,57 @@ import './collection.scss'
 const School = () => {
 
     const [todo, setTodo] = useState("")
-    const [numOfUncomplete, setNumOfUncomplete] = useState()
-    const [numOfComplete, setNumOfComplete] = useState()
     const [completedTasks, setCompletedTasks] = useState([])
     const [uncompletedTasks, setUncompletedTasks] = useState([])
-    let school = 'school'
     
 
     const router = useNavigate()
     const user = auth.currentUser
 
     useEffect(() => {
-        getUncompleteTasks()
-        getCompleteTasks()
-    }, [])
+        if (typeof user?.uid !== "undefined") {
+            const uid = user.uid
+            const q = query(collection(db, `school/${uid}/todoList`), orderBy('time', 'desc'))
+            const unsubscribe = onSnapshot(q, (querySnapshot) => {
+                let allData = []
+                querySnapshot.docs.map((doc) => {
+                    const data = doc.data()
+                    allData.push({...doc.data(), id: doc.id})
+                    console.log("allData", allData)
+                    if (data.complete === false && data.time != null) {
+                        return setUncompletedTasks(prevTasks => {
+                            const itExists = prevTasks.find(task => task.id === doc.id)
+                            if (itExists) return prevTasks
+                            console.log('prevTasks', prevTasks)
+                            const items = [...prevTasks, {...doc.data(), id: doc.id}]
+                            const sortedItems = items.sort((x, y) => {
+                                return y.time - x.time
+                            })
+                            console.log('allItems', items)
+                            console.log('sortedItems', sortedItems)
+                            return sortedItems
+                        })
+                    }
+                    else if (data.complete === true && data.time != null) {
+                        return setCompletedTasks(prevTasks => {
+                            const itExists = prevTasks.find(task => task.id === doc.id)
+                            if (itExists) return prevTasks
+                            console.log('prevTasks Complete', prevTasks)
+                            const items = [...prevTasks, {...doc.data(), id: doc.id}]
+                            const sortedItems = items.sort((x,y) => {
+                                return x.time - y.time
+                            })
+                            console.log('allItems Complete', items)
+                            return sortedItems
+                        })
+                    }
+                })
+            })
+            return () => {
+                unsubscribe()
+            }
+        }
+    }, [user])
 
     const addTodo = async () => {
         if (user !== null) {
@@ -77,66 +113,25 @@ const School = () => {
         }
     }
 
-    const getUncompleteTasks = () => {
-        if (user !== null ){
-            //fetches the user's uid
-            const uid = user.uid
-            //uses the uid as the document id in school collection and then creates a subcollection called todoList
-            //returns an array of documents with "complete: false"
-            const q = query(collection(db, `school/${uid}/todoList`), where('complete', '==', false), orderBy('time', 'desc'))
-            onSnapshot(q, (querySnapshot) => {
-                let items = []
-                querySnapshot.docs.map((doc) => {
-                    return (
-                        items.push({...doc.data(), id: doc.id})
-                    )
+    const toggleTodo = async (id, complete) => {
+        const uid = user.uid
+        const todoRef = doc(db, `school/${uid}/todoList/${id}`)
+        try {
+            await setDoc (todoRef, {
+                complete,
+            }, {merge: true})
+            if (complete) {
+                setUncompletedTasks(prevTasks => {
+                    const newArray = prevTasks.filter(task => task.id !== id)
+                    return [...newArray]
                 })
-                setUncompletedTasks(items)
-                setNumOfUncomplete(items.length)
-            })
-        }
-    }
-
-    const getCompleteTasks = () => {
-        if (user !== null ){
-            //fetches the user's uid
-            const uid = user.uid
-            //uses the uid as the document id in school collection and then creates a subcollection called todoList
-            //returns an array of documents with "complete: true"
-            const q = query(collection(db, `school/${uid}/todoList`), where('complete', '==', true), orderBy('time', 'desc'))
-            onSnapshot(q, (querySnapshot) => {
-                let items = []
-                querySnapshot.docs.map((doc) => {
-                    return (
-                        items.push({...doc.data(), id: doc.id})
-                    )
+            } else {
+                setCompletedTasks(prevTasks => {
+                    const newArray = prevTasks.filter(task => task.id !== id)
+                    return [...newArray]
                 })
-                setCompletedTasks(items)
-                setNumOfComplete(items.length)
-            })
-        }
-    }
-
-    const checkComplete = async (id) => {
-        if (user !== null ){
-            const uid = user.uid
-            const docRef = doc(db, `/school/${uid}/todoList`, id)
-            const payload = {
-                complete : true,
-                time: serverTimestamp()
             }
-            await setDoc(docRef, payload, {merge: true})
-        }
-    }
-
-    const checkUncomplete = async (id) => {
-        if (user !== null ){
-            const uid = user.uid
-            const docRef = doc(db, `/school/${uid}/todoList`, id)
-            const payload = {
-                complete : false
-            }
-            await setDoc(docRef, payload, {merge: true})
+        } catch (error) {
         }
     }
 
@@ -169,14 +164,14 @@ const School = () => {
                             />
                         </div>
                         <div className="tasks-container">
-                            <p>Tasks - {numOfUncomplete} </p>
+                            <p>Tasks - {uncompletedTasks.length} </p>
                             <div className="tasks-wrapper">
-                                { uncompletedTasks.map((task) => {
+                                { uncompletedTasks.map((task, idx) => {
                                     return (
                                         <Todo 
-                                            key={task.id} 
+                                            key={idx} 
                                             task={task} 
-                                            checkComplete={checkComplete}
+                                            toggleTodo={toggleTodo}
                                             editTodo={editTodo}
                                             deleteTodo={deleteTodo} 
                                         />
@@ -185,14 +180,14 @@ const School = () => {
                             </div>
                         </div>
                         <div className="tasks-container">
-                            <p>Completed - {numOfComplete} </p>
+                            <p>Completed - {completedTasks.length} </p>
                             <div className="tasks-wrapper">
-                                { completedTasks.map((task) => {
+                                { completedTasks.map((task, idx) => {
                                     return (
                                         <CompletedTodo 
-                                            key={task.id} 
+                                            key={idx} 
                                             task={task} 
-                                            checkUncomplete={checkUncomplete}
+                                            toggleTodo={toggleTodo}
                                             deleteTodo={deleteTodo} 
                                         />
                                     )

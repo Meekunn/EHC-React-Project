@@ -36,20 +36,38 @@ const Work = () => {
             const uid = user.uid
             const q = query(collection(db, `work/${uid}/todoList`), orderBy('time', 'desc'))
             const unsubscribe = onSnapshot(q, (querySnapshot) => {
+                let allData = []
                 querySnapshot.docs.map((doc) => {
                     const data = doc.data()
-                    if (data.complete === false) {
+                    allData.push({...doc.data(), id: doc.id})
+                    console.log("allData", allData)
+                    if (data.complete === false && data.time != null) {
                         return setUncompletedTasks(prevTasks => {
                             const itExists = prevTasks.find(task => task.id === doc.id)
                             if (itExists) return prevTasks
-                            return [...prevTasks, {...data, id: doc.id}]
+                            console.log('prevTasks', prevTasks)
+                            const items = [...prevTasks, {...doc.data(), id: doc.id}]
+                            const sortedItems = items.sort((x, y) => {
+                                return y.time - x.time
+                            })
+                            console.log('allItems', items)
+                            console.log('sortedItems', sortedItems)
+                            return sortedItems
                         })
                     }
-                    return setCompletedTasks(prevTasks => {
-                        const itExists = prevTasks.find(task => task.id === doc.id)
-                        if (itExists) return prevTasks
-                        return [...prevTasks, {...data, id: doc.id}]
-                    })
+                    else if (data.complete === true && data.time != null) {
+                        return setCompletedTasks(prevTasks => {
+                            const itExists = prevTasks.find(task => task.id === doc.id)
+                            if (itExists) return prevTasks
+                            console.log('prevTasks Complete', prevTasks)
+                            const items = [...prevTasks, {...doc.data(), id: doc.id}]
+                            const sortedItems = items.sort((x,y) => {
+                                return x.time - y.time
+                            })
+                            console.log('allItems Complete', items)
+                            return sortedItems
+                        })
+                    }
                 })
             })
             return () => {
@@ -97,27 +115,24 @@ const Work = () => {
     }
 
     const toggleTodo = async (id, complete) => {
-        if (typeof user?.uid !== "undefined") {
-            const uid = user.uid
-            const todoRef = doc(db, `work/${uid}/todoList/${id}`)
-            try {
-                await setDoc (todoRef, {
-                    complete,
-                    time: complete ? serverTimestamp() : null
-                }, {merge: true})
-                if (complete) {
-                    setUncompletedTasks(prevTasks => {
-                        const newArray = prevTasks.filter(task => task.id !== id)
-                        return [...newArray];
-                    })
-                } else {
-                    setCompletedTasks(prevTasks => {
-                        const newArray = prevTasks.filter(task => task.id !== id)
-                        return [...newArray];
-                    })
-                }
-            } catch (error) {
+        const uid = user.uid
+        const todoRef = doc(db, `work/${uid}/todoList/${id}`)
+        try {
+            await setDoc (todoRef, {
+                complete,
+            }, {merge: true})
+            if (complete) {
+                setUncompletedTasks(prevTasks => {
+                    const newArray = prevTasks.filter(task => task.id !== id)
+                    return [...newArray];
+                })
+            } else {
+                setCompletedTasks(prevTasks => {
+                    const newArray = prevTasks.filter(task => task.id !== id)
+                    return [...newArray];
+                })
             }
+        } catch (error) {
         }
     }
 
@@ -168,7 +183,7 @@ const Work = () => {
                                 { completedTasks.map((task) => {
                                     return (
                                         <CompletedTodo 
-                                            key={task.id} 
+                                            key={task.id}
                                             {...({task, toggleTodo, deleteTodo})}
                                         />
                                     )
