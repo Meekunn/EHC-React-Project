@@ -6,26 +6,12 @@ import { db } from '../../config/firebase'
 import { UserAuth } from '../../HOC/AuthContext'
 import './todo.scss'
 
-const Todo = ({task, toggleTodo, editTodo, deleteTodo, setUncompletedTasks}) => {
+const Todo = ({task, toggleTodo, editTodo, deleteTodo}) => {
      
     const [todoEdit, setTodoEdit] = useState(`${task.todo}`)
     const [edit, setEdit] = useState(false)
 
     const { userUid } = UserAuth()
-
-    // const delTodo = async (id) => {
-    //     const deleteRef = doc(db, `work/${userUid}/todoList`, id)
-    //     try {
-    //         await deleteDoc(deleteRef)
-    //         console.log('deleting')
-    //         setUncompletedTasks(prevTasks => {
-    //             const newArray = prevTasks.filter(task => task.id !== id)
-    //             return [...newArray]
-    //         })
-    //     } catch(error){
-    //         return error
-    //     }
-    // }
 
     return (
         <div id={task.id} className='todo-wrapper'>
@@ -44,7 +30,7 @@ const Todo = ({task, toggleTodo, editTodo, deleteTodo, setUncompletedTasks}) => 
                         <span
                             className='task'
                         >
-                            {task.todo}
+                            {todoEdit}
                         </span>
                     )
                 }
