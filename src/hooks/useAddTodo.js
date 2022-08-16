@@ -19,17 +19,3 @@ const useAddTodo = () => {
 }
 
 export default useAddTodo
-
-// const addTodo = async () => {
-//     if(todo !== '') {
-//         const collectionRef = collection(db, `school/${userUid}/todoList`)
-//         const payload = {
-//             todo,
-//             //creates a timestamp which is unique so we use this as the key when returning documents in the subcollection.
-//             time: serverTimestamp(),
-//             complete: false
-//         }
-//         await addDoc(collectionRef, payload)
-//     }
-//     setTodo('')
-// }

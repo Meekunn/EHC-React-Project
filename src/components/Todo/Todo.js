@@ -1,12 +1,31 @@
 import { useState } from 'react'
 import { MdModeEdit, MdCloudDone } from 'react-icons/md'
 import { TbTrash } from 'react-icons/tb'
+import { deleteDoc, doc } from 'firebase/firestore'
+import { db } from '../../config/firebase'
+import { UserAuth } from '../../HOC/AuthContext'
 import './todo.scss'
 
-const Todo = ({task, toggleTodo, editTodo, deleteTodo}) => {
+const Todo = ({task, toggleTodo, editTodo, deleteTodo, setUncompletedTasks}) => {
      
     const [todoEdit, setTodoEdit] = useState(`${task.todo}`)
     const [edit, setEdit] = useState(false)
+
+    const { userUid } = UserAuth()
+
+    // const delTodo = async (id) => {
+    //     const deleteRef = doc(db, `work/${userUid}/todoList`, id)
+    //     try {
+    //         await deleteDoc(deleteRef)
+    //         console.log('deleting')
+    //         setUncompletedTasks(prevTasks => {
+    //             const newArray = prevTasks.filter(task => task.id !== id)
+    //             return [...newArray]
+    //         })
+    //     } catch(error){
+    //         return error
+    //     }
+    // }
 
     return (
         <div id={task.id} className='todo-wrapper'>

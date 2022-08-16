@@ -21,23 +21,28 @@ import SideNav from "../SideNav"
 import CompletedTodo from "../Todo/CompletedTodo"
 import useAddTodo from "../../hooks/useAddTodo"
 import './collection.scss'
+import useDeleteTodo from "../../hooks/useDeleteTodo"
 
 const Work = () => {
     const { user, userUid} = UserAuth()
 
     const { add } = useAddTodo()
+    //const { deleteTodo } = useDeleteTodo()
 
     const [todo, setTodo] = useState("")
+    const [tasks, setTasks] = useState([])
     const [completedTasks, setCompletedTasks] = useState([])
     const [uncompletedTasks, setUncompletedTasks] = useState([])
     
 
     const router = useNavigate()
-
+    
     useEffect(() => {
         const q = query(collection(db, `work/${userUid}/todoList`), orderBy('time', 'desc'))
         const unsubscribe = onSnapshot(q, (querySnapshot) => {
+            let allTasks = []
             querySnapshot.docs.map((doc) => {
+                allTasks.push({...doc.data(), id: doc.id})
                 const data = doc.data()
                 if (data.complete === false && data.time != null) {
                     return setUncompletedTasks(prevTasks => {
@@ -62,6 +67,7 @@ const Work = () => {
                     })
                 }
             })
+            setTasks(allTasks)
         })
         return () => {
             unsubscribe()
@@ -78,6 +84,14 @@ const Work = () => {
         try {
             await deleteDoc(deleteRef)
             console.log('deleting')
+            setUncompletedTasks(prevTasks => {
+                const newArray = prevTasks.filter(task => task.id !== id)
+                return [...newArray]
+            })
+            setCompletedTasks(prevTasks => {
+                const newArray = prevTasks.filter(task => task.id !== id)
+                return [...newArray]
+            })
         } catch(error){
             return error
         }
@@ -147,7 +161,7 @@ const Work = () => {
                                     return (
                                         <Todo 
                                             key={task.id}
-                                            {...({task, toggleTodo, editTodo, deleteTodo})}
+                                            {...({task, toggleTodo, editTodo, deleteTodo, setUncompletedTasks})}
                                         />
                                     )
                                 })}
