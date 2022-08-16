@@ -12,7 +12,6 @@ const useAddTodo = () => {
                 complete: false
             }
             await addDoc(collectionRef, payload)
-            console.log('Added')
         }
     }
     return { add }
