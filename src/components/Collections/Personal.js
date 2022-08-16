@@ -29,57 +29,45 @@ const Personal = () => {
     
 
     const router = useNavigate()
-    const { user } = UserAuth()
+    const { user, userUid } = UserAuth()
     
     useEffect(() => {
-        if (typeof user?.uid !== "undefined") {
-            const uid = user.uid
-            const q = query(collection(db, `personal/${uid}/todoList`), orderBy('time', 'desc'))
-            const unsubscribe = onSnapshot(q, (querySnapshot) => {
-                let allData = []
-                querySnapshot.docs.map((doc) => {
-                    const data = doc.data()
-                    allData.push({...doc.data(), id: doc.id})
-                    console.log("allData", allData)
-                    if (data.complete === false && data.time != null) {
-                        return setUncompletedTasks(prevTasks => {
-                            const itExists = prevTasks.find(task => task.id === doc.id)
-                            if (itExists) return prevTasks
-                            console.log('prevTasks', prevTasks)
-                            const items = [...prevTasks, {...doc.data(), id: doc.id}]
-                            const sortedItems = items.sort((x, y) => {
-                                return y.time - x.time
-                            })
-                            console.log('allItems', items)
-                            console.log('sortedItems', sortedItems)
-                            return sortedItems
+        const q = query(collection(db, `personal/${userUid}/todoList`), orderBy('time', 'desc'))
+        const unsubscribe = onSnapshot(q, (querySnapshot) => {
+            querySnapshot.docs.map((doc) => {
+                const data = doc.data()
+                if (data.complete === false && data.time != null) {
+                    return setUncompletedTasks(prevTasks => {
+                        const itExists = prevTasks.find(task => task.id === doc.id)
+                        if (itExists) return prevTasks
+                        const items = [...prevTasks, {...doc.data(), id: doc.id}]
+                        const sortedItems = items.sort((x, y) => {
+                            return y.time - x.time
                         })
-                    }
-                    else if (data.complete === true && data.time != null) {
-                        return setCompletedTasks(prevTasks => {
-                            const itExists = prevTasks.find(task => task.id === doc.id)
-                            if (itExists) return prevTasks
-                            console.log('prevTasks Complete', prevTasks)
-                            const items = [...prevTasks, {...doc.data(), id: doc.id}]
-                            const sortedItems = items.sort((x,y) => {
-                                return x.time - y.time
-                            })
-                            console.log('allItems Complete', items)
-                            return sortedItems
+                        return sortedItems
+                    })
+                }
+                else if (data.complete === true && data.time != null) {
+                    return setCompletedTasks(prevTasks => {
+                        const itExists = prevTasks.find(task => task.id === doc.id)
+                        if (itExists) return prevTasks
+                        const items = [...prevTasks, {...doc.data(), id: doc.id}]
+                        const sortedItems = items.sort((x,y) => {
+                            return x.time - y.time
                         })
-                    }
-                })
+                        return sortedItems
+                    })
+                }
             })
-            return () => {
-                unsubscribe()
-            }
+        })
+        return () => {
+            unsubscribe()
         }
     }, [user])
 
     const addTodo = async () => {
         if(todo !== '') {
-            const uid = user.uid
-            const collectionRef = collection(db, `personal/${uid}/todoList`)
+            const collectionRef = collection(db, `personal/${userUid}/todoList`)
             const payload = {
                 todo,
                 //creates a timestamp which is unique so we use this as the key when returning documents in the subcollection.
@@ -92,26 +80,24 @@ const Personal = () => {
     }
 
     const deleteTodo = async (id) => {
-        const uid = user.uid
-        const deleteRef = doc(db, `personal/${uid}/todoList`, id)
+        const deleteRef = doc(db, `personal/${userUid}/todoList`, id)
         try {
             await deleteDoc(deleteRef)
             console.log('deleting')
         } catch(error){
+            return error
         }
     }
 
     const editTodo = async (id, todo) => {
-            const uid = user.uid
-            const todoRef = doc(db, `personal/${uid}/todoList/${id}`)
+            const todoRef = doc(db, `personal/${userUid}/todoList/${id}`)
             await setDoc (todoRef, {
                 todo: todo
             }, {merge: true})
     }
 
     const toggleTodo = async (id, complete) => {
-        const uid = user.uid
-        const todoRef = doc(db, `personal/${uid}/todoList/${id}`)
+        const todoRef = doc(db, `personal/${userUid}/todoList/${id}`)
         try {
             await setDoc (todoRef, {
                 complete,

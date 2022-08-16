@@ -21,17 +21,15 @@ const Login = () => {
     const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
-        if (user !== null) {
-            if (user.providerId === 'google.com') {
-                setIsLoading(true)
-                getRedirectResult(auth)
-                .then(() => {
-                    setIsLoading(false)
-                    if(auth.currentUser) {
-                        router('/dashboard')
-                    } 
-                })
-            }
+        if (user.providerId === 'google.com') {
+            setIsLoading(true)
+            getRedirectResult(auth)
+            .then(() => {
+                setIsLoading(false)
+                if(auth.currentUser) {
+                    router('/dashboard')
+                } 
+            })
         }
     }, [user])
 

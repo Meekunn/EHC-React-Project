@@ -21,10 +21,13 @@ export const AuthContextProvider = ({ children }) => {
 
     useEffect(() => {
         const sub = onAuthStateChanged(auth, (currentUser) => {
-            setUser(currentUser)
-            const username = currentUser.displayName.charAt(0).toUpperCase() + currentUser.displayName.substring(1)
-            setUserName(username)
-            setUserUid(currentUser.uid)
+            if (currentUser){
+                console.log(currentUser)
+                setUser(currentUser)
+                const username = currentUser.displayName.charAt(0).toUpperCase() + currentUser.displayName.substring(1)
+                setUserName(username)
+                setUserUid(currentUser.uid)
+            }
         })
         return () => sub()
     }, [])
