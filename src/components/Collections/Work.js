@@ -19,10 +19,13 @@ import Todo from "../Todo/Todo"
 import Navbar from "../Navbar"
 import SideNav from "../SideNav"
 import CompletedTodo from "../Todo/CompletedTodo"
+import useAddTodo from "../../hooks/useAddTodo"
 import './collection.scss'
 
 const Work = () => {
     const { user, userUid} = UserAuth()
+
+    const { add } = useAddTodo()
 
     const [todo, setTodo] = useState("")
     const [completedTasks, setCompletedTasks] = useState([])
@@ -65,19 +68,10 @@ const Work = () => {
         }
     }, [user])
 
-    const addTodo = async () => {
-        if(todo !== '') {
-            const collectionRef = collection(db, `work/${userUid}/todoList`)
-            const payload = {
-                todo,
-                //creates a timestamp which is unique so we use this as the key when returning documents in the subcollection.
-                time: serverTimestamp(),
-                complete: false
-            }
-            await addDoc(collectionRef, payload)
-        }
+    const addTodo = () => {
+        add(todo, userUid, "work")
         setTodo('')
-    }
+    }    
 
     const deleteTodo = async (id) => {
         const deleteRef = doc(db, `work/${userUid}/todoList`, id)
