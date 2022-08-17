@@ -7,6 +7,7 @@ import {
     orderBy,
     setDoc, 
     deleteDoc,
+    serverTimestamp,
 } from "firebase/firestore"
 import { useNavigate } from "react-router-dom" 
 import { db } from "../../config/firebase"
@@ -35,9 +36,7 @@ const Collection = ({collectionName}) => {
     useEffect(() => {
         const q = query(collection(db, `${collectionName}/${userUid}/todoList`), orderBy('time', 'desc'))
         const unsubscribe = onSnapshot(q, (querySnapshot) => {
-            let allTasks = []
             querySnapshot.docs.map((doc) => {
-                allTasks.push({...doc.data(), id: doc.id})
                 const data = doc.data()
                 if (data.complete === false && data.time != null) {
                     return setUncompletedTasks(prevTasks => {
@@ -50,13 +49,13 @@ const Collection = ({collectionName}) => {
                         return sortedItems
                     })
                 }
-                else if (data.complete === true && data.time != null) {
+                else if (data.complete === true && data.time != null ) {
                     return setCompletedTasks(prevTasks => {
                         const itExists = prevTasks.find(task => task.id === doc.id)
                         if (itExists) return prevTasks
                         const items = [...prevTasks, {...doc.data(), id: doc.id}]
                         const sortedItems = items.sort((x,y) => {
-                            return x.time - y.time
+                            return y.time - x.time
                         })
                         return sortedItems
                     })
@@ -78,6 +77,7 @@ const Collection = ({collectionName}) => {
         try {
             await setDoc (todoRef, {
                 complete,
+                time: serverTimestamp()
             }, {merge: true})
             if (complete) {
                 setUncompletedTasks(prevTasks => {
@@ -98,7 +98,8 @@ const Collection = ({collectionName}) => {
     const editTodo = async (id, todo) => {
         const todoRef = doc(db, `${collectionName}/${userUid}/todoList/${id}`)
         await setDoc (todoRef, {
-            todo: todo
+            todo: todo,
+            time: serverTimestamp()
         }, {merge: true})
     }
 
@@ -106,7 +107,6 @@ const Collection = ({collectionName}) => {
         const deleteRef = doc(db, `${collectionName}/${userUid}/todoList`, id)
         try {
             await deleteDoc(deleteRef)
-            console.log('deleting')
             setUncompletedTasks(prevTasks => {
                 const newArray = prevTasks.filter(task => task.id !== id)
                 return [...newArray]
