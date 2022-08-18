@@ -32,7 +32,7 @@ const Collection = ({collectionName}) => {
     const [uncompletedTasks, setUncompletedTasks] = useState([])
 
     useEffect(() => {
-        const q = query(collection(db, `${collectionName}/${userUid}/todoList`), orderBy('time', 'desc'))
+        const q = query(collection(db, `${collectionName}/${user.uid}/todoList`), orderBy('time', 'desc'))
         const unsubscribe = onSnapshot(q, (querySnapshot) => {
             querySnapshot.docs.map((doc) => {
                 const data = doc.data()
