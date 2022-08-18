@@ -41,12 +41,15 @@
         font-size: 1.3rem;
         font-weight: 700;
         background-color: a.$nav-background;
+        border: 1px solid a.$nav-background;
         color: #fff;
         padding: 1rem;
         margin: 0.5rem;
         display: flex;
         flex-direction: column;
         gap: 40px;
+        box-shadow: 4px 4px #d773a7;
+        transition: 0.3s all ease-in-out;
 
         .icons {
             color: #fff;
@@ -57,6 +60,10 @@
             height: 45px;
             width: 45px;
         }
+    }
+    button:hover {
+        border: 2px solid #d773a7;
+        background: transparent;
     }
 }
 

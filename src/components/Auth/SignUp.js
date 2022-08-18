@@ -7,7 +7,7 @@ import {
 import { useNavigate } from 'react-router-dom'
 import { auth} from '../../config/firebase'
 import { MdVisibility, MdVisibilityOff } from 'react-icons/md'
-import MainNav from '../MainNav'
+import MainNavbar from '../MainNavbar'
 import { UserAuth } from '../../HOC/AuthContext'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -59,7 +59,7 @@ const SignUp = () => {
 
     return (
         <>
-            <MainNav />
+            <MainNavbar />
             <div div className='auth-wrapper'>
                     <ToastContainer position="bottom-left" style={{width: '70%', margin: '1rem'}} />
                 <div className='auth-container'>

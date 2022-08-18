@@ -1,9 +1,6 @@
 import { useState } from 'react'
 import { MdModeEdit, MdCloudDone } from 'react-icons/md'
 import { TbTrash } from 'react-icons/tb'
-import { deleteDoc, doc } from 'firebase/firestore'
-import { db } from '../../config/firebase'
-import { UserAuth } from '../../HOC/AuthContext'
 import './todo.scss'
 
 const Todo = ({task, toggleTodo, editTodo, deleteTodo}) => {
@@ -11,11 +8,15 @@ const Todo = ({task, toggleTodo, editTodo, deleteTodo}) => {
     const [todoEdit, setTodoEdit] = useState(`${task.todo}`)
     const [edit, setEdit] = useState(false)
 
-    const { userUid } = UserAuth()
+    const handleEditTodo = (e) => {
+        e.preventDefault()
+        editTodo(task.id, todoEdit)
+        setEdit(false)
+    }
 
     return (
         <div id={task.id} className='todo-wrapper'>
-            <div className='content'>
+            <form className='content'>
                 <button onClick={() => toggleTodo(task.id, !task.complete)} className="uncheck">
                     <span className='checkmark'></span>
                 </button>
@@ -34,11 +35,11 @@ const Todo = ({task, toggleTodo, editTodo, deleteTodo}) => {
                         </span>
                     )
                 }
-            </div>
+            </form>
             <div className='btns'>
                 {
                     edit ? (
-                        <button onClick={() => {editTodo(task.id, todoEdit); setEdit(false)}}>
+                        <button type='submit'  onClick={handleEditTodo}>
                                 <MdCloudDone />
                         </button>
                     ) : (

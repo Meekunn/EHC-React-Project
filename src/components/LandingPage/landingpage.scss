@@ -78,7 +78,7 @@ div .dot {
         font-size: 0.8rem;
     }
     .get-started {
-        color: a.$text-color;
+        color: #fff;
         margin: 0.5rem;
         padding: 1rem 1.5rem;
         border-radius: 10px;
@@ -86,5 +86,26 @@ div .dot {
         border: none;
         box-shadow: 0 -3px #763863 inset;
         background-image: linear-gradient(200deg, #BC248C, #F75F8C, #af92ac);
+        transition: 0.2s all ease-in-out;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .content-wrapper {
+        .title {
+            font-size: 2.7rem;
+        }
+        .about {
+            font-size: 1rem;
+        }
+        .get-started {
+            margin-top: 1rem;
+        }
+        .get-started:hover {
+            background: transparent;
+            box-shadow: 0 -3px #F75F8C inset;
+            border: 1px solid #F75F8C;
+            border-bottom: none;
+        }
     }
 }

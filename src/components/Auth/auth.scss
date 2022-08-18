@@ -62,7 +62,6 @@
         border-bottom: 2px solid a.$text-color;
         padding-left: 5px;
         margin: 0.5rem 0;
-        justify-content: space-between;
 
         input {
             color: a.$text-color;
@@ -70,20 +69,25 @@
             outline: none;
             background-color: transparent;
             font-size: 1rem;
+            width: 90%;
         }
         input::placeholder {
-            color: a.$nav-background;
+            color: rgb(131, 126, 126);
             font-size: 0.8rem;
         }
         button {
             height: 1rem; 
             background: transparent;
-            margin: 0.5rem 0;
+            margin: 0.5rem;
             position: relative;
             border: none;
 
             svg {
                 background-color: transparent;
+                color: a.$text-color;
+                transition: 0.25s all ease-in;
+            }
+            svg:hover {
                 color: #DE2D66;
             }
         }
@@ -97,27 +101,37 @@
     padding: 0.75rem 1rem;
     font-weight: 700;
     border: none;
+    box-shadow: 0 -3px #BC248C inset;
+    transition: 0.3s all ease-in-out;
 }
 .auth-btn:hover {
     background: transparent;
     color: a.$text-hover-color;
-    border: 2px solid a.$text-hover-color;
+    border: 1px solid a.$text-hover-color;
+    box-shadow: 0 -3px #F75F8C inset;
 }
 .google-btn {
     border-radius: 30px;
     background: #fff;
     color: a.$background-color;
-    padding: 0.75rem 1rem;
+    padding: 0.5rem 1rem;
     display: flex;
     justify-content: center;
     font-weight: 600;
     border: none;
     align-items: center;
+    box-shadow: 0 -3px grey inset;
+    transition: 0.3s all ease-in-out;
 
     svg {
         margin: 0.3rem 0 0.3rem 0.3rem;
         font-size: 1.2rem;
     }
+}
+.google-btn:hover {
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
 }
 .or {
     color: a.$text-color;

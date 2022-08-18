@@ -8,8 +8,8 @@ import Work from './components/Collections/Work'
 import PrivateRoute from './HOC/PrivateRoute'
 import { AuthContextProvider } from './HOC/AuthContext'
 import { SidenavContextProvider } from './HOC/SidenavContext'
-import './App.scss'
 import LandingPage from './components/LandingPage/'
+import './App.scss'
 
 
 function App() {

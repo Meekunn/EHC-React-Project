@@ -10,6 +10,7 @@
     border: 2px solid a.$nav-background;
     border-radius: 10px;
     justify-content: space-between;
+    transition: 0.25s all ease-in-out;
 
     .content {
         display: flex;
@@ -92,5 +93,15 @@
                 color: a.$text-hover-color;
             }
         }
+        button:hover {
+            svg {
+                color: a.$text-color;
+            }
+        }
     }
+}
+
+.todo-wrapper:hover {
+    transform: translate3d(10px, 5px, 10px);
+    box-shadow: 3px 3px 1px a.$text-hover-color;
 }

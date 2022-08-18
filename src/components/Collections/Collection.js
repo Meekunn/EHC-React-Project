@@ -67,8 +67,9 @@ const Collection = ({collectionName}) => {
 
     const capitalizeCollectionName = collectionName.charAt(0).toUpperCase() + collectionName.substring(1)
     
-    const addTodo = () => {
-        add(todo, userUid, collectionName)
+    const addTodo = (e) => {
+        e.preventDefault()
+        add(todo, user.uid, collectionName)
         setTodo('')
     }
 
@@ -134,12 +135,12 @@ const Collection = ({collectionName}) => {
                                 </button>
                                 {capitalizeCollectionName}
                             </span>
-                            <span style={{border: 'none', background: 'transparent'}}>
+                            <span className='three-dots'>
                                 ...
                             </span>
                         </div>
-                        <div className="todo-form">
-                            <button className='add-btn' onClick={addTodo}><HiPlusSm /></button>
+                        <form className="todo-form">
+                            <button type='submit' className='add-btn' onClick={addTodo}><HiPlusSm /></button>
                             <input 
                                 type='text' 
                                 className='input' 
@@ -147,7 +148,7 @@ const Collection = ({collectionName}) => {
                                 value={todo}
                                 onChange={(e) => setTodo(e.target.value)}
                             />
-                        </div>
+                        </form>
                         <div className="tasks-container">
                             <p>Tasks - {uncompletedTasks.length} </p>
                             <div className="tasks-wrapper">

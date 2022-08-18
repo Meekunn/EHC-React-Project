@@ -6,7 +6,7 @@ import { signInWithEmailAndPassword, getRedirectResult } from 'firebase/auth'
 import { ToastContainer, toast } from 'react-toastify'
 import { auth } from '../../config/firebase'
 import Spinner from '../Spinner'
-import MainNav from '../MainNav'
+import MainNavbar from '../MainNavbar'
 import { UserAuth } from '../../HOC/AuthContext'
 import 'react-toastify/dist/ReactToastify.css'
 import './auth.scss'
@@ -70,7 +70,7 @@ const Login = () => {
 
     return (
         <>
-            <MainNav />
+            <MainNavbar />
             <div className='auth-wrapper'>
                 {isLoading ? 
                     <Spinner />

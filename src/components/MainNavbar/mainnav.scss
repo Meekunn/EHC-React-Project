@@ -64,6 +64,7 @@
 }
 .activelink {
     border: none;
+    transition: all 0.3s ease-in-out;
     color: a.$text-hover-color;
 }
 
@@ -77,7 +78,7 @@
 
 @media only screen and (min-width: 992px) {
     .mainnav-wrapper {
-        padding: 1.5rem;
+        padding: 1.5rem 3rem;
     }
     .nav-links {
         font-size: 0.8rem;

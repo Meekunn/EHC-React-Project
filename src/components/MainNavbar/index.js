@@ -2,7 +2,7 @@ import { FaCheck } from 'react-icons/fa'
 import { NavLink } from 'react-router-dom'
 import './mainnav.scss'
 
-const MainNav = () => {
+const MainNavbar = () => {
 
     return (
         <nav className="mainnav-wrapper" >
@@ -29,4 +29,4 @@ const MainNav = () => {
     )
 }
 
-export default MainNav
+export default MainNavbar
