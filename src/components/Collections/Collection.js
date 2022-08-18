@@ -25,11 +25,9 @@ const Collection = ({collectionName}) => {
 
     const router = useNavigate()
     const { add } = useAddTodo()
-
-
-    const [todo, setTodo] = useState("")
     const { user, userUid} = UserAuth()
 
+    const [todo, setTodo] = useState("")
     const [completedTasks, setCompletedTasks] = useState([])
     const [uncompletedTasks, setUncompletedTasks] = useState([])
 
@@ -66,6 +64,8 @@ const Collection = ({collectionName}) => {
             unsubscribe()
         }
     }, [user])
+
+    const capitalizeCollectionName = collectionName.charAt(0).toUpperCase() + collectionName.substring(1)
     
     const addTodo = () => {
         add(todo, userUid, collectionName)
@@ -132,7 +132,7 @@ const Collection = ({collectionName}) => {
                                 <button className="back-arrow" onClick={() => {router('/dashboard')}}>
                                     <MdOutlineKeyboardArrowLeft />
                                 </button>
-                                {collectionName}
+                                {capitalizeCollectionName}
                             </span>
                             <span style={{border: 'none', background: 'transparent'}}>
                                 ...
