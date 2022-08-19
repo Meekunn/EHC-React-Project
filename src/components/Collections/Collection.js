@@ -47,7 +47,7 @@ const Collection = ({collectionName}) => {
                         return sortedItems
                     })
                 }
-                else if (data.complete === true && data.time != null ) {
+                else if (data.complete === true && data.time != null) {
                     return setCompletedTasks(prevTasks => {
                         const itExists = prevTasks.find(task => task.id === doc.id)
                         if (itExists) return prevTasks
@@ -85,7 +85,7 @@ const Collection = ({collectionName}) => {
                     const newArray = prevTasks.filter(task => task.id !== id)
                     return [...newArray]
                 })
-            } else {
+            } else if (complete === false) {
                 setCompletedTasks(prevTasks => {
                     const newArray = prevTasks.filter(task => task.id !== id)
                     return [...newArray]

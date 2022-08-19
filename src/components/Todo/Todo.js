@@ -8,15 +8,14 @@ const Todo = ({task, toggleTodo, editTodo, deleteTodo}) => {
     const [todoEdit, setTodoEdit] = useState(`${task.todo}`)
     const [edit, setEdit] = useState(false)
 
-    const handleEditTodo = (e) => {
-        e.preventDefault()
+    const handleEditTodo = () => {
         editTodo(task.id, todoEdit)
         setEdit(false)
     }
 
     return (
         <div id={task.id} className='todo-wrapper'>
-            <form className='content'>
+            <div className='content'>
                 <button onClick={() => toggleTodo(task.id, !task.complete)} className="uncheck">
                     <span className='checkmark'></span>
                 </button>
@@ -35,11 +34,11 @@ const Todo = ({task, toggleTodo, editTodo, deleteTodo}) => {
                         </span>
                     )
                 }
-            </form>
+            </div>
             <div className='btns'>
                 {
                     edit ? (
-                        <button type='submit'  onClick={handleEditTodo}>
+                        <button onClick={handleEditTodo}>
                                 <MdCloudDone />
                         </button>
                     ) : (

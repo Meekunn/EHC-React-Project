@@ -88,6 +88,12 @@ div .dot {
         background-image: linear-gradient(200deg, #BC248C, #F75F8C, #af92ac);
         transition: 0.2s all ease-in-out;
     }
+    .get-started:hover {
+        background: transparent;
+        box-shadow: 0 -3px #F75F8C inset;
+        border: 1px solid #F75F8C;
+        border-bottom: none;
+    }
 }
 
 @media only screen and (min-width: 992px) {
@@ -100,12 +106,6 @@ div .dot {
         }
         .get-started {
             margin-top: 1rem;
-        }
-        .get-started:hover {
-            background: transparent;
-            box-shadow: 0 -3px #F75F8C inset;
-            border: 1px solid #F75F8C;
-            border-bottom: none;
         }
     }
 }
