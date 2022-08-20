@@ -25,7 +25,7 @@ const Collection = ({collectionName}) => {
 
     const router = useNavigate()
     const { add } = useAddTodo()
-    const { user, userUid} = UserAuth()
+    const { user } = UserAuth()
 
     const [todo, setTodo] = useState("")
     const [completedTasks, setCompletedTasks] = useState([])
@@ -74,7 +74,7 @@ const Collection = ({collectionName}) => {
     }
 
     const toggleTodo = async (id, complete) => {
-        const todoRef = doc(db, `${collectionName}/${userUid}/todoList/${id}`)
+        const todoRef = doc(db, `${collectionName}/${user.uid}/todoList/${id}`)
         try {
             await setDoc (todoRef, {
                 complete,
@@ -97,7 +97,7 @@ const Collection = ({collectionName}) => {
     }
 
     const editTodo = async (id, todo) => {
-        const todoRef = doc(db, `${collectionName}/${userUid}/todoList/${id}`)
+        const todoRef = doc(db, `${collectionName}/${user.uid}/todoList/${id}`)
         await setDoc (todoRef, {
             todo: todo,
             time: serverTimestamp()
@@ -105,7 +105,7 @@ const Collection = ({collectionName}) => {
     }
 
     const deleteTodo = async (id) => {
-        const deleteRef = doc(db, `${collectionName}/${userUid}/todoList`, id)
+        const deleteRef = doc(db, `${collectionName}/${user.uid}/todoList`, id)
         try {
             await deleteDoc(deleteRef)
             setUncompletedTasks(prevTasks => {
