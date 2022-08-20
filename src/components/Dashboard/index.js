@@ -1,35 +1,27 @@
-import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Typewriter from 'typewriter-effect'
 import { IoSchool, IoPersonSharp } from 'react-icons/io5'
 import { MdWork } from 'react-icons/md'
-import Navbar from "../Navbar/Navbar"
-import SideNav from '../SideNav/SideNav'
-import { 
-    createPersonalCollection, 
-    createSchoolCollection, 
-    createWorkCollection,
-} from '../../HOC/utils'
+import Navbar from "../Navbar"
+import SideNav from "../SideNav"
+// import { 
+//     createPersonalCollection, 
+//     createSchoolCollection, 
+//     createWorkCollection,
+// } from '../../HOC/utils'
 import { UserAuth } from '../../HOC/AuthContext'
 import './dashboard.scss'
+import useCreateCollection from '../../hooks/useCreateCollection'
 
 const Dashboard = () => {
 
     const router = useNavigate()
-    const { user } = UserAuth()
-    const [userName, setUserName] = useState('')
-    const [userUid, setUserUid] = useState('')
+    const { userName, userUid } = UserAuth()
+    const { createCollection } = useCreateCollection()
 
-    useEffect(() => {
-        getUserDetails()
-    }, [])
-
-    const getUserDetails = () => {
-        if(user !== null) {
-            const username = user.displayName
-            setUserName(username)
-            setUserUid(user.uid)
-        } 
+    const createEachCollection = (name) => {
+        createCollection(name)
+        router(`/dashboard/${name}`)
     }
 
     return (
@@ -52,7 +44,8 @@ const Dashboard = () => {
                     </div>
                     <div className="btns-wrapper">
                         <button
-                            onClick={()=>{createSchoolCollection(userUid, userName); router('/dashboard/school')}}
+                            //onClick={()=>{createSchoolCollection('school'); router('/dashboard/school')}}
+                            onClick={() => createEachCollection('school')}
                         >
                             <span className='icons'
                                 style={{backgroundColor: '#F75F8C'}}
@@ -62,7 +55,8 @@ const Dashboard = () => {
                             School
                         </button>
                         <button
-                            onClick={()=>{createPersonalCollection(userUid, userName); router('/dashboard/personal')}}
+                            onClick={() => createEachCollection('personal')}
+                            //onClick={()=>{createPersonalCollection(userUid, userName); router('/dashboard/personal')}}
                         >
                             <span className='icons'
                                 style={{backgroundColor: '#33948D'}}
@@ -72,7 +66,8 @@ const Dashboard = () => {
                             Personal
                         </button>
                         <button
-                            onClick={()=>{createWorkCollection(userUid, userName); router('/dashboard/work')}}
+                            onClick={() => createEachCollection('work')}
+                            //onClick={()=>{createWorkCollection(userUid, userName); router('/dashboard/work')}}
                         >
                             <span className='icons' 
                                 style={{backgroundColor: '#AC6089'}}

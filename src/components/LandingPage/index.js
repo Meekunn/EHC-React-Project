@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import MainNav from "../MainNav/MainNav"
+import MainNavbar from "../MainNavbar"
 import "./landingpage.scss"
 const LandingPage = () => {
 
@@ -11,7 +11,7 @@ const LandingPage = () => {
 
     return (
         <>
-            <MainNav />
+            <MainNavbar />
             <div className='page-wrapper'>
                 <div className="page-container">
                     <div className="bubble-wrapper">

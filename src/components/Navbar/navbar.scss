@@ -56,10 +56,15 @@
         font-family: a.$text-family;
         border: 1px solid a.$text-color;
         border-radius: 10px;
+        transition: 0.25s all ease-in-out;
 
         p {
             padding: 0 0.2rem;
         }
+    }
+    .nav-links:hover {
+        border: 1px solid a.$text-hover-color;
+        color: a.$text-hover-color;
     }
 }
 .action-btns2 {

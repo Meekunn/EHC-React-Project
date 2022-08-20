@@ -5,8 +5,8 @@ import { FcGoogle } from 'react-icons/fc'
 import { signInWithEmailAndPassword, getRedirectResult } from 'firebase/auth'
 import { ToastContainer, toast } from 'react-toastify'
 import { auth } from '../../config/firebase'
-import Spinner from '../Spinner/Spinner'
-import MainNav from '../MainNav/MainNav'
+import Spinner from '../Spinner'
+import MainNavbar from '../MainNavbar'
 import { UserAuth } from '../../HOC/AuthContext'
 import 'react-toastify/dist/ReactToastify.css'
 import './auth.scss'
@@ -21,12 +21,12 @@ const Login = () => {
     const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
-        if (user !== null) {
+        if (user.providerId === 'google.com') {
             setIsLoading(true)
             getRedirectResult(auth)
             .then(() => {
                 setIsLoading(false)
-                if(auth.currentUser.emailVerified) {
+                if(auth.currentUser) {
                     router('/dashboard')
                 } 
             })
@@ -38,11 +38,7 @@ const Login = () => {
 
         signInWithEmailAndPassword(auth, userInfo.email, userInfo.password)
         .then(() => {
-            if(auth.currentUser.emailVerified) {
-                router('/dashboard')
-            } else {
-                toast.warn('Verify Your Email')
-            }
+            router('/dashboard')
             setUserInfo({email: '', password: ''})
         })
         .catch(error => {
@@ -74,7 +70,7 @@ const Login = () => {
 
     return (
         <>
-            <MainNav />
+            <MainNavbar />
             <div className='auth-wrapper'>
                 {isLoading ? 
                     <Spinner />

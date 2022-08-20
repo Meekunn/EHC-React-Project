@@ -34,6 +34,7 @@ main {
                     font-weight: 700;
                     font-family: a.$text-family;
                     padding: 1rem;
+                    cursor: pointer;
     
                     span {
                         display: flex;
@@ -45,11 +46,24 @@ main {
                             padding: 0.3rem;
                             font-size: 1.5rem;
                             background-color: a.$nav-background;
+                            border: 1px solid a.$nav-background;
                             border-radius: 12px;
-                            border: none;
                             color: a.$text-color;
                             display: flex;
+                            transition: 0.25s all ease-in-out;
                         }
+                        .back-arrow:hover {
+                            background: transparent;
+                            border: 1px solid a.$text-color;
+                        }
+                    }
+                    .three-dots {
+                        border: none;
+                        background: transparent;
+                        transition: 0.3s all ease-out;
+                    }
+                    .three-dots:hover {
+                        color: a.$text-hover-color;
                     }
                 }
 
@@ -65,9 +79,15 @@ main {
                         background-color: a.$text-hover-color;
                         padding: 0.3rem;
                         border-radius: 10px;
+                        border: 1px solid a.$text-hover-color;
                         margin-right: 0.8rem;
-                        border: none;
                         display: flex;
+                        transition: 0.2s all ease-in-out;
+                    }
+                    .add-btn:hover {
+                        background: transparent;
+                        color: a.$text-hover-color;
+                        box-shadow: 0px 1px a.$text-hover-color;
                     }
                     .input {
                         background: transparent;
@@ -79,6 +99,9 @@ main {
                         padding: 0.0.5rem;
                         width: 100%;
                     }
+                }
+                .todo-form:focus-within {
+                    border-color: a.$text-color;
                 }
 
                 .tasks-container {

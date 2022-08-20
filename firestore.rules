@@ -2,27 +2,45 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     match /school/{schoolID} {
+    	allow read: if request.auth.uid != null &&
+      	request.auth.uid == schoolID;
+      allow write: if request.auth.uid != null &&
+      	request.auth.uid == schoolID;
       match /todoList/{todoListID} {
-      	allow read:  if request.auth.token.email_verified;
-      	allow write: if request.resource.data.todo is string &&
-      		request.resource.data.complete is bool;
-        allow delete: if request.auth.token.email_verified;
+      	allow read;
+        allow create: if request.resource.data.todo is string && 
+        	request.resource.data.complete is bool;
+      	allow update: if request.resource.data.todo is string && 
+        	request.resource.data.complete is bool;
+        allow delete;
       }
   	}
     match /personal/{personalID} {
+      allow read: if request.auth.uid != null &&
+				request.auth.uid == personalID;
+      allow write: if request.auth.uid != null &&
+      	request.auth.uid == personalID;
       match /todoList/{todoListID} {
-      	allow read:  if request.auth.token.email_verified;
-      	allow write: if request.resource.data.todo is string &&
-      		request.resource.data.complete is bool
-        allow delete: if request.auth.token.email_verified;
+      	allow read;
+        allow create: if request.resource.data.todo is string && 
+        	request.resource.data.complete is bool;
+      	allow update: if request.resource.data.todo is string && 
+        	request.resource.data.complete is bool;
+        allow delete;
       }
     }
     match /work/{workID} {
-     match /todoList/{todoListID} {
-      	allow read:  if request.auth.token.email_verified;
-      	allow write: if request.resource.data.todo is string &&
-      		request.resource.data.complete is bool
-        allow delete: if request.auth.token.email_verified;
+     allow read: if request.auth.uid != null &&
+      	request.auth.uid == workID;
+      allow write: if request.auth.uid != null &&
+      	request.auth.uid == workID;
+      match /todoList/{todoListID} {
+      	allow read;
+        allow create: if request.resource.data.todo is string && 
+        	request.resource.data.complete is bool;
+      	allow update: if request.resource.data.todo is string && 
+        	request.resource.data.complete is bool;
+        allow delete;
       }
     }
   }	

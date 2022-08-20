@@ -4,9 +4,14 @@ import { TbTrash } from 'react-icons/tb'
 import './todo.scss'
 
 const Todo = ({task, toggleTodo, editTodo, deleteTodo}) => {
-    
-    const [todoEdit, setTodoEdit] = useState("")
+     
+    const [todoEdit, setTodoEdit] = useState(`${task.todo}`)
     const [edit, setEdit] = useState(false)
+
+    const handleEditTodo = () => {
+        editTodo(task.id, todoEdit)
+        setEdit(false)
+    }
 
     return (
         <div id={task.id} className='todo-wrapper'>
@@ -25,7 +30,7 @@ const Todo = ({task, toggleTodo, editTodo, deleteTodo}) => {
                         <span
                             className='task'
                         >
-                            {task.todo}
+                            {todoEdit}
                         </span>
                     )
                 }
@@ -33,7 +38,7 @@ const Todo = ({task, toggleTodo, editTodo, deleteTodo}) => {
             <div className='btns'>
                 {
                     edit ? (
-                        <button onClick={() => {editTodo(task.id, todoEdit); setEdit(false)}}>
+                        <button onClick={handleEditTodo}>
                                 <MdCloudDone />
                         </button>
                     ) : (

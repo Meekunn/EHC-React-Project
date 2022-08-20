@@ -6,13 +6,11 @@ An activity app that helps keep track of daily tasks and give that satisfaction 
 
 Check out the Design Inspiration [Click Here](https://dribbble.com/shots/15111239-Landing-page-WIP?utm_source=Clipboard_Shot&utm_campaign=oliver&utm_content=Landing%20page%20WIP&utm_medium=Social_Share&utm_source=Clipboard_Shot&utm_campaign=oliver&utm_content=Landing%20page%20WIP&utm_medium=Social_Share)
 
-## ✍🏽 Contributors
-1. [https://github.com/forJessicaSake](https://github.com/forJessicaSake) 
-
 ## Getting Started with EHC-React-Project
 
-1. Clone the repository to your local machine. You can watch [this video](https://www.youtube.com/watch?v=fQLK8Ib_SKk&list=PL4cUxeGkcC9goXbgTDQ0n_4TBzOO0ocPR&index=10) on how to clone a repository.
-3. Create a new branch tp push your commits. You can watch [this video](https://www.youtube.com/watch?v=MnUd31TvBoU&list=PL4cUxeGkcC9goXbgTDQ0n_4TBzOO0ocPR&index=11) on how to create new branches.
+1. Fork the repository.
+2. Clone the repository to your local machine. You can watch [this video](https://www.youtube.com/watch?v=fQLK8Ib_SKk&list=PL4cUxeGkcC9goXbgTDQ0n_4TBzOO0ocPR&index=10) on how to clone a repository.
+3. Create a new branch to push your commits. You can watch [this video](https://www.youtube.com/watch?v=MnUd31TvBoU&list=PL4cUxeGkcC9goXbgTDQ0n_4TBzOO0ocPR&index=11) on how to create new branches.
 4. Create a pull request to merge with main branch
 **Do not PUSH to the MAIN BRANCH**
 
