@@ -9,7 +9,7 @@ const useCreateCollection = () => {
 
     const { userUid, userName } = UserAuth()
 
-    const createCollection = async (collectionName) => {
+    const createCollection = async (collectionName: string) => {
         const docRef = doc(db, collectionName, userUid)
         const payload = {
             userName

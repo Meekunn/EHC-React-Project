@@ -1,32 +1,24 @@
-import { 
-    useContext, 
-    createContext, 
-    useEffect, 
-    useState 
-} from 'react'
-import { 
-    signInWithRedirect,
-    signOut,
-    onAuthStateChanged
-} from 'firebase/auth'
+import { useContext, createContext, useEffect, useState } from 'react'
+import { signInWithRedirect, signOut, onAuthStateChanged, User } from 'firebase/auth'
 import { auth, provider } from '../config/firebase'
 
-const AuthContext = createContext()
+const AuthContext = createContext<any>(null)
 
-export const AuthContextProvider = ({ children }) => {
+export const AuthContextProvider = ({ children }: IContextProvider) => {
     
-    const [user, setUser] = useState({})
+    const [user, setUser] = useState<User | {}>({})
     const [userName, setUserName] = useState('')
     const [userUid, setUserUid] = useState('')
 
     useEffect(() => {
         const sub = onAuthStateChanged(auth, (currentUser) => {
-            if (currentUser){
-                console.log(currentUser)
+            if (currentUser) {
                 setUser(currentUser)
-                const username = currentUser.displayName.charAt(0).toUpperCase() + currentUser.displayName.substring(1)
-                setUserName(username)
                 setUserUid(currentUser.uid)
+                if(currentUser.displayName){
+                    const username = currentUser.displayName.charAt(0).toUpperCase() + currentUser.displayName.substring(1)
+                    setUserName(username)
+                }
             }
         })
         return () => sub()
