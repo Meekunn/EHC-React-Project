@@ -33,7 +33,7 @@ const Login = () => {
         }
     }, [user])
 
-    const signInEmail = (e) => {
+    const signInEmail = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
 
         signInWithEmailAndPassword(auth, userInfo.email, userInfo.password)
@@ -80,7 +80,7 @@ const Login = () => {
                         <div className='auth-container'>
                             <div className='auth-form-wrapper'>
                                 <h1> Login </h1>
-                                <div className='auth-form'>
+                                <form className='auth-form'>
                                     <div className='input-group'>
                                         <p>Email: </p>
                                         <div className='input-with-icon'>
@@ -124,10 +124,11 @@ const Login = () => {
                                     <button
                                         className='google-btn'
                                         onClick={handleSignInGoogle}
+                                        type='submit'
                                     >
                                         Continue with Google <FcGoogle />
                                     </button>
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </>

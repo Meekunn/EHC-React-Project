@@ -13,23 +13,24 @@ import { useNavigate } from "react-router-dom"
 import { db } from "../../config/firebase"
 import { UserAuth } from "../../HOC/AuthContext"
 import { MdOutlineKeyboardArrowLeft } from 'react-icons/md'
-import { HiPlusSm } from 'react-icons/hi'
 import Navbar from "../Navbar"
 import SideNav from "../SideNav"
 import Todo from "../Todo/Todo"
+import TodoForm from "../TodoForm"
 import CompletedTodo from "../Todo/CompletedTodo"
 import useAddTodo from "../../hooks/useAddTodo"
 import './collection.scss'
+import { ITasks } from "../../types/index"
 
-const Collection = ({collectionName}) => {
+const Collection = ({collectionName}: ICollectionName) => {
 
     const router = useNavigate()
     const { add } = useAddTodo()
     const { user } = UserAuth()
 
     const [todo, setTodo] = useState("")
-    const [completedTasks, setCompletedTasks] = useState([])
-    const [uncompletedTasks, setUncompletedTasks] = useState([])
+    const [completedTasks, setCompletedTasks] = useState<ITasks[]>([])
+    const [uncompletedTasks, setUncompletedTasks] = useState<ITasks[]>([])
 
     useEffect(() => {
         const q = query(collection(db, `${collectionName}/${user.uid}/todoList`), orderBy('time', 'desc'))
@@ -37,8 +38,9 @@ const Collection = ({collectionName}) => {
             querySnapshot.docs.map((doc) => {
                 const data = doc.data()
                 if (data.complete === false && data.time != null) {
-                    return setUncompletedTasks(prevTasks => {
-                        const itExists = prevTasks.find(task => task.id === doc.id)
+                    return setUncompletedTasks((prevTasks: any) => {
+                        console.log('prevTasks',prevTasks)
+                        const itExists = prevTasks.find((task: { id: string }) => task.id === doc.id)
                         if (itExists) return prevTasks
                         const items = [...prevTasks, {...doc.data(), id: doc.id}]
                         const sortedItems = items.sort((x, y) => {
@@ -48,8 +50,8 @@ const Collection = ({collectionName}) => {
                     })
                 }
                 else if (data.complete === true && data.time != null) {
-                    return setCompletedTasks(prevTasks => {
-                        const itExists = prevTasks.find(task => task.id === doc.id)
+                    return setCompletedTasks((prevTasks: any) => {
+                        const itExists = prevTasks.find((task: { id: string }) => task.id === doc.id)
                         if (itExists) return prevTasks
                         const items = [...prevTasks, {...doc.data(), id: doc.id}]
                         const sortedItems = items.sort((x,y) => {
@@ -67,13 +69,13 @@ const Collection = ({collectionName}) => {
 
     const capitalizeCollectionName = collectionName.charAt(0).toUpperCase() + collectionName.substring(1)
     
-    const addTodo = (e) => {
+    const addTodo = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
-        add(todo, user.uid, collectionName)
+        add(todo, collectionName)
         setTodo('')
     }
 
-    const toggleTodo = async (id, complete) => {
+    const toggleTodo = async (id: string, complete: boolean) => {
         const todoRef = doc(db, `${collectionName}/${user.uid}/todoList/${id}`)
         try {
             await setDoc (todoRef, {
@@ -82,21 +84,21 @@ const Collection = ({collectionName}) => {
             }, {merge: true})
             if (complete) {
                 setUncompletedTasks(prevTasks => {
-                    const newArray = prevTasks.filter(task => task.id !== id)
+                    const newArray = prevTasks.filter((task: ITasks) => task.id !== id)
                     return [...newArray]
                 })
             } else if (complete === false) {
                 setCompletedTasks(prevTasks => {
-                    const newArray = prevTasks.filter(task => task.id !== id)
+                    const newArray = prevTasks.filter((task: ITasks) => task.id !== id)
                     return [...newArray]
                 })
             }
-        } catch (error) {
+        } catch (error: any) {
             return error
         }
     }
 
-    const editTodo = async (id, todo) => {
+    const editTodo = async (id: string, todo: string) => {
         const todoRef = doc(db, `${collectionName}/${user.uid}/todoList/${id}`)
         await setDoc (todoRef, {
             todo: todo,
@@ -104,7 +106,7 @@ const Collection = ({collectionName}) => {
         }, {merge: true})
     }
 
-    const deleteTodo = async (id) => {
+    const deleteTodo = async (id: string) => {
         const deleteRef = doc(db, `${collectionName}/${user.uid}/todoList`, id)
         try {
             await deleteDoc(deleteRef)
@@ -116,7 +118,7 @@ const Collection = ({collectionName}) => {
                 const newArray = prevTasks.filter(task => task.id !== id)
                 return [...newArray]
             })
-        } catch(error){
+        } catch(error: any){
             return error
         }
     }
@@ -139,20 +141,11 @@ const Collection = ({collectionName}) => {
                                 ...
                             </span>
                         </div>
-                        <form className="todo-form">
-                            <button type='submit' className='add-btn' onClick={addTodo}><HiPlusSm /></button>
-                            <input 
-                                type='text' 
-                                className='input' 
-                                placeholder="Add a task"
-                                value={todo}
-                                onChange={(e) => setTodo(e.target.value)}
-                            />
-                        </form>
+                        <TodoForm {...({addTodo, todo, setTodo})} />
                         <div className="tasks-container">
                             <p>Tasks - {uncompletedTasks.length} </p>
                             <div className="tasks-wrapper">
-                                { uncompletedTasks.map((task) => {
+                                { uncompletedTasks.map((task: ITasks) => {
                                     return (
                                         <Todo 
                                             key={task.id}
@@ -165,7 +158,7 @@ const Collection = ({collectionName}) => {
                         <div className="tasks-container">
                             <p>Completed - {completedTasks.length} </p>
                             <div className="tasks-wrapper">
-                                { completedTasks.map((task) => {
+                                { completedTasks.map((task: ITasks) => {
                                     return (
                                       <CompletedTodo 
                                             key={task.id}

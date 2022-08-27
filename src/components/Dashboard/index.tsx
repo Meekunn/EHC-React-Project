@@ -4,11 +4,6 @@ import { IoSchool, IoPersonSharp } from 'react-icons/io5'
 import { MdWork } from 'react-icons/md'
 import Navbar from "../Navbar"
 import SideNav from "../SideNav"
-// import { 
-//     createPersonalCollection, 
-//     createSchoolCollection, 
-//     createWorkCollection,
-// } from '../../HOC/utils'
 import { UserAuth } from '../../HOC/AuthContext'
 import './dashboard.scss'
 import useCreateCollection from '../../hooks/useCreateCollection'
@@ -16,10 +11,10 @@ import useCreateCollection from '../../hooks/useCreateCollection'
 const Dashboard = () => {
 
     const router = useNavigate()
-    const { userName, userUid } = UserAuth()
+    const { userName } = UserAuth()
     const { createCollection } = useCreateCollection()
 
-    const createEachCollection = (name) => {
+    const createEachCollection = (name: string) => {
         createCollection(name)
         router(`/dashboard/${name}`)
     }
@@ -43,10 +38,7 @@ const Dashboard = () => {
                         />
                     </div>
                     <div className="btns-wrapper">
-                        <button
-                            //onClick={()=>{createSchoolCollection('school'); router('/dashboard/school')}}
-                            onClick={() => createEachCollection('school')}
-                        >
+                        <button onClick={() => createEachCollection('school')}>
                             <span className='icons'
                                 style={{backgroundColor: '#F75F8C'}}
                             >
@@ -54,10 +46,7 @@ const Dashboard = () => {
                             </span>
                             School
                         </button>
-                        <button
-                            onClick={() => createEachCollection('personal')}
-                            //onClick={()=>{createPersonalCollection(userUid, userName); router('/dashboard/personal')}}
-                        >
+                        <button onClick={() => createEachCollection('personal')}>
                             <span className='icons'
                                 style={{backgroundColor: '#33948D'}}
                             >
@@ -65,10 +54,7 @@ const Dashboard = () => {
                             </span>
                             Personal
                         </button>
-                        <button
-                            onClick={() => createEachCollection('work')}
-                            //onClick={()=>{createWorkCollection(userUid, userName); router('/dashboard/work')}}
-                        >
+                        <button onClick={() => createEachCollection('work')}>
                             <span className='icons' 
                                 style={{backgroundColor: '#AC6089'}}
                             >

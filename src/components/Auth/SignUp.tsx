@@ -1,9 +1,5 @@
 import React, { useState } from 'react'
-import { 
-    createUserWithEmailAndPassword,
-    //sendEmailVerification,
-    updateProfile,
-} from 'firebase/auth'
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
 import { auth} from '../../config/firebase'
 import { MdVisibility, MdVisibilityOff } from 'react-icons/md'
@@ -12,6 +8,11 @@ import { UserAuth } from '../../HOC/AuthContext'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import './auth.scss'
+
+const iconStyle = {
+    background: 'transparent',
+    color: '#DE2D66'
+}
 
 const SignUp = () => {
 
@@ -24,7 +25,7 @@ const SignUp = () => {
 
     const { signOutAccount } = UserAuth()
 
-    const signUpEmail = (e) => {
+    const signUpEmail = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
 
         if (userInfo.password !== confirmPass ) {
@@ -36,12 +37,14 @@ const SignUp = () => {
         else {
             createUserWithEmailAndPassword(auth, userInfo.email, userInfo.password)
             .then (async () => {
-                await updateProfile(auth.currentUser, {
-                    displayName: userInfo.username
-                })
-                setUserInfo({email: '', username: '', password: ''})
-                await signOutAccount()
-                router('/login')
+                if (auth.currentUser) {
+                    await updateProfile(auth.currentUser, {
+                        displayName: userInfo.username
+                    })
+                    setUserInfo({email: '', username: '', password: ''})
+                    await signOutAccount()
+                    router('/login')
+                }
             })
             .catch((error) => {
                 if(error.code === 'auth/weak-password') {
@@ -60,12 +63,12 @@ const SignUp = () => {
     return (
         <>
             <MainNavbar />
-            <div div className='auth-wrapper'>
+            <div className='auth-wrapper'>
                     <ToastContainer position="bottom-left" style={{width: '70%', margin: '1rem'}} />
                 <div className='auth-container'>
                     <div className='auth-form-wrapper'>
                         <h1> Sign Up </h1>
-                        <div className='auth-form'>
+                        <form className='auth-form'>
                             <div className='input-group' >
                                 <p> Username: </p>
                                 <div className='input-with-icon'>
@@ -104,9 +107,9 @@ const SignUp = () => {
                                         onClick={()=>setShowPass(!showPass)}
                                     >
                                         {showPass ? 
-                                            <MdVisibilityOff backgound='transparent' color='#DE2D66' /> 
+                                            <MdVisibilityOff style={iconStyle} /> 
                                             : 
-                                            <MdVisibility backgound='transparent' color='#DE2D66' /> 
+                                            <MdVisibility style={iconStyle} /> 
                                         }
                                     </button>
                                 </div>
@@ -125,19 +128,17 @@ const SignUp = () => {
                                         onClick={()=>setShowConfirm(!showConfirm)}
                                     >
                                         {showConfirm ? 
-                                            <MdVisibilityOff background='transparent' color='#DE2D66' /> 
+                                            <MdVisibilityOff style={iconStyle} /> 
                                             : 
-                                            <MdVisibility background='transparent' color='#DE2D66' /> 
+                                            <MdVisibility style={iconStyle} /> 
                                         }
                                     </button>
                                 </div>
                             </div>
-                            <button className='auth-btn'
-                                onClick={signUpEmail}
-                            >
+                            <button className='auth-btn' onClick={signUpEmail} type='submit'>
                                 Sign Up
                             </button>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
