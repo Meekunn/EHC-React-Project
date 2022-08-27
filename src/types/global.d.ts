@@ -1,10 +1,8 @@
-
-interface ITask {
+interface ITodoForm {
     todo: string,
-    complete: boolean,
-    id: string,
+    setTodo: React.Dispatch<React.SetStateAction<string>>,
+    addTodo: (e: React.MouseEvent<HTMLButtonElement>) => void,
 }
-
 interface IContextProvider {
     children: React.ReactNode
 }
