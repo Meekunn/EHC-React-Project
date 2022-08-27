@@ -7,15 +7,21 @@ const AuthContext = createContext<any>(null)
 export const AuthContextProvider = ({ children }: IContextProvider) => {
     
     const [user, setUser] = useState<User | {}>({})
+    const [userProvider, setUserProvider] = useState('')
     const [userName, setUserName] = useState('')
     const [userUid, setUserUid] = useState('')
+
+    let item: number
 
     useEffect(() => {
         const sub = onAuthStateChanged(auth, (currentUser) => {
             if (currentUser) {
                 setUser(currentUser)
                 setUserUid(currentUser.uid)
-                if(currentUser.displayName){
+                currentUser.providerData.map((id) => {
+                    setUserProvider(id.providerId)
+                })
+                if(currentUser.displayName) {
                     const username = currentUser.displayName.charAt(0).toUpperCase() + currentUser.displayName.substring(1)
                     setUserName(username)
                 }
@@ -37,7 +43,7 @@ export const AuthContextProvider = ({ children }: IContextProvider) => {
 
 
     return (
-        <AuthContext.Provider value={{ signInGoogle, signOutAccount, user, userName, userUid }}>
+        <AuthContext.Provider value={{ signInGoogle, signOutAccount, user, userName, userUid, userProvider }}>
             {children}
         </AuthContext.Provider>
     )
