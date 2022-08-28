@@ -19,8 +19,9 @@ import Todo from "../Todo/Todo"
 import TodoForm from "../TodoForm"
 import CompletedTodo from "../Todo/CompletedTodo"
 import useAddTodo from "../../hooks/useAddTodo"
-import './collection.scss'
 import { ITasks } from "../../types/index"
+import LinearProgress from "../LinearProgress"
+import './collection.scss'
 
 const Collection = ({collectionName}: ICollectionName) => {
 
@@ -31,15 +32,16 @@ const Collection = ({collectionName}: ICollectionName) => {
     const [todo, setTodo] = useState("")
     const [completedTasks, setCompletedTasks] = useState<ITasks[]>([])
     const [uncompletedTasks, setUncompletedTasks] = useState<ITasks[]>([])
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         const q = query(collection(db, `${collectionName}/${user.uid}/todoList`), orderBy('time', 'desc'))
         const unsubscribe = onSnapshot(q, (querySnapshot) => {
+            setLoading(false)
             querySnapshot.docs.map((doc) => {
                 const data = doc.data()
                 if (data.complete === false && data.time != null) {
                     return setUncompletedTasks((prevTasks: any) => {
-                        console.log('prevTasks',prevTasks)
                         const itExists = prevTasks.find((task: { id: string }) => task.id === doc.id)
                         if (itExists) return prevTasks
                         const items = [...prevTasks, {...doc.data(), id: doc.id}]
@@ -128,48 +130,68 @@ const Collection = ({collectionName}: ICollectionName) => {
             <Navbar />
             <div className="todos-wrapper">
                 <SideNav />
-                <div className="todolist">
-                    <div className='wrapper'>
-                        <div className="heading">
-                            <span>
-                                <button className="back-arrow" onClick={() => {router('/dashboard')}}>
-                                    <MdOutlineKeyboardArrowLeft />
-                                </button>
-                                {capitalizeCollectionName}
-                            </span>
-                            <span className='three-dots'>
-                                ...
-                            </span>
-                        </div>
-                        <TodoForm {...({addTodo, todo, setTodo})} />
-                        <div className="tasks-container">
-                            <p>Tasks - {uncompletedTasks.length} </p>
-                            <div className="tasks-wrapper">
-                                { uncompletedTasks.map((task: ITasks) => {
-                                    return (
-                                        <Todo 
-                                            key={task.id}
-                                            {...({task, toggleTodo, editTodo, deleteTodo})}
-                                        />
-                                    )
-                                })}
+                { loading ? 
+                    <>
+                        <LinearProgress bgColor='#F75F8C' />
+                        <div className="todolist">
+                            <div className='wrapper'>
+                                <div className="heading">
+                                    <span>
+                                        <button className="back-arrow" onClick={() => {router('/dashboard')}}>
+                                            <MdOutlineKeyboardArrowLeft />
+                                        </button>
+                                        {capitalizeCollectionName}
+                                    </span>
+                                    <span className='three-dots'>
+                                        ...
+                                    </span>
+                                </div>
                             </div>
                         </div>
-                        <div className="tasks-container">
-                            <p>Completed - {completedTasks.length} </p>
-                            <div className="tasks-wrapper">
-                                { completedTasks.map((task: ITasks) => {
-                                    return (
-                                      <CompletedTodo 
-                                            key={task.id}
-                                            {...({task, toggleTodo, deleteTodo})}
-                                        />
-                                    )
-                                })}
+                    </> :
+                    <div className="todolist">
+                        <div className='wrapper'>
+                            <div className="heading">
+                                <span>
+                                    <button className="back-arrow" onClick={() => {router('/dashboard')}}>
+                                        <MdOutlineKeyboardArrowLeft />
+                                    </button>
+                                    {capitalizeCollectionName}
+                                </span>
+                                <span className='three-dots'>
+                                    ...
+                                </span>
+                            </div>
+                            <TodoForm {...({addTodo, todo, setTodo})} />
+                            <div className="tasks-container">
+                                <p>Tasks - {uncompletedTasks.length} </p>
+                                <div className="tasks-wrapper">
+                                    { uncompletedTasks.map((task: ITasks) => {
+                                        return (
+                                            <Todo 
+                                                key={task.id}
+                                                {...({task, toggleTodo, editTodo, deleteTodo})}
+                                            />
+                                        )
+                                    })}
+                                </div>
+                            </div>
+                            <div className="tasks-container">
+                                <p>Completed - {completedTasks.length} </p>
+                                <div className="tasks-wrapper">
+                                    { completedTasks.map((task: ITasks) => {
+                                        return (
+                                        <CompletedTodo 
+                                                key={task.id}
+                                                {...({task, toggleTodo, deleteTodo})}
+                                            />
+                                        )
+                                    })}
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                }
             </div>
         </main>
     )

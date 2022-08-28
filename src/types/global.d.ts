@@ -10,3 +10,7 @@ interface IContextProvider {
 interface ICollectionName {
     collectionName: string
 }
+
+interface ILinearProgressProps {
+    bgColor: string,
+}
