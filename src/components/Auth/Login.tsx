@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { MdVisibility, MdVisibilityOff } from 'react-icons/md'
 import { FcGoogle } from 'react-icons/fc'
-import { signInWithEmailAndPassword, getRedirectResult, signInWithRedirect } from 'firebase/auth'
+import { signInWithEmailAndPassword, getRedirectResult } from 'firebase/auth'
 import { ToastContainer, toast } from 'react-toastify'
-import { auth, provider } from '../../config/firebase'
+import { auth } from '../../config/firebase'
 import Spinner from '../Spinner'
 import MainNavbar from '../MainNavbar'
 import { UserAuth } from '../../HOC/AuthContext'
@@ -21,13 +21,17 @@ const Login = () => {
     const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
-        if (userProvider === 'google.com') {
-            setIsLoading(true)
-            getRedirectResult(auth)
-            .then(() => {
-                setIsLoading(false)
-                router('/dashboard')
-            })
+        if ( user ) {
+            if (userProvider === 'google.com') {
+                setIsLoading(true)
+                getRedirectResult(auth)
+                .then(() => {
+                    router('/dashboard')
+                    setIsLoading(false)
+                })
+            }
+        } else {
+            router('/login')
         }
     }, [user])
 
