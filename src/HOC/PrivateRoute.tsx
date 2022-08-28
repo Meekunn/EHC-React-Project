@@ -1,7 +1,7 @@
 import { Navigate } from 'react-router-dom'
 import { UserAuth } from './AuthContext'
 
-const PrivateRoute = ({children}) => {
+const PrivateRoute = ({children}: any) => {
 
     const { user } = UserAuth()
 

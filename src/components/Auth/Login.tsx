@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { MdVisibility, MdVisibilityOff } from 'react-icons/md'
 import { FcGoogle } from 'react-icons/fc'
-import { signInWithEmailAndPassword, getRedirectResult } from 'firebase/auth'
+import { signInWithEmailAndPassword, getRedirectResult, signInWithRedirect } from 'firebase/auth'
 import { ToastContainer, toast } from 'react-toastify'
-import { auth } from '../../config/firebase'
+import { auth, provider } from '../../config/firebase'
 import Spinner from '../Spinner'
 import MainNavbar from '../MainNavbar'
 import { UserAuth } from '../../HOC/AuthContext'
@@ -13,7 +13,7 @@ import './auth.scss'
 
 const Login = () => {
 
-    const { signInGoogle, user } = UserAuth()
+    const { signInGoogle, user, userProvider } = UserAuth()
 
     const router = useNavigate()
     const [userInfo, setUserInfo] = useState({ email: '', password: ''})
@@ -21,20 +21,17 @@ const Login = () => {
     const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
-        if (user.providerId === 'google.com') {
+        if (userProvider === 'google.com') {
             setIsLoading(true)
             getRedirectResult(auth)
             .then(() => {
                 setIsLoading(false)
-                if(auth.currentUser) {
-                    router('/dashboard')
-                } 
+                router('/dashboard')
             })
         }
     }, [user])
 
-    const signInEmail = (e) => {
-        e.preventDefault()
+    const signInEmail = () => {
 
         signInWithEmailAndPassword(auth, userInfo.email, userInfo.password)
         .then(() => {

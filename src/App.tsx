@@ -1,14 +1,14 @@
 import { Routes, Route } from 'react-router-dom'
 import Login from './components/Auth/Login'
 import SignUp from './components/Auth/SignUp'
-import Dashboard from './components/Dashboard/'
+import Dashboard from './components/Dashboard'
 import School from './components/Collections/School'
 import Personal from './components/Collections/Personal'
 import Work from './components/Collections/Work'
 import PrivateRoute from './HOC/PrivateRoute'
 import { AuthContextProvider } from './HOC/AuthContext'
 import { SidenavContextProvider } from './HOC/SidenavContext'
-import LandingPage from './components/LandingPage/'
+import LandingPage from './components/LandingPage'
 import './App.scss'
 
 

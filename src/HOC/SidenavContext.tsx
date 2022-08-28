@@ -1,8 +1,8 @@
 import { useContext, createContext, useState } from 'react'
 
-const SidenavContext = createContext()
+const SidenavContext = createContext<any>(null)
 
-export const SidenavContextProvider = ({children}) => {
+export const SidenavContextProvider = ({children}: IContextProvider) => {
 
     const [isMobile, setIsMobile ] = useState(false)
     
