@@ -1,6 +1,6 @@
 import './linearprogress.scss'
 
-const LinearProgress = ({bgColor}: ILinearProgressProps) => {
+const LinearProgress = ({bgColor, label}: ILinearProgressProps) => {
 
     const linearStyles = {
         background: `${bgColor}`,
@@ -8,8 +8,8 @@ const LinearProgress = ({bgColor}: ILinearProgressProps) => {
 
     return (
         <div className='linear-container'>
-            <div className='linear' style={linearStyles}></div>
-            <p className='loading' role='progressbar'>Loading</p>
+            <div className='linear' style={linearStyles}></div> 
+            <p className='loading' role='progressbar'>{label}</p>
         </div>
     )
 }

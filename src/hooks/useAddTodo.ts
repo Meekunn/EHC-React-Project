@@ -6,8 +6,9 @@ const useAddTodo = () => {
 
     const { userUid } = UserAuth()    
 
-    const add = async (todo: string, collectionName: string)=> {
+    const add = async (todo: string, collectionName: string, setIsAdding: React.Dispatch<React.SetStateAction<boolean>> )=> {
         if(todo !== '') {
+            setIsAdding(true)
             const collectionRef = collection(db, `${collectionName}/${userUid}/todoList`)
             const payload = {
                 todo: todo.trim(),
@@ -17,6 +18,7 @@ const useAddTodo = () => {
             }
             await addDoc(collectionRef, payload)
         }
+        setIsAdding(false)
     }
     return { add }
 }

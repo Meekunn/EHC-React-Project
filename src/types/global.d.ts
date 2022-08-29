@@ -13,6 +13,7 @@ interface ICollectionName {
 
 interface ILinearProgressProps {
     bgColor: string,
+    label?: string,
 }
 
 interface ISnackbar {

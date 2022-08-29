@@ -33,6 +33,9 @@ const Collection = ({collectionName}: ICollectionName) => {
     const [completedTasks, setCompletedTasks] = useState<ITasks[]>([])
     const [uncompletedTasks, setUncompletedTasks] = useState<ITasks[]>([])
     const [loading, setLoading] = useState(true)
+    const [isAdding, setIsAdding] = useState(false)
+    const [isDeleting, setIsDeleting] = useState(false)
+    const [isToggling, setIsToggling] = useState(false)
 
     useEffect(() => {
         const q = query(collection(db, `${collectionName}/${user.uid}/todoList`), orderBy('time', 'desc'))
@@ -73,11 +76,12 @@ const Collection = ({collectionName}: ICollectionName) => {
 
     const addTodo = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
-        add(todo, collectionName)
+        add(todo, collectionName, setIsAdding)
         setTodo('')
     }
 
     const toggleTodo = async (id: string, complete: boolean) => {
+        setIsToggling(true)
         const todoRef = doc(db, `${collectionName}/${user.uid}/todoList/${id}`)
         try {
             await setDoc (todoRef, {
@@ -89,13 +93,15 @@ const Collection = ({collectionName}: ICollectionName) => {
                     const newArray = prevTasks.filter((task: ITasks) => task.id !== id)
                     return [...newArray]
                 })
-            } else if (complete === false) {
+            } else {
                 setCompletedTasks(prevTasks => {
                     const newArray = prevTasks.filter((task: ITasks) => task.id !== id)
                     return [...newArray]
                 })
             }
+            setIsToggling(false)
         } catch (error: any) {
+            setIsToggling(false)
             return error
         }
     }
@@ -109,6 +115,7 @@ const Collection = ({collectionName}: ICollectionName) => {
     }
 
     const deleteTodo = async (id: string) => {
+        setIsDeleting(true)
         const deleteRef = doc(db, `${collectionName}/${user.uid}/todoList`, id)
         try {
             await deleteDoc(deleteRef)
@@ -120,7 +127,9 @@ const Collection = ({collectionName}: ICollectionName) => {
                 const newArray = prevTasks.filter(task => task.id !== id)
                 return [...newArray]
             })
+            setIsDeleting(false)
         } catch(error: any){
+            setIsDeleting(false)
             return error
         }
     }
@@ -130,9 +139,12 @@ const Collection = ({collectionName}: ICollectionName) => {
             <Navbar />
             <div className="todos-wrapper">
                 <SideNav />
+                { isAdding ? <LinearProgress bgColor='#F75F8C' label='Adding Task' /> : <></>}
+                { isDeleting ? <LinearProgress bgColor='#F75F8C' label='Deleting Task' /> : <></>}
+                { isToggling ? <LinearProgress bgColor='#F75F8C' label='Toggling' /> : <></>}
                 { loading ? 
                     <>
-                        <LinearProgress bgColor='#F75F8C' />
+                        <LinearProgress bgColor='#F75F8C' label='Loading' />
                         <div className="todolist">
                             <div className='wrapper'>
                                 <div className="heading">
