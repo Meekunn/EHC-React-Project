@@ -1,7 +1,7 @@
 @use '../../styles//base' as a;
 
 .linear-container {
-    top: 75px;
+    top: 65px;
     height: 15px;
     width: 100%;
     background: a.$text-color;
@@ -9,7 +9,7 @@
     
     .linear {
         height: 100%;
-        width: 250px;
+        width: 300px;
         animation: linearprogress 1s linear -2s infinite normal;
         position: absolute;  
     }
@@ -30,5 +30,17 @@
     }
     100% {
         left: 100%;
+    }
+}
+
+@media only screen and (min-width: 600px) {
+    .linear-container {
+        top: 70px;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .linear-container {
+        top: 75px;
     }
 }
