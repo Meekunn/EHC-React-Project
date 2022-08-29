@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import {
     collection,
     doc,       
@@ -70,7 +70,7 @@ const Collection = ({collectionName}: ICollectionName) => {
     }, [user])
 
     const capitalizeCollectionName = collectionName.charAt(0).toUpperCase() + collectionName.substring(1)
-    
+
     const addTodo = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
         add(todo, collectionName)
