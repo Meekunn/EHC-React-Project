@@ -11,8 +11,10 @@ import { UserAuth } from '../../HOC/AuthContext'
 import 'react-toastify/dist/ReactToastify.css'
 import './auth.scss'
 
-const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/
-const USEREMAIL_REGEX = /^[A-Za-z0-9_\-\.]{4,}[@][a-z]+[\.][a-z]{2,3}$/
+const visibilityIconStyle = {
+    background: 'transparent',
+    color: '#DE2D66'
+}
 
 const Login = () => {
 
@@ -22,10 +24,7 @@ const Login = () => {
     const userRef = useRef<HTMLInputElement>(null)
 
     const [email, setEmail] = useState('')
-    const [focusEmail, setFocusEmail] = useState(false)
-
     const [password, setPassword] = useState('')
-    const [focusPass, setFocusPass] = useState(false)
 
     const [show, setShow] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
@@ -101,8 +100,6 @@ const Login = () => {
                                                 placeholder='janedoe@email.com'
                                                 value={email}
                                                 onChange={ e => setEmail(e.target.value)}
-                                                onFocus={() => setFocusEmail(true)}
-                                                onBlur={() => setFocusEmail(false)}
                                             />
                                         </div>
                                     </div>
@@ -115,16 +112,14 @@ const Login = () => {
                                                 placeholder='Enter password'
                                                 value={password}
                                                 onChange={ e => setPassword(e.target.value)}
-                                                onFocus={() => setFocusPass(true)}
-                                                onBlur={() => setFocusPass(false)}
                                             />
                                             <button 
                                                 onClick={()=>setShow(!show)}
                                             >
                                                 {show ? 
-                                                    <MdVisibilityOff /> 
+                                                    <MdVisibilityOff style={visibilityIconStyle} /> 
                                                     : 
-                                                    <MdVisibility /> 
+                                                    <MdVisibility style={visibilityIconStyle} /> 
                                                 }
                                             </button>
                                         </div>
