@@ -20,7 +20,7 @@ const Navbar = () => {
             await signOutAccount()
             router('/login')
         } catch (err) {
-            console.log(err)
+            return err
         }
     }
     
