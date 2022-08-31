@@ -18,8 +18,7 @@ export const AuthContextProvider = ({ children }: IContextProvider) => {
                 setUser(currentUser)
                 setUserUid(currentUser.uid)
                 currentUser.providerData.map((id) => {
-                    setUserProvider(id.providerId)
-                    // eslint-disable-next-line
+                    return setUserProvider(id.providerId)
                 })
                 if(currentUser.displayName) {
                     const username = currentUser.displayName.charAt(0).toUpperCase() + currentUser.displayName.substring(1)
