@@ -17,7 +17,7 @@ const visibilityIconStyle = {
 }
 
 const Login = () => {
-
+    //Values from AuthContextProvider
     const { signInGoogle, user, userProvider } = UserAuth()
 
     const router = useNavigate()
@@ -30,9 +30,11 @@ const Login = () => {
     const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
+        //Check if User exists
         if ( user ) {
             if (userProvider === 'google.com') {
                 setIsLoading(true)
+                //Get Auth Redirect Result
                 getRedirectResult(auth)
                 .then(() => {
                     router('/dashboard')
@@ -44,6 +46,7 @@ const Login = () => {
         }
     }, [user])
 
+    //Focus on First input on Component mount
     useEffect(() => {
         userRef.current?.focus();
     }, [])
