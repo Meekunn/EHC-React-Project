@@ -12,11 +12,13 @@ import 'react-toastify/dist/ReactToastify.css'
 import './auth.scss'
 import Snackbar from '../Snackbar'
 
+//CSS Styling on visibility icons
 const visibilityIconStyle = {
     background: 'transparent',
     color: '#DE2D66'
 }
 
+//REGEX EXPRESSIONS TO VALIDATE USER INPUT ✔ 
 const USERNAME_REGEX = /^[A-Z][a-z_]{3,23}$/
 const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/
 const USEREMAIL_REGEX = /^[A-Za-z0-9_\-\.]{4,}[@][a-z]+[\.][a-z]{2,3}$/
@@ -46,29 +48,34 @@ const SignUp = () => {
     const [showPass, setShowPass] = useState(false)
     const [showConfirm, setShowConfirm] = useState(false)
 
-
+    //Set Focus on First Input onComponentDidMount ⌨ 
     useEffect(() => {
         userRef.current?.focus();
     }, [])
 
+    //Validate User input value for Username 🔠 
     useEffect(()=> {
         setValidName(USERNAME_REGEX.test(username))
     },[username])
 
+    //Validate User input value for Email 🔠 
     useEffect(()=> {
         setValidEmail(USEREMAIL_REGEX.test(email))
     },[email])
 
+    //Validate User input value for Password and Confirm Passwords🔠 
     useEffect(()=> {
         setValidPass(PASSWORD_REGEX.test(password))
         setValidConfirmPass(password === confirmPass)
     },[password, confirmPass])
 
     const signUpEmail = () => {
+
         const entry1 = USERNAME_REGEX.test(username)
         const entry2 = USEREMAIL_REGEX.test(email)
         const entry3 = PASSWORD_REGEX.test(password)
 
+        //Enforce validate before Submission
         if ( !entry1 || !entry2 || !entry3) {
             toast.warn("Don't Play Smart 🤡")
         } 
