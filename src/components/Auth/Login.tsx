@@ -1,42 +1,57 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { MdVisibility, MdVisibilityOff } from 'react-icons/md'
 import { FcGoogle } from 'react-icons/fc'
-import { signInWithEmailAndPassword, getRedirectResult, signInWithRedirect } from 'firebase/auth'
+import { signInWithEmailAndPassword, getRedirectResult } from 'firebase/auth'
 import { ToastContainer, toast } from 'react-toastify'
-import { auth, provider } from '../../config/firebase'
+import { auth } from '../../config/firebase'
 import Spinner from '../Spinner'
 import MainNavbar from '../MainNavbar'
 import { UserAuth } from '../../HOC/AuthContext'
 import 'react-toastify/dist/ReactToastify.css'
 import './auth.scss'
 
+const visibilityIconStyle = {
+    background: 'transparent',
+    color: '#DE2D66'
+}
+
 const Login = () => {
 
     const { signInGoogle, user, userProvider } = UserAuth()
 
     const router = useNavigate()
-    const [userInfo, setUserInfo] = useState({ email: '', password: ''})
+    const userRef = useRef<HTMLInputElement>(null)
+
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+
     const [show, setShow] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
-        if (userProvider === 'google.com') {
-            setIsLoading(true)
-            getRedirectResult(auth)
-            .then(() => {
-                setIsLoading(false)
-                router('/dashboard')
-            })
+        if ( user ) {
+            if (userProvider === 'google.com') {
+                setIsLoading(true)
+                getRedirectResult(auth)
+                .then(() => {
+                    router('/dashboard')
+                    setIsLoading(false)
+                })
+            }
+        } else {
+            router('/login')
         }
     }, [user])
 
-    const signInEmail = () => {
+    useEffect(() => {
+        userRef.current?.focus();
+    }, [])
 
-        signInWithEmailAndPassword(auth, userInfo.email, userInfo.password)
+    const signInEmail = () => {
+        signInWithEmailAndPassword(auth, email, password)
         .then(() => {
             router('/dashboard')
-            setUserInfo({email: '', password: ''})
         })
         .catch(error => {
             if(error.code === 'auth/wrong-password'){
@@ -47,9 +62,6 @@ const Login = () => {
             }
             else if (error.code === 'auth/user-disabled') {
                 toast.error('Account disabled')
-            }
-            else if (userInfo.email === '' || userInfo.password === '') {
-                toast.warn("Fields can't be empty")
             }
             else {
                 toast.error('Unable to Login. Try again later.')
@@ -79,34 +91,35 @@ const Login = () => {
                                 <h1> Login </h1>
                                 <div className='auth-form'>
                                     <div className='input-group'>
-                                        <p>Email: </p>
+                                        <label htmlFor='email'>Email: </label>
                                         <div className='input-with-icon'>
                                             <input 
                                                 type='email'
+                                                ref={userRef}
                                                 required
                                                 placeholder='janedoe@email.com'
-                                                value={userInfo.email}
-                                                onChange={ e => setUserInfo({...userInfo, email: e.target.value})}
+                                                value={email}
+                                                onChange={ e => setEmail(e.target.value)}
                                             />
                                         </div>
                                     </div>
                                     <div className='input-group'>
-                                        <p>Password: </p>
+                                        <label htmlFor='password'>Password: </label>
                                         <div className='input-with-icon'>
                                             <input
                                                 type={show ? 'text' : 'password'}
                                                 required
                                                 placeholder='Enter password'
-                                                value={userInfo.password}
-                                                onChange={ e => setUserInfo({...userInfo, password: e.target.value})}
+                                                value={password}
+                                                onChange={ e => setPassword(e.target.value)}
                                             />
                                             <button 
                                                 onClick={()=>setShow(!show)}
                                             >
                                                 {show ? 
-                                                    <MdVisibilityOff /> 
+                                                    <MdVisibilityOff style={visibilityIconStyle} /> 
                                                     : 
-                                                    <MdVisibility /> 
+                                                    <MdVisibility style={visibilityIconStyle} /> 
                                                 }
                                             </button>
                                         </div>
@@ -114,6 +127,7 @@ const Login = () => {
                                     <button 
                                         className='auth-btn'
                                         onClick={signInEmail}
+                                        disabled={!email || !password ? true : false}
                                     >
                                         Login
                                     </button>

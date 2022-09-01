@@ -1,0 +1,46 @@
+@use '../../styles//base' as a;
+
+.linear-container {
+    top: 65px;
+    height: 15px;
+    width: 100%;
+    background: a.$text-color;
+    position: fixed;
+    
+    .linear {
+        height: 100%;
+        width: 300px;
+        animation: linearprogress 1s linear -2s infinite normal;
+        position: absolute;  
+    }
+    .loading {
+        text-align: center;
+        width: 100%;
+        color: white;
+        font-family: a.$text-family;
+        font-size: 0.8rem;
+        font-weight: 700;
+        position: absolute;
+    }
+}
+
+@keyframes linearprogress {
+    0% {
+        left: 0;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+@media only screen and (min-width: 600px) {
+    .linear-container {
+        top: 73px;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .linear-container {
+        top: 75px;
+    }
+}

@@ -47,13 +47,31 @@
     justify-content: space-between;
     gap: 5px;
 
-    p {
+    label {
         color: a.$text-color;
         font-weight: 700;
         text-align: left;
         width: 25%; 
         font-size: 0.8rem;
         font-family: a.$text-family;
+
+        .hide {
+            display: none;
+        }
+        .valid {
+            display: flex;
+            background: transparent;
+            color: #1dad43;
+            font-size: 1rem;
+            font-weight: 700;
+        }
+        .invalid {
+            color: #d50a0a;
+            display: flex;
+            background: transparent;
+            font-size: 1rem;
+            font-weight: 700;
+        }
     }
 
     .input-with-icon {
@@ -92,6 +110,9 @@
             }
         }
     }
+    .input-with-icon:focus-within{
+        border-bottom-color:a.$text-hover-color;
+    }
 }
 .auth-btn {
     border-radius: 30px;
@@ -109,6 +130,13 @@
     color: a.$text-hover-color;
     border: 1px solid a.$text-hover-color;
     box-shadow: 0 -3px #F75F8C inset;
+}
+.auth-btn:disabled {
+    background: a.$text-color;
+    opacity: 0.8;
+    color: #fff;
+    pointer-events: none;
+    box-shadow: none;
 }
 .google-btn {
     border-radius: 30px;

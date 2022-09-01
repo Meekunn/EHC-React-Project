@@ -10,3 +10,17 @@ interface IContextProvider {
 interface ICollectionName {
     collectionName: string
 }
+
+interface ILinearProgressProps {
+    bgColor: string,
+    label?: string,
+}
+
+interface ISnackbar {
+    focusValue: boolean,
+    value: string,
+    validValue: boolean,
+    info1: string,
+    info2?: string,
+    info3?: string 
+}

@@ -1,0 +1,22 @@
+@use '../../styles/base' as a;
+
+.instructions {
+    position: absolute;
+    width: 200px;
+    min-height: 60px;
+    font-weight: 700;
+    background: a.$text-color;
+    font-size: 0.75rem;
+    //right: 0;
+    border-radius: 0.5rem;
+    color: #620a24;
+    padding: 1rem 0.5rem;
+    //top: -25px;
+    top: 0px;
+    transition: all 0.8s ease;
+}
+
+.offscreen {
+    position: absolute;
+    right:100%;
+}
