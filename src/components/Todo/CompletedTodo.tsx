@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { TbTrash } from 'react-icons/tb'
 import { ICompletedTodo } from '../../types'
 import './todo.scss'

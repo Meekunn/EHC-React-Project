@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { useContext, createContext, useState } from 'react'
 
 const SidenavContext = createContext<any>(null)

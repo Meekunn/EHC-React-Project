@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { db } from "../config/firebase"
 import { addDoc, collection, serverTimestamp } from "firebase/firestore"
 import { UserAuth } from "../HOC/AuthContext"

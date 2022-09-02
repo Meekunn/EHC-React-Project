@@ -1,3 +1,4 @@
+/* eslint-disable */
 import Collection from "./Collection"
 
 const Work = () => {

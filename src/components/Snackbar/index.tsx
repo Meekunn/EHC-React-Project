@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { RiErrorWarningFill } from 'react-icons/ri'
 import './snackbar.scss'
 

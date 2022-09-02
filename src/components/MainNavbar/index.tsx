@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { FaCheck } from 'react-icons/fa'
 import { NavLink } from 'react-router-dom'
 import './mainnav.scss'

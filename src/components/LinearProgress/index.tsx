@@ -1,3 +1,4 @@
+/* eslint-disable */
 import './linearprogress.scss'
 
 const LinearProgress = ({bgColor, label}: ILinearProgressProps) => {

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { createContext, useContext, useState, useEffect } from 'react'
 import { UserAuth } from "./AuthContext"
 import { db } from '../config/firebase'

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { FieldValue } from "firebase/firestore"
 
 export interface ITasks {

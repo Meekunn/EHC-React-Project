@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Flex } from '@chakra-ui/react';
 import { CircleLoader } from 'components/Loader';
 import { observer } from 'mobx-react-lite';

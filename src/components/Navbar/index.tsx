@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { memo } from "react"
 import { NavLink, useNavigate } from "react-router-dom"
 import { GoThreeBars } from 'react-icons/go'
