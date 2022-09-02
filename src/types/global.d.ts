@@ -1,3 +1,4 @@
+/* eslint-disable */
 interface ITodoForm {
     todo: string,
     setTodo: React.Dispatch<React.SetStateAction<string>>,

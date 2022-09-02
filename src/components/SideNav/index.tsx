@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { useNavigate } from 'react-router-dom'
 import { IoSchool, IoPersonAddSharp } from 'react-icons/io5'
 import { MdWork } from 'react-icons/md'

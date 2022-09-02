@@ -1,7 +1,5 @@
-import {  
-    doc,  
-    setDoc
-} from "firebase/firestore"
+/* eslint-disable */
+import { doc, setDoc } from "firebase/firestore"
 import { db } from "../config/firebase"
 import { UserAuth } from "../HOC/AuthContext"
 

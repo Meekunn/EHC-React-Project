@@ -1,3 +1,4 @@
+/* eslint-disable */
 const CircularProgress = () => {
     return (
         <div className="circular-container">

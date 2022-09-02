@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { useState } from 'react'
 import { MdModeEdit, MdCloudDone } from 'react-icons/md'
 import { TbTrash } from 'react-icons/tb'

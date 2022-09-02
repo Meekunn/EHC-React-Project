@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { useNavigate } from 'react-router-dom'
 import MainNavbar from "../MainNavbar"
 import "./landingpage.scss"

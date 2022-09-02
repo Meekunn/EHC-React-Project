@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { useNavigate } from 'react-router-dom'
 import Typewriter from 'typewriter-effect'
 import { IoSchool, IoPersonSharp } from 'react-icons/io5'
