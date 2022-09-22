@@ -1,195 +1,194 @@
-@use '../../styles/base' as a;
+@use "../../styles/base" as a;
 
 //style Login and Signup Page
 
 .auth-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    position: relative;
-    top: 7rem;
-    flex-direction: column;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	position: relative;
+	top: 7rem;
+	flex-direction: column;
 }
 .auth-container {
-    display: flex;
-    justify-content: center;
-    width: 100%;
+	display: flex;
+	justify-content: center;
+	width: 100%;
 }
 .auth-form-wrapper {
-    border: 2px solid #F75F8C;
-    border-radius: 30px; 
-    padding: 2rem;
-    margin: 0 2rem;
-    width: 100%;
+	border: 2px solid #f75f8c;
+	border-radius: 30px;
+	padding: 2rem;
+	margin: 0 2rem;
+	width: 100%;
 
-    h1 {
-        font-weight: 700; 
-        padding: 0.5rem;
-        color: a.$text-hover-color;
-        font-family: a.$text-family;
-        background: linear-gradient(to top right, #BC248C, #D3B8BA);
-        -webkit-background-clip: text;
-        -moz-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-        font-size: 1.8rem;
-    }
+	h1 {
+		font-weight: 700;
+		padding: 0.5rem;
+		color: a.$text-hover-color;
+		font-family: a.$text-family;
+		background: linear-gradient(to top right, #bc248c, #d3b8ba);
+		-webkit-background-clip: text;
+		-moz-background-clip: text;
+		background-clip: text;
+		-webkit-text-fill-color: transparent;
+		font-size: 1.8rem;
+	}
 }
 .auth-form {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin: 10px 0;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	margin: 10px 0;
 }
 .input-group {
-    display: flex;
-    width: 100%;
-    align-items: center;
-    justify-content: space-between;
-    gap: 5px;
+	display: flex;
+	width: 100%;
+	align-items: center;
+	justify-content: space-between;
+	gap: 5px;
 
-    label {
-        color: a.$text-color;
-        font-weight: 700;
-        text-align: left;
-        width: 25%; 
-        font-size: 0.8rem;
-        font-family: a.$text-family;
+	label {
+		color: a.$text-color;
+		font-weight: 700;
+		text-align: left;
+		width: 25%;
+		font-size: 0.8rem;
+		font-family: a.$text-family;
 
-        .hide {
-            display: none;
-        }
-        .valid {
-            display: flex;
-            background: transparent;
-            color: #1dad43;
-            font-size: 1rem;
-            font-weight: 700;
-        }
-        .invalid {
-            color: #d50a0a;
-            display: flex;
-            background: transparent;
-            font-size: 1rem;
-            font-weight: 700;
-        }
-    }
+		.hide {
+			display: none;
+		}
+		.valid {
+			display: flex;
+			background: transparent;
+			color: #1dad43;
+			font-size: 1rem;
+			font-weight: 700;
+		}
+		.invalid {
+			color: #d50a0a;
+			display: flex;
+			background: transparent;
+			font-size: 1rem;
+			font-weight: 700;
+		}
+	}
 
-    .input-with-icon {
-        display: flex;
-        width: 75%;
-        border-bottom: 2px solid a.$text-color;
-        padding-left: 5px;
-        margin: 0.5rem 0;
+	.input-with-icon {
+		display: flex;
+		width: 75%;
+		border-bottom: 2px solid a.$text-color;
+		padding-left: 5px;
+		margin: 0.5rem 0;
 
-        input {
-            color: a.$text-color;
-            border: none;
-            outline: none;
-            background-color: transparent;
-            font-size: 1rem;
-            width: 90%;
-        }
-        input::placeholder {
-            color: rgb(131, 126, 126);
-            font-size: 0.8rem;
-        }
-        button {
-            height: 1rem; 
-            background: transparent;
-            margin: 0.5rem;
-            position: relative;
-            border: none;
+		input {
+			color: a.$text-color;
+			border: none;
+			outline: none;
+			background-color: transparent;
+			font-size: 1rem;
+			width: 90%;
+		}
+		input::placeholder {
+			color: rgb(131, 126, 126);
+			font-size: 0.8rem;
+		}
+		button {
+			height: 1rem;
+			background: transparent;
+			margin: 0.5rem;
+			position: relative;
+			border: none;
 
-            svg {
-                background-color: transparent;
-                color: a.$text-color;
-                transition: 0.25s all ease-in;
-            }
-            svg:hover {
-                color: #DE2D66;
-            }
-        }
-    }
-    .input-with-icon:focus-within{
-        border-bottom-color:a.$text-hover-color;
-    }
+			svg {
+				background-color: transparent;
+				color: a.$text-color;
+				transition: 0.25s all ease-in;
+			}
+			svg:hover {
+				color: #de2d66;
+			}
+		}
+	}
+	.input-with-icon:focus-within {
+		border-bottom-color: a.$text-hover-color;
+	}
 }
 .auth-btn {
-    border-radius: 30px;
-    background-image: linear-gradient(to top right, #BC248C, #F75F8C);
-    color: a.$text-color;
-    margin-top: 0.5rem;
-    padding: 0.75rem 1rem;
-    font-weight: 700;
-    border: none;
-    box-shadow: 0 -3px #BC248C inset;
-    transition: 0.3s all ease-in-out;
+	border-radius: 30px;
+	background-image: linear-gradient(to top right, #bc248c, #f75f8c);
+	color: a.$text-color;
+	margin-top: 0.5rem;
+	padding: 0.75rem 1rem;
+	font-weight: 700;
+	border: none;
+	box-shadow: 0 -3px #bc248c inset;
+	transition: 0.3s all ease-in-out;
 }
 .auth-btn:hover {
-    background: transparent;
-    color: a.$text-hover-color;
-    border: 1px solid a.$text-hover-color;
-    box-shadow: 0 -3px #F75F8C inset;
+	background: transparent;
+	color: a.$text-hover-color;
+	border: 1px solid a.$text-hover-color;
+	box-shadow: 0 -3px #f75f8c inset;
 }
 .auth-btn:disabled {
-    background: a.$text-color;
-    opacity: 0.8;
-    color: #fff;
-    pointer-events: none;
-    box-shadow: none;
+	background: a.$text-color;
+	opacity: 0.8;
+	color: #fff;
+	pointer-events: none;
+	box-shadow: none;
 }
 .google-btn {
-    border-radius: 30px;
-    background: #fff;
-    color: a.$background-color;
-    padding: 0.5rem 1rem;
-    display: flex;
-    justify-content: center;
-    font-weight: 600;
-    border: none;
-    align-items: center;
-    box-shadow: 0 -3px grey inset;
-    transition: 0.3s all ease-in-out;
+	border-radius: 30px;
+	background: #fff;
+	color: a.$background-color;
+	padding: 0.5rem 1rem;
+	display: flex;
+	justify-content: center;
+	font-weight: 600;
+	border: none;
+	align-items: center;
+	box-shadow: 0 -3px grey inset;
+	transition: 0.3s all ease-in-out;
 
-    svg {
-        margin: 0.3rem 0 0.3rem 0.3rem;
-        font-size: 1.2rem;
-    }
+	svg {
+		margin: 0.3rem 0 0.3rem 0.3rem;
+		font-size: 1.2rem;
+	}
 }
 .google-btn:hover {
-    background-color: transparent;
-    color: white;
-    border: 1px solid white;
+	background-color: transparent;
+	color: white;
+	border: 1px solid white;
 }
 .or {
-    color: a.$text-color;
-    font-weight: 700;
-    font-size: 0.8rem; 
+	color: a.$text-color;
+	font-weight: 700;
+	font-size: 0.8rem;
 }
 
-@media only screen and  (min-width: 600px) {
-    .auth-container {
-        width: 80%;
-    }
+@media only screen and (min-width: 600px) {
+	.auth-container {
+		width: 80%;
+	}
 }
 
 @media only screen and (min-width: 768px) {
-    .auth-container {
-        width: 60%;
-    }
+	.auth-container {
+		width: 60%;
+	}
 }
 
 @media only screen and (min-width: 992px) {
-    
 }
 
 @media only screen and (min-width: 1200px) {
-    .auth-wrapper {
-        top: 8.5rem;
-    }
-    .auth-container {
-        width: 40%;
-    }
+	.auth-wrapper {
+		top: 8.5rem;
+	}
+	.auth-container {
+		width: 40%;
+	}
 }

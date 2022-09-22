@@ -1,17 +1,15 @@
-/* eslint-disable */
-import { Navigate } from 'react-router-dom'
-import { UserAuth } from './AuthContext'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Navigate } from "react-router-dom"
+import { UserAuth } from "./AuthContext"
 
-const PrivateRoute = ({children}: any) => {
+const PrivateRoute = ({ children }: any) => {
+	const { user } = UserAuth()
 
-    const { user } = UserAuth()
+	if (!user) {
+		return <Navigate to="/" />
+	}
 
-    if (!user) {
-        return <Navigate to='/' />
-    }
-
-    return children
+	return children
 }
 
 export default PrivateRoute
-

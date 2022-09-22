@@ -1,86 +1,86 @@
-@use '../../styles/base' as a;
+@use "../../styles/base" as a;
 
 .mainnav-wrapper {
-    background: a.$background-color;
-    padding: 1.5rem 1rem;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-family: a.$heading-family;
-    z-index: 99;
+	background: a.$background-color;
+	padding: 1.5rem 1rem;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	font-family: a.$heading-family;
+	z-index: 99;
 }
 
 .logo-section {
-    display: flex;
-    justify-content: space-around;
+	display: flex;
+	justify-content: space-around;
 
-    .logo-wrapper {
-        background-image: linear-gradient(to top right,#BC248C, #F75F8C);
-        width: 30px;
-        height: 30px;
-        border-radius: 0.65rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 0 0.5rem;
-    }
+	.logo-wrapper {
+		background-image: linear-gradient(to top right, #bc248c, #f75f8c);
+		width: 30px;
+		height: 30px;
+		border-radius: 0.65rem;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin: 0 0.5rem;
+	}
 
-    h1 {
-        color: a.$text-color;
-        font-size: 1rem; 
-        font-weight: bold;
-        padding-right: 0.5rem;
-    }
+	h1 {
+		color: a.$text-color;
+		font-size: 1rem;
+		font-weight: bold;
+		padding-right: 0.5rem;
+	}
 
-    p {
-        color: a.$text-color;
-        padding: 0 1rem;
-        font-size: 10px;
-        font-weight: bold; 
-    }
+	p {
+		color: a.$text-color;
+		padding: 0 1rem;
+		font-size: 10px;
+		font-weight: bold;
+	}
 }
 
 .navlinks-wrapper {
-    display: flex;
-    gap: 10px;
+	display: flex;
+	gap: 10px;
 }
 .nav-links {
-    color: a.$text-color;
-    text-decoration: none;
-    padding: 0.5rem 1rem;
-    font-size: 0.75rem;
-    font-weight: 700;
-    font-family: a.$text-family;
-    border: 1px solid a.$text-color;
-    border-radius: 10px;
-    transition: all 0.3s ease-in-out;
+	color: a.$text-color;
+	text-decoration: none;
+	padding: 0.5rem 1rem;
+	font-size: 0.75rem;
+	font-weight: 700;
+	font-family: a.$text-family;
+	border: 1px solid a.$text-color;
+	border-radius: 10px;
+	transition: all 0.3s ease-in-out;
 }
 .nav-links:hover {
-    color: a.$text-hover-color;
-    transition: all 0.3s ease-in-out;
+	color: a.$text-hover-color;
+	transition: all 0.3s ease-in-out;
 }
 .activelink {
-    border: none;
-    transition: all 0.3s ease-in-out;
-    color: a.$text-hover-color;
+	border: none;
+	transition: all 0.3s ease-in-out;
+	color: a.$text-hover-color;
 }
 
-@media only screen and  (min-width: 600px) {
-    .logo-section {
-        h1 {
-            font-size: 1.5rem;
-        }
-    }
+@media only screen and (min-width: 600px) {
+	.logo-section {
+		h1 {
+			font-size: 1.5rem;
+		}
+	}
 }
 
 @media only screen and (min-width: 992px) {
-    .mainnav-wrapper {
-        padding: 1.5rem 3rem;
-    }
-    .nav-links {
-        font-size: 0.8rem;
-    }
+	.mainnav-wrapper {
+		padding: 1.5rem 3rem;
+	}
+	.nav-links {
+		font-size: 0.8rem;
+	}
 }

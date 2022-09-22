@@ -1,25 +1,22 @@
-/* eslint-disable */
 import { doc, setDoc } from "firebase/firestore"
 import { db } from "../config/firebase"
 import { UserAuth } from "../HOC/AuthContext"
 
 const useCreateCollection = () => {
+	const { userUid, userName } = UserAuth()
 
-    const { userUid, userName } = UserAuth()
+	const createCollection = async (collectionName: string) => {
+		const docRef = doc(db, collectionName, userUid)
+		const payload = {
+			userName,
+		}
+		await setDoc(docRef, payload)
+	}
 
-    const createCollection = async (collectionName: string) => {
-        const docRef = doc(db, collectionName, userUid)
-        const payload = {
-            userName
-        }
-        await setDoc(docRef, payload) 
-    }
-
-    return { createCollection }
+	return { createCollection }
 }
 
 export default useCreateCollection
-
 
 // export const createSchoolCollection = async (id, userName) => {
 //     const docRef = doc(db, 'school', id)
@@ -44,5 +41,3 @@ export default useCreateCollection
 //     }
 //     await setDoc(docRef, payload)
 // }
-
-

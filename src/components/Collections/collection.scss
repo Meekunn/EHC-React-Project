@@ -1,161 +1,158 @@
-@use '../../styles/base' as a;
+@use "../../styles/base" as a;
 
-//style collection pages 💄 
+//style collection pages 💄
 
 main {
-    font-family: a.$text-family;
+	font-family: a.$text-family;
 
-    .todos-wrapper {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-        position: relative;
+	.todos-wrapper {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		height: 100vh;
+		position: relative;
 
-        .todolist {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            position: relative;
-            top: 5rem;
-            margin-top: 1.5rem;
+		.todolist {
+			width: 100%;
+			height: 100%;
+			display: flex;
+			justify-content: center;
+			position: relative;
+			top: 5rem;
+			margin-top: 1.5rem;
 
-            .wrapper {
-                width: 80%;
-                display: flex;
-                flex-direction: column;
-                align-items: flex-start;
+			.wrapper {
+				width: 80%;
+				display: flex;
+				flex-direction: column;
+				align-items: flex-start;
 
-                .heading {
-                    width: 100%;
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    color: a.$text-color;
-                    font-size: 1.3rem;
-                    font-weight: 700;
-                    font-family: a.$text-family;
-                    padding: 1rem;
-                    cursor: pointer;
-    
-                    span {
-                        display: flex;
-                        gap: 8px;
-                        justify-content: space-around;
-                        align-items: center;
-    
-                        .back-arrow {
-                            padding: 0.3rem;
-                            font-size: 1.5rem;
-                            background-color: a.$nav-background;
-                            border: 1px solid a.$nav-background;
-                            border-radius: 12px;
-                            color: a.$text-color;
-                            display: flex;
-                            transition: 0.25s all ease-in-out;
-                        }
-                        .back-arrow:hover {
-                            background: transparent;
-                            border: 1px solid a.$text-color;
-                        }
-                    }
-                    .three-dots {
-                        border: none;
-                        background: transparent;
-                        transition: 0.3s all ease-out;
-                    }
-                    .three-dots:hover {
-                        color: a.$text-hover-color;
-                    }
-                }
+				.heading {
+					width: 100%;
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
+					color: a.$text-color;
+					font-size: 1.3rem;
+					font-weight: 700;
+					font-family: a.$text-family;
+					padding: 1rem;
+					cursor: pointer;
 
-                .todo-form {
-                    width: 100%;
-                    display: flex;
-                    margin: 1rem;
-                    padding: 0.5rem;
-                    border: 2px solid a.$nav-background;
-                    border-radius: 10px;
+					span {
+						display: flex;
+						gap: 8px;
+						justify-content: space-around;
+						align-items: center;
 
-                    .add-btn {
-                        background-color: a.$text-hover-color;
-                        padding: 0.3rem;
-                        border-radius: 10px;
-                        border: 1px solid a.$text-hover-color;
-                        margin-right: 0.8rem;
-                        display: flex;
-                        transition: 0.2s all ease-in-out;
-                    }
-                    .add-btn:hover {
-                        background: transparent;
-                        color: a.$text-hover-color;
-                        box-shadow: 0px 1px a.$text-hover-color;
-                    }
-                    .input {
-                        background: transparent;
-                        outline: none;
-                        color: a.$text-color;
-                        font-weight: 500;
-                        border: none;
-                        font-size: 0.8rem;
-                        padding: 0.0.5rem;
-                        width: 100%;
-                    }
-                }
-                .todo-form:focus-within {
-                    border-color: a.$text-color;
-                }
+						.back-arrow {
+							padding: 0.3rem;
+							font-size: 1.5rem;
+							background-color: a.$nav-background;
+							border: 1px solid a.$nav-background;
+							border-radius: 12px;
+							color: a.$text-color;
+							display: flex;
+							transition: 0.25s all ease-in-out;
+						}
+						.back-arrow:hover {
+							background: transparent;
+							border: 1px solid a.$text-color;
+						}
+					}
+					.three-dots {
+						border: none;
+						background: transparent;
+						transition: 0.3s all ease-out;
+					}
+					.three-dots:hover {
+						color: a.$text-hover-color;
+					}
+				}
 
-                .tasks-container {
-                    width: 100%;
-                    margin: 1rem;
+				.todo-form {
+					width: 100%;
+					display: flex;
+					margin: 1rem;
+					padding: 0.5rem;
+					border: 2px solid a.$nav-background;
+					border-radius: 10px;
 
-                    p{
-                        font-weight: 600;
-                        text-align: left;
-                        color: a.$text-color;
-                    }
+					.add-btn {
+						background-color: a.$text-hover-color;
+						padding: 0.3rem;
+						border-radius: 10px;
+						border: 1px solid a.$text-hover-color;
+						margin-right: 0.8rem;
+						display: flex;
+						transition: 0.2s all ease-in-out;
+					}
+					.add-btn:hover {
+						background: transparent;
+						color: a.$text-hover-color;
+						box-shadow: 0px 1px a.$text-hover-color;
+					}
+					.input {
+						background: transparent;
+						outline: none;
+						color: a.$text-color;
+						font-weight: 500;
+						border: none;
+						font-size: 0.8rem;
+						padding: 0.5rem;
+						width: 100%;
+					}
+				}
+				.todo-form:focus-within {
+					border-color: a.$text-color;
+				}
 
-                    .tasks-wrapper {
-                        width: 100%;
-                        display: flex;
-                        flex-direction: column;
-                    }
-                }
-            }
-        }
-    }
-    
+				.tasks-container {
+					width: 100%;
+					margin: 1rem;
+
+					p {
+						font-weight: 600;
+						text-align: left;
+						color: a.$text-color;
+					}
+
+					.tasks-wrapper {
+						width: 100%;
+						display: flex;
+						flex-direction: column;
+					}
+				}
+			}
+		}
+	}
 }
 
 @media only screen and (min-width: 600px) {
-    main {
-        .todos-wrapper{
+	main {
+		.todos-wrapper {
+			.todolist {
+				width: 80%;
 
-            .todolist {
-                width: 80%;
-        
-                .wrapper {
-                    width: 75%;
-                }
-            }
-        }
-    }
+				.wrapper {
+					width: 75%;
+				}
+			}
+		}
+	}
 }
 
 @media only screen and (min-width: 1200px) {
-    main {
-        .todos-wrapper{
+	main {
+		.todos-wrapper {
+			.todolist {
+				width: 80%;
 
-            .todolist {
-                width: 80%;
-        
-                .wrapper {
-                    width: 65%;
-                }
-            }
-        }
-    }
+				.wrapper {
+					width: 65%;
+				}
+			}
+		}
+	}
 }

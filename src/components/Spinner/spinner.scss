@@ -1,24 +1,24 @@
-@use '../../styles/base' as a;
+@use "../../styles/base" as a;
 
 .spinner-container {
-  display: flex;
-  height: 70vh;
-  align-items: center;
+	display: flex;
+	height: 70vh;
+	align-items: center;
 }
 
 @keyframes spinner {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-  .loading-spinner {
-    width: 80px;
-    height: 80px;
-    border: 10px solid a.$text-color;
-    border-top: 10px solid a.$text-hover-color; 
-    border-radius: 50%;
-    animation: spinner 1.5s linear infinite;
-  }
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+.loading-spinner {
+	width: 80px;
+	height: 80px;
+	border: 10px solid a.$text-color;
+	border-top: 10px solid a.$text-hover-color;
+	border-radius: 50%;
+	animation: spinner 1.5s linear infinite;
+}

@@ -1,111 +1,111 @@
-@use '../../styles/base' as a; 
+@use "../../styles/base" as a;
 
-.bubble-wrapper{
-    width: 100%;
-    height: 100%;
-    background-color: transparent;
+.bubble-wrapper {
+	width: 100%;
+	height: 100%;
+	background-color: transparent;
 }
-.bubble-wrapper div{
-    height: 60px;
-    width: 60px;
-    border: 2px solid #BC248C;
-    background-image: linear-gradient(to top right,#BC248C, #F75F8C);
-    border-radius: 50px;
-    position: absolute;
-    top: 10%;
-    left: 10%;
-    animation: 4s linear infinite;
+.bubble-wrapper div {
+	height: 60px;
+	width: 60px;
+	border: 2px solid #bc248c;
+	background-image: linear-gradient(to top right, #bc248c, #f75f8c);
+	border-radius: 50px;
+	position: absolute;
+	top: 10%;
+	left: 10%;
+	animation: 4s linear infinite;
 }
 div .dot {
-    height: 10px;
-    width: 10px;
-    border-radius: 50px;
-    background: a.$nav-background;
-    position: absolute;
-    top: 20%;
-    right: 20%;
+	height: 10px;
+	width: 10px;
+	border-radius: 50px;
+	background: a.$nav-background;
+	position: absolute;
+	top: 20%;
+	right: 20%;
 }
 .bubble-wrapper div:nth-child(1) {
-    top: 20%;
-    left: 20%;
-    animation: animate 8s linear infinite;
+	top: 20%;
+	left: 20%;
+	animation: animate 8s linear infinite;
 }
 .bubble-wrapper div:nth-child(2) {
-    top: 60%;
-    left: 85%;
-    animation: animate 10s linear infinite;
+	top: 60%;
+	left: 85%;
+	animation: animate 10s linear infinite;
 }
 .bubble-wrapper div:nth-child(3) {
-    top: 40%;
-    left: 60%;
-    animation: animate 3s linear infinite;
+	top: 40%;
+	left: 60%;
+	animation: animate 3s linear infinite;
 }
 .bubble-wrapper div:nth-child(4) {
-    top: 66%;
-    left: 45%;
-    animation: animate 7s linear infinite;
+	top: 66%;
+	left: 45%;
+	animation: animate 7s linear infinite;
 }
 .bubble-wrapper div:nth-child(5) {
-    top: 85%;
-    left: 10%;
-    animation: animate 7s linear infinite;
+	top: 85%;
+	left: 10%;
+	animation: animate 7s linear infinite;
 }
 @keyframes animate {
-    0% {
-      transform: scale(0) translateY(0) rotate(70deg);
-    }
-    100% {
-      transform: scale(1.3) translateY(-100px) rotate(360deg);
-    }
+	0% {
+		transform: scale(0) translateY(0) rotate(70deg);
+	}
+	100% {
+		transform: scale(1.3) translateY(-100px) rotate(360deg);
+	}
 }
-.page-wrapper{
-    width: 100%;
-    height: 100%;
-    color: a.$text-color;
-    font-family: a.$heading-family;
+.page-wrapper {
+	width: 100%;
+	height: 100%;
+	color: a.$text-color;
+	font-family: a.$heading-family;
 }
 .content-wrapper {
-    position: relative;
-    top: 14rem;
+	position: relative;
+	top: 14rem;
 
-    .title {
-        margin-bottom: 1rem;
-        font-weight: 800;
-    }
-    .about {
-        margin: 0.5rem;
-        font-weight: 600;
-        font-size: 0.8rem;
-    }
-    .get-started {
-        color: #fff;
-        margin: 0.5rem;
-        padding: 1rem 1.5rem;
-        border-radius: 10px;
-        font-weight: 700;
-        border: none;
-        box-shadow: 0 -3px #763863 inset;
-        background-image: linear-gradient(200deg, #BC248C, #F75F8C, #af92ac);
-        transition: 0.5s all ease-in-out;
-    }
-    .get-started:hover {
-        background: a.$background-color;
-        box-shadow: 0 -3px #F75F8C inset;
-        border: 1px solid #F75F8C;
-        border-bottom: none;
-    }
+	.title {
+		margin-bottom: 1rem;
+		font-weight: 800;
+	}
+	.about {
+		margin: 0.5rem;
+		font-weight: 600;
+		font-size: 0.8rem;
+	}
+	.get-started {
+		color: #fff;
+		margin: 0.5rem;
+		padding: 1rem 1.5rem;
+		border-radius: 10px;
+		font-weight: 700;
+		border: none;
+		box-shadow: 0 -3px #763863 inset;
+		background-image: linear-gradient(200deg, #bc248c, #f75f8c, #af92ac);
+		transition: 0.5s all ease-in-out;
+	}
+	.get-started:hover {
+		background: a.$background-color;
+		box-shadow: 0 -3px #f75f8c inset;
+		border: 1px solid #f75f8c;
+		border-bottom: none;
+	}
 }
 
 @media only screen and (min-width: 992px) {
-    .content-wrapper {
-        .title {
-            font-size: 2.7rem;
-        }
-        .about {
-            font-size: 1rem;
-        }
-        .get-started {
-            margin-top: 1rem;
-        }
-    }
+	.content-wrapper {
+		.title {
+			font-size: 2.7rem;
+		}
+		.about {
+			font-size: 1rem;
+		}
+		.get-started {
+			margin-top: 1rem;
+		}
+	}
 }

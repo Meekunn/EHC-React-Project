@@ -1,27 +1,26 @@
-/* eslint-disable */
 interface ITodoForm {
-    todo: string,
-    setTodo: React.Dispatch<React.SetStateAction<string>>,
-    addTodo: (e: React.MouseEvent<HTMLButtonElement>) => void,
+	todo: string
+	setTodo: React.Dispatch<React.SetStateAction<string>>
+	addTodo: (e: React.MouseEvent<HTMLButtonElement>) => void
 }
 interface IContextProvider {
-    children: React.ReactNode
+	children: React.ReactNode
 }
 
 interface ICollectionName {
-    collectionName: string
+	collectionName: string
 }
 
 interface ILinearProgressProps {
-    bgColor: string,
-    label?: string,
+	bgColor: string
+	label?: string
 }
 
 interface ISnackbar {
-    focusValue: boolean,
-    value: string,
-    validValue: boolean,
-    info1: string,
-    info2?: string,
-    info3?: string 
+	focusValue: boolean
+	value: string
+	validValue: boolean
+	info1: string
+	info2?: string
+	info3?: string
 }

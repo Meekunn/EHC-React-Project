@@ -1,9 +1,8 @@
-/* eslint-disable */
-import "./circularprogress.scss";
-import { CgFormatSlash } from "react-icons/cg";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import "./circularprogress.scss"
 interface IProgressData {
-	completed?: number;
-	total?: number;
+	completed?: number
+	total?: number
 }
 const CircularProgress = ({ completed, total }: IProgressData) => {
 	return (
@@ -12,7 +11,7 @@ const CircularProgress = ({ completed, total }: IProgressData) => {
 				<span>2/7</span>
 			</div>
 		</div>
-	);
-};
+	)
+}
 
-export default CircularProgress;
+export default CircularProgress

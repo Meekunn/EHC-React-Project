@@ -1,129 +1,129 @@
-@use '../../styles/base' as a;
+@use "../../styles/base" as a;
 
 .nav-wrapper {
-    background: a.$nav-background;
-    padding: 1rem;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-family: a.$text-family;
-    box-shadow: 0 2px 3px a.$background-color;
-    z-index: 99;
+	background: a.$nav-background;
+	padding: 1rem;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	font-family: a.$text-family;
+	box-shadow: 0 2px 3px a.$background-color;
+	z-index: 99;
 }
 .action-btns1 {
-    display: flex;
-    justify-content: space-around;
-    gap: 15px;
+	display: flex;
+	justify-content: space-around;
+	gap: 15px;
 
-    button {
-        background: linear-gradient(to top right, #BC248C, #F75F8C); 
-        color: a.$nav-background;
-        font-weight: 700;
-        padding: 0.5rem 1rem;
-        border-radius: 10px;
-        font-size: 0.7rem;
-        border: none;
-        transition: all 0.3s ease-in-out;
-    }
-    button:hover {
-        color: a.$text-hover-color;
-        background: transparent;
-        border: 2px solid a.$text-hover-color;
-        transition: all 0.3s ease-in-out;
-    }
-    .toggle {
-        color: a.$text-color;
-        background: transparent;
-        font-size: 1rem;
-        padding: 0;
-        border: none;
-        transition: all 0.3s ease-out;
-    }
-    .toggle:hover {
-        border: none;
-        color: a.$text-hover-color;
-        transition: all 0.3s ease-in;
-    }
-    .nav-links {
-        color: a.$text-color;
-        text-decoration: none;
-        padding: 0.5rem;
-        font-size: 0.75rem;
-        font-weight: 800;
-        font-family: a.$text-family;
-        border: 1px solid a.$text-color;
-        border-radius: 10px;
-        transition: 0.25s all ease-in-out;
+	button {
+		background: linear-gradient(to top right, #bc248c, #f75f8c);
+		color: a.$nav-background;
+		font-weight: 700;
+		padding: 0.5rem 1rem;
+		border-radius: 10px;
+		font-size: 0.7rem;
+		border: none;
+		transition: all 0.3s ease-in-out;
+	}
+	button:hover {
+		color: a.$text-hover-color;
+		background: transparent;
+		border: 2px solid a.$text-hover-color;
+		transition: all 0.3s ease-in-out;
+	}
+	.toggle {
+		color: a.$text-color;
+		background: transparent;
+		font-size: 1rem;
+		padding: 0;
+		border: none;
+		transition: all 0.3s ease-out;
+	}
+	.toggle:hover {
+		border: none;
+		color: a.$text-hover-color;
+		transition: all 0.3s ease-in;
+	}
+	.nav-links {
+		color: a.$text-color;
+		text-decoration: none;
+		padding: 0.5rem;
+		font-size: 0.75rem;
+		font-weight: 800;
+		font-family: a.$text-family;
+		border: 1px solid a.$text-color;
+		border-radius: 10px;
+		transition: 0.25s all ease-in-out;
 
-        p {
-            padding: 0 0.2rem;
-        }
-    }
-    .nav-links:hover {
-        border: 1px solid a.$text-hover-color;
-        color: a.$text-hover-color;
-    }
+		p {
+			padding: 0 0.2rem;
+		}
+	}
+	.nav-links:hover {
+		border: 1px solid a.$text-hover-color;
+		color: a.$text-hover-color;
+	}
 }
 .action-btns2 {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    gap: 10px;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	gap: 10px;
 
-    button {
-        margin: 0 0.5rem;
-        background: transparent;
-        color: a.$text-color;
-        font-size: 1rem;
-        border: none;
-        transition: all 0.3s ease-in-out;
+	button {
+		margin: 0 0.5rem;
+		background: transparent;
+		color: a.$text-color;
+		font-size: 1rem;
+		border: none;
+		transition: all 0.3s ease-in-out;
 
-        &:last-child {
-            font-size: 1.3rem;
-        }
-    }
-    button:hover {
-        color: a.$text-hover-color;
-        transition: all 0.3s ease-in-out;
-    }
+		&:last-child {
+			font-size: 1.3rem;
+		}
+	}
+	button:hover {
+		color: a.$text-hover-color;
+		transition: all 0.3s ease-in-out;
+	}
 }
 
 @media only screen and (min-width: 600px) {
-    .action-btns1 {
-        button {
-            font-size: 0.8rem;
-        }
-        .toggle {
-            font-size: 1.3rem;
-            padding: 0.5rem 1rem;
-        }
-        .nav-links {
-            padding: 0.5rem 1rem;
-        }
-    }
-    .action-btns2 {
-        gap: 30px;
-    
-        button {
-            font-size: 1.3rem;
-    
-            &:last-child {
-                font-size: 1.6rem;
-            }
-        }
-    }
+	.action-btns1 {
+		button {
+			font-size: 0.8rem;
+		}
+		.toggle {
+			font-size: 1.3rem;
+			padding: 0.5rem 1rem;
+		}
+		.nav-links {
+			padding: 0.5rem 1rem;
+		}
+	}
+	.action-btns2 {
+		gap: 30px;
+
+		button {
+			font-size: 1.3rem;
+
+			&:last-child {
+				font-size: 1.6rem;
+			}
+		}
+	}
 }
 
 @media only screen and (min-width: 992px) {
-    .nav-wrapper {
-        padding: 1rem;
-    }
-    .action-btns1 {
-        .nav-links {
-            font-size: 0.8rem;
-        }
-    }
+	.nav-wrapper {
+		padding: 1rem;
+	}
+	.action-btns1 {
+		.nav-links {
+			font-size: 0.8rem;
+		}
+	}
 }

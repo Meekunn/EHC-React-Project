@@ -1,11 +1,7 @@
-/* eslint-disable */
 import Collection from "./Collection"
 
 const Personal = () => {
-
-    return (
-        <Collection collectionName={'personal'} />
-    )
+	return <Collection collectionName={"personal"} />
 }
 
 export default Personal
