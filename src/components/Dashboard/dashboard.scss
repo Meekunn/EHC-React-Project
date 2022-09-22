@@ -1,75 +1,100 @@
-@use '../../styles/base' as a;
+@use "../../styles/base" as a;
 
 .dash-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    position: relative;
-    height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	position: relative;
+	height: 100vh;
 }
 .dash-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
 
-    .typewriter {
-        font-size: 1.5rem;
-        font-weight: 700;
-        background: linear-gradient(to top right, #D3B8BA, #F75F8C);
-        text-align: center;
-        margin: 2rem 0.5rem;
-        -webkit-background-clip: text;
-        -moz-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
+	.typewriter {
+		font-size: 1.5rem;
+		font-weight: 700;
+		background: linear-gradient(to top right, #d3b8ba, #f75f8c);
+		text-align: center;
+		margin: 2rem 0.5rem;
+		-webkit-background-clip: text;
+		-moz-background-clip: text;
+		background-clip: text;
+		-webkit-text-fill-color: transparent;
+	}
 }
 .btns-wrapper {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: flex-start;
-    margin: 0 0.2rem;   
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: flex-start;
+	margin: 0 0.2rem;
 
-    button {
-        height: 150px;
-        width: 150px;
-        line-height: 1.2;
-        border: 1px solid a.$nav-background;
-        border-radius: 20px;
-        font-size: 1.3rem;
-        font-weight: 700;
-        background-color: a.$nav-background;
-        border: 1px solid a.$nav-background;
-        color: #fff;
-        padding: 1rem;
-        margin: 0.5rem;
-        display: flex;
-        flex-direction: column;
-        gap: 40px;
-        box-shadow: 4px 4px #d773a7;
-        transition: 0.3s all ease-in-out;
+	button {
+		height: 180px;
+		width: 180px;
+		line-height: 1.2;
+		border: 1px solid a.$nav-background;
+		border-radius: 20px;
+		font-size: 1.3rem;
+		font-weight: 700;
+		background-color: a.$nav-background;
+		border: 1px solid a.$nav-background;
+		color: #fff;
+		padding: 1rem;
+		margin: 0.5rem;
+		display: flex;
+		flex-direction: column;
+		gap: 40px;
+		box-shadow: 4px 4px #d773a7;
+		transition: 0.3s all ease-in-out;
 
-        .icons {
-            color: #fff;
-            border-radius: 15px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 45px;
-            width: 45px;
-        }
-    }
-    button:hover {
-        border: 2px solid #d773a7;
-        background: transparent;
-    }
+		.icons {
+			color: #fff;
+			border-radius: 15px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 45px;
+			width: 45px;
+		}
+
+		.progress-label {
+			width: 100%;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			gap: 1rem;
+		}
+
+		.CircularProgressbar {
+			height: 45px;
+		}
+
+		.CircularProgressbar-path {
+			stroke: #f75f8c;
+		}
+		.CircularProgressbar-trail {
+			stroke: #d3b8ba;
+		}
+		.CircularProgressbar-text {
+			fill: #fff;
+			font-size: 1.8rem;
+			text-anchor: middle;
+			font-family: a.$text-family;
+		}
+	}
+	button:hover {
+		border: 2px solid #d773a7;
+		background: transparent;
+	}
 }
 
-@media only screen and  (min-width: 600px) {
-    .typewriter {
-        font-size: 2rem;
-        text-align: left;
-    }
+@media only screen and (min-width: 600px) {
+	.typewriter {
+		font-size: 2rem;
+		text-align: left;
+	}
 }

@@ -1,0 +1,26 @@
+@use "../../styles/base" as a;
+
+.circular-container {
+	display: flex;
+	height: 100px;
+	align-items: center;
+}
+
+.circular-progress {
+	width: 60px;
+	height: 60px;
+	background: a.$text-color;
+	border: 8px solid a.$text-hover-color;
+	border-radius: 50%;
+
+	span {
+		color: a.$text-color;
+		display: flex;
+		height: 100%;
+		align-items: center;
+		justify-content: center;
+		font-family: a.$text-family;
+		background-color: a.$background-color;
+		border-radius: 50%;
+	}
+}
