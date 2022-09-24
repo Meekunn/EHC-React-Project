@@ -13,6 +13,7 @@ import useCreateCollection from "../../hooks/useCreateCollection"
 import { CircularProgressbar } from "react-circular-progressbar"
 import "react-circular-progressbar/dist/styles.css"
 import { db } from "../../config/firebase"
+import EditCollectionName from "./EditCollectionName"
 
 const Dashboard = () => {
 	const router = useNavigate()
@@ -81,6 +82,7 @@ const Dashboard = () => {
 			<Navbar />
 			<div className="dash-wrapper">
 				<SideNav />
+				<EditCollectionName />
 				<div className="dash-container">
 					<div className="typewriter">
 						<Typewriter
