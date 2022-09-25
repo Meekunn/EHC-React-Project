@@ -59,6 +59,8 @@ const Collection = ({ collectionName }: ICollectionName) => {
 			querySnapshot.docs.map((doc) => {
 				const data = doc.data()
 				if (data.complete === false && data.time != null) {
+					const thedate = new Date(data.time.seconds * 1000)
+					console.log(thedate.toDateString())
 					return setUncompletedTasks((prevTasks: any) => {
 						const itExists = prevTasks.find(
 							(task: { id: string }) => task.id === doc.id
