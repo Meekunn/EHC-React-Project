@@ -22,12 +22,24 @@ import CompletedTodo from "../Todo/CompletedTodo"
 import useAddTodo from "../../hooks/useAddTodo"
 import { ITasks } from "../../types/index"
 import LinearProgress from "../LinearProgress"
+import { AiTwotoneEdit } from "react-icons/ai"
+import EditCollectionName from "./EditCollectionName"
+import { UseCollectionName } from "../../HOC/CollectionNameContext"
 import "./collection.scss"
 
 const Collection = ({ collectionName }: ICollectionName) => {
 	const router = useNavigate()
 	const { add } = useAddTodo()
 	const { user } = UserAuth()
+	const {
+		setIsOpen,
+		schoolColName,
+		setSchoolColName,
+		workColName,
+		setWorkColName,
+		personalColName,
+		setPersonalColName,
+	} = UseCollectionName()
 
 	const [todo, setTodo] = useState("")
 	const [completedTasks, setCompletedTasks] = useState<ITasks[]>([])
@@ -78,8 +90,22 @@ const Collection = ({ collectionName }: ICollectionName) => {
 		}
 	}, [user])
 
-	const capitalizeCollectionName =
-		collectionName.charAt(0).toUpperCase() + collectionName.substring(1)
+	const capitalizeName = (colName: string): string => {
+		let newName = ""
+		if (colName === "school") {
+			newName = schoolColName.charAt(0).toUpperCase() + schoolColName.substring(1)
+			setSchoolColName(newName)
+		} else if (colName === "work") {
+			newName = workColName.charAt(0).toUpperCase() + workColName.substring(1)
+			setWorkColName(newName)
+		} else if (colName === "personal") {
+			newName = personalColName.charAt(0).toUpperCase() + personalColName.substring(1)
+			setPersonalColName(newName)
+		}
+		return newName
+	}
+
+	const capitalizeCollectionName = capitalizeName(collectionName)
 
 	const addTodo = (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault()
@@ -154,6 +180,7 @@ const Collection = ({ collectionName }: ICollectionName) => {
 			<Navbar />
 			<div className="todos-wrapper">
 				<SideNav />
+				<EditCollectionName collectionName={collectionName} />
 				{isAdding ? <LinearProgress bgColor="#F75F8C" label="Adding Task" /> : <></>}
 				{isDeleting ? <LinearProgress bgColor="#F75F8C" label="Deleting Task" /> : <></>}
 				{isToggling ? <LinearProgress bgColor="#F75F8C" label="Toggling" /> : <></>}
@@ -194,7 +221,9 @@ const Collection = ({ collectionName }: ICollectionName) => {
 									</button>
 									{capitalizeCollectionName}
 								</span>
-								<span className="three-dots">...</span>
+								<button className="edit-icon" onClick={() => setIsOpen(true)}>
+									<AiTwotoneEdit />
+								</button>
 							</div>
 							<TodoForm {...{ addTodo, todo, setTodo }} />
 							<div className="tasks-container">

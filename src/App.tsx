@@ -8,6 +8,7 @@ import Work from "./components/Collections/Work"
 import PrivateRoute from "./HOC/PrivateRoute"
 import { AuthContextProvider } from "./HOC/AuthContext"
 import { SidenavContextProvider } from "./HOC/SidenavContext"
+import { CollectionNameProvider } from "./HOC/CollectionNameContext"
 import LandingPage from "./components/LandingPage"
 import "./App.scss"
 
@@ -24,7 +25,9 @@ function App() {
 						element={
 							<PrivateRoute>
 								<SidenavContextProvider>
-									<Dashboard />
+									<CollectionNameProvider>
+										<Dashboard />
+									</CollectionNameProvider>
 								</SidenavContextProvider>
 							</PrivateRoute>
 						}
@@ -34,7 +37,9 @@ function App() {
 						element={
 							<PrivateRoute>
 								<SidenavContextProvider>
-									<School />
+									<CollectionNameProvider>
+										<School />
+									</CollectionNameProvider>
 								</SidenavContextProvider>
 							</PrivateRoute>
 						}
@@ -44,7 +49,9 @@ function App() {
 						element={
 							<PrivateRoute>
 								<SidenavContextProvider>
-									<Personal />
+									<CollectionNameProvider>
+										<Personal />
+									</CollectionNameProvider>
 								</SidenavContextProvider>
 							</PrivateRoute>
 						}
@@ -54,7 +61,9 @@ function App() {
 						element={
 							<PrivateRoute>
 								<SidenavContextProvider>
-									<Work />
+									<CollectionNameProvider>
+										<Work />
+									</CollectionNameProvider>
 								</SidenavContextProvider>
 							</PrivateRoute>
 						}

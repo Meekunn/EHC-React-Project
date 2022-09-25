@@ -7,17 +7,18 @@ import { MdWork } from "react-icons/md"
 import Navbar from "../Navbar"
 import SideNav from "../SideNav"
 import { UserAuth } from "../../HOC/AuthContext"
+import { UseCollectionName } from "../../HOC/CollectionNameContext"
 import { collection, onSnapshot, query } from "firebase/firestore"
 import "./dashboard.scss"
 import useCreateCollection from "../../hooks/useCreateCollection"
 import { CircularProgressbar } from "react-circular-progressbar"
 import "react-circular-progressbar/dist/styles.css"
 import { db } from "../../config/firebase"
-import EditCollectionName from "./EditCollectionName"
 
 const Dashboard = () => {
 	const router = useNavigate()
 	const { userName, user } = UserAuth()
+	const { schoolColName, workColName, personalColName } = UseCollectionName()
 	const { createCollection } = useCreateCollection()
 	const [personalTotalTask, setPersonalTotalTask] = useState(0)
 	const [personalDoneTask, setPersonalDoneTask] = useState(0)
@@ -82,7 +83,6 @@ const Dashboard = () => {
 			<Navbar />
 			<div className="dash-wrapper">
 				<SideNav />
-				<EditCollectionName />
 				<div className="dash-container">
 					<div className="typewriter">
 						<Typewriter
@@ -100,12 +100,14 @@ const Dashboard = () => {
 						/>
 					</div>
 					<div className="btns-wrapper">
-						<button onClick={() => createEachCollection("school")}>
-							<span className="icons" style={{ backgroundColor: "#F75F8C" }}>
-								<IoSchool />
-							</span>
+						<button onClick={() => createEachCollection("school")} className="col-btn">
+							<div className="icons-wrapper">
+								<span className="icons" style={{ backgroundColor: "#F75F8C" }}>
+									<IoSchool />
+								</span>
+							</div>
 							<div className="progress-label">
-								<p>School</p>
+								<p>{schoolColName}</p>
 								<CircularProgressbar
 									value={(schoolDoneTask / schoolTotalTask) * 100}
 									text={`${schoolDoneTask}/${schoolTotalTask}`}
@@ -113,12 +115,17 @@ const Dashboard = () => {
 								/>
 							</div>
 						</button>
-						<button onClick={() => createEachCollection("personal")}>
-							<span className="icons" style={{ backgroundColor: "#33948D" }}>
-								<IoPersonSharp />
-							</span>
+						<button
+							onClick={() => createEachCollection("personal")}
+							className="col-btn"
+						>
+							<div className="icons-wrapper">
+								<span className="icons" style={{ backgroundColor: "#33948D" }}>
+									<IoPersonSharp />
+								</span>
+							</div>
 							<div className="progress-label">
-								<p>Personal</p>
+								<p>{personalColName}</p>
 								<CircularProgressbar
 									value={(personalDoneTask / personalTotalTask) * 100}
 									text={`${personalDoneTask}/${personalTotalTask}`}
@@ -126,12 +133,14 @@ const Dashboard = () => {
 								/>
 							</div>
 						</button>
-						<button onClick={() => createEachCollection("work")}>
-							<span className="icons" style={{ backgroundColor: "#AC6089" }}>
-								<MdWork />
-							</span>
+						<button onClick={() => createEachCollection("work")} className="col-btn">
+							<div className="icons-wrapper">
+								<span className="icons" style={{ backgroundColor: "#AC6089" }}>
+									<MdWork />
+								</span>
+							</div>
 							<div className="progress-label">
-								<p>Work</p>
+								<p>{workColName}</p>
 								<CircularProgressbar
 									value={(workDoneTask / workTotalTask) * 100}
 									text={`${workDoneTask}/${workTotalTask}`}

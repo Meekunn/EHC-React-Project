@@ -15,9 +15,9 @@ A task productivity app that helps keep track of daily tasks and give that satis
 ## ✨ Upcoming Features
 
 -   Progressbar for Collection ✔️
--   Edit Collection Names 🚧
+-   Edit Collection Names ✔️
 -   Add New Collection
--   Tasks Due Dates
+-   Tasks Due Dates 🚧
 -   Weather App (Redux)
 -   Notifications
 -   Profile Edit (username, picture and email)

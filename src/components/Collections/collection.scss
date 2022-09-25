@@ -37,7 +37,7 @@ main {
 					font-size: 1.3rem;
 					font-weight: 700;
 					font-family: a.$text-family;
-					padding: 1rem;
+					margin: 1rem;
 					cursor: pointer;
 
 					span {
@@ -61,6 +61,7 @@ main {
 							border: 1px solid a.$text-color;
 						}
 					}
+
 					.three-dots {
 						border: none;
 						background: transparent;
@@ -68,6 +69,24 @@ main {
 					}
 					.three-dots:hover {
 						color: a.$text-hover-color;
+					}
+
+					.edit-icon {
+						background-color: transparent;
+						border: none;
+						color: a.$text-color;
+						border-radius: 3px;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						font-size: 1.8rem;
+						padding: 0.3rem;
+						transition: all 0.3s ease-in-out;
+					}
+
+					.edit-icon:hover {
+						color: a.$text-hover-color;
+						font-size: 1.5rem;
 					}
 				}
 

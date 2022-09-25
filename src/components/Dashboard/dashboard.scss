@@ -33,9 +33,9 @@
 	justify-content: flex-start;
 	margin: 0 0.2rem;
 
-	button {
+	.col-btn {
 		height: 180px;
-		width: 180px;
+		width: 200px;
 		line-height: 1.2;
 		border: 1px solid a.$nav-background;
 		border-radius: 20px;
@@ -52,14 +52,21 @@
 		box-shadow: 4px 4px #d773a7;
 		transition: 0.3s all ease-in-out;
 
-		.icons {
-			color: #fff;
-			border-radius: 15px;
+		.icons-wrapper {
 			display: flex;
-			justify-content: center;
+			justify-content: space-between;
+			width: 100%;
 			align-items: center;
-			height: 45px;
-			width: 45px;
+
+			.icons {
+				color: #fff;
+				border-radius: 15px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: 45px;
+				width: 45px;
+			}
 		}
 
 		.progress-label {
