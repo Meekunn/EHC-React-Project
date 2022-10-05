@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { TbTrash } from "react-icons/tb"
 import { BsCalendar2Check } from "react-icons/bs"
 import { MdKeyboardArrowUp, MdKeyboardArrowDown } from "react-icons/md"
@@ -7,6 +7,15 @@ import "./todo.scss"
 
 const CompletedTodo = ({ toggleTodo, task, deleteTodo }: ICompletedTodo) => {
 	const [isShow, setIsShow] = useState(false)
+	const [createdTime, setCreatedTime] = useState("")
+
+	useEffect(() => {
+		const timestamp = new Date(task.time.seconds * 1000)
+		const hour = timestamp.getHours().toString()
+		const minute = timestamp.getMinutes().toString()
+		const date = timestamp.toDateString()
+		setCreatedTime(`${hour}:${minute}, ${date}`)
+	}, [])
 
 	return (
 		<div id={task.id} className="todo-wrapper">

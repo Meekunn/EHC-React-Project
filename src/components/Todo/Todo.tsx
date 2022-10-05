@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { MdModeEdit, MdCloudDone } from "react-icons/md"
 import { BsCalendarEvent } from "react-icons/bs"
 import { MdKeyboardArrowUp, MdKeyboardArrowDown, MdOutlineCoffeeMaker } from "react-icons/md"
@@ -10,6 +10,15 @@ const Todo = ({ task, toggleTodo, editTodo, deleteTodo }: ITodo) => {
 	const [todoEdit, setTodoEdit] = useState(`${task.todo}`)
 	const [edit, setEdit] = useState(false)
 	const [isShow, setIsShow] = useState(false)
+	const [createdTime, setCreatedTime] = useState("")
+
+	useEffect(() => {
+		const timestamp = new Date(task.time.seconds * 1000)
+		const hour = timestamp.getHours().toString()
+		const minute = timestamp.getMinutes().toString()
+		const date = timestamp.toDateString()
+		setCreatedTime(`${hour}: ${minute}, ${date}`)
+	}, [])
 
 	const handleEditTodo = () => {
 		editTodo(task.id, todoEdit)
@@ -65,7 +74,7 @@ const Todo = ({ task, toggleTodo, editTodo, deleteTodo }: ITodo) => {
 			<div className={isShow ? "todo-details" : "todo-details hide-details"}>
 				<div className="dates created-at">
 					<MdOutlineCoffeeMaker color="#AC6089" />
-					<p className="date">Sun 25 Sep 2022</p>
+					<p className="date">{createdTime}</p>
 				</div>
 				<div className="dates due-at">
 					<BsCalendarEvent color="#33948D" />

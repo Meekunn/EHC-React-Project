@@ -98,6 +98,20 @@ main {
 					border: 2px solid a.$nav-background;
 					border-radius: 10px;
 
+					.date-btn {
+						background-color: transparent;
+						padding: 0.3rem;
+						color: a.$text-hover-color;
+						display: flex;
+						align-items: center;
+						font-size: 1.1rem;
+						transition: 0.2s all ease-in-out;
+					}
+
+					.date-btn:hover {
+						color: a.$text-color;
+					}
+
 					.add-btn {
 						background-color: a.$text-hover-color;
 						padding: 0.3rem;
@@ -105,6 +119,8 @@ main {
 						border: 1px solid a.$text-hover-color;
 						margin-right: 0.8rem;
 						display: flex;
+						align-items: center;
+						font-size: 1rem;
 						transition: 0.2s all ease-in-out;
 					}
 					.add-btn:hover {

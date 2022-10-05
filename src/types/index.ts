@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { FieldValue } from "firebase/firestore"
-
 export interface ITasks {
 	complete: boolean
 	todo: string
-	time?: FieldValue
+	time: {
+		seconds: number
+		nanoseconds: number
+	}
 	id: string
 }
 

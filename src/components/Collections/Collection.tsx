@@ -26,6 +26,15 @@ import { AiTwotoneEdit } from "react-icons/ai"
 import EditCollectionName from "./EditCollectionName"
 import { UseCollectionName } from "../../HOC/CollectionNameContext"
 import "./collection.scss"
+import DueDate from "../TodoForm/DueDate"
+
+function addDays(numOfDays: number) {
+	const dateCopy = new Date()
+
+	dateCopy.setDate(dateCopy.getDate() + numOfDays)
+
+	return dateCopy
+}
 
 const Collection = ({ collectionName }: ICollectionName) => {
 	const router = useNavigate()
@@ -40,6 +49,9 @@ const Collection = ({ collectionName }: ICollectionName) => {
 		personalColName,
 		setPersonalColName,
 	} = UseCollectionName()
+	const date = addDays(5)
+	const defaultDueDate = date.toDateString()
+	const defaultDueTime = date.getHours().toString() + ": " + date.getMinutes().toString()
 
 	const [todo, setTodo] = useState("")
 	const [completedTasks, setCompletedTasks] = useState<ITasks[]>([])
@@ -48,6 +60,9 @@ const Collection = ({ collectionName }: ICollectionName) => {
 	const [isAdding, setIsAdding] = useState(false)
 	const [isDeleting, setIsDeleting] = useState(false)
 	const [isToggling, setIsToggling] = useState(false)
+	const [isDueDate, setIsDueDate] = useState(false)
+	const [dueTime, setDueTime] = useState(defaultDueTime)
+	const [dueDate, setDueDate] = useState(defaultDueDate)
 
 	useEffect(() => {
 		const q = query(
@@ -59,8 +74,6 @@ const Collection = ({ collectionName }: ICollectionName) => {
 			querySnapshot.docs.map((doc) => {
 				const data = doc.data()
 				if (data.complete === false && data.time != null) {
-					const thedate = new Date(data.time.seconds * 1000)
-					console.log(thedate.toDateString())
 					return setUncompletedTasks((prevTasks: any) => {
 						const itExists = prevTasks.find(
 							(task: { id: string }) => task.id === doc.id
@@ -106,7 +119,6 @@ const Collection = ({ collectionName }: ICollectionName) => {
 		}
 		return newName
 	}
-
 	const capitalizeCollectionName = capitalizeName(collectionName)
 
 	const addTodo = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -183,6 +195,11 @@ const Collection = ({ collectionName }: ICollectionName) => {
 			<div className="todos-wrapper">
 				<SideNav />
 				<EditCollectionName collectionName={collectionName} />
+				{isDueDate && (
+					<DueDate
+						{...{ isDueDate, setIsDueDate, dueDate, setDueDate, dueTime, setDueTime }}
+					/>
+				)}
 				{isAdding ? <LinearProgress bgColor="#F75F8C" label="Adding Task" /> : <></>}
 				{isDeleting ? <LinearProgress bgColor="#F75F8C" label="Deleting Task" /> : <></>}
 				{isToggling ? <LinearProgress bgColor="#F75F8C" label="Toggling" /> : <></>}
@@ -227,7 +244,7 @@ const Collection = ({ collectionName }: ICollectionName) => {
 									<AiTwotoneEdit />
 								</button>
 							</div>
-							<TodoForm {...{ addTodo, todo, setTodo }} />
+							<TodoForm {...{ addTodo, todo, setTodo, isDueDate, setIsDueDate }} />
 							<div className="tasks-container">
 								<p>Tasks - {uncompletedTasks.length} </p>
 								<div className="tasks-wrapper">
@@ -235,7 +252,12 @@ const Collection = ({ collectionName }: ICollectionName) => {
 										return (
 											<Todo
 												key={task.id}
-												{...{ task, toggleTodo, editTodo, deleteTodo }}
+												{...{
+													task,
+													toggleTodo,
+													editTodo,
+													deleteTodo,
+												}}
 											/>
 										)
 									})}
