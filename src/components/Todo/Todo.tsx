@@ -1,16 +1,22 @@
 import { useEffect, useState } from "react"
-import { MdModeEdit, MdCloudDone } from "react-icons/md"
+import { MdModeEdit, MdCloudDone, MdDoneAll } from "react-icons/md"
 import { BsCalendarEvent } from "react-icons/bs"
 import { MdKeyboardArrowUp, MdKeyboardArrowDown, MdOutlineCoffeeMaker } from "react-icons/md"
 import { TbTrash } from "react-icons/tb"
 import { ITodo } from "../../types"
 import "./todo.scss"
 
-const Todo = ({ task, toggleTodo, editTodo, deleteTodo }: ITodo) => {
+const Todo = ({ task, toggleTodo, editTodo, editDueDate, deleteTodo }: ITodo) => {
+	let duedate: string
+	let duetime: string
 	const [todoEdit, setTodoEdit] = useState(`${task.todo}`)
 	const [edit, setEdit] = useState(false)
 	const [isShow, setIsShow] = useState(false)
+	const [isEditDate, setIsEditDate] = useState(false)
 	const [createdTime, setCreatedTime] = useState("")
+	const [scheduledTime, setScheduledTime] = useState(`${task.dueTime}, ${task.dueDate}`)
+	const [inputDate, setInputDate] = useState(task.dueDate)
+	const [inputTime, setInputTime] = useState(task.dueTime)
 
 	useEffect(() => {
 		const timestamp = new Date(task.time.seconds * 1000)
@@ -23,6 +29,17 @@ const Todo = ({ task, toggleTodo, editTodo, deleteTodo }: ITodo) => {
 	const handleEditTodo = () => {
 		editTodo(task.id, todoEdit)
 		setEdit(false)
+	}
+
+	const handleEditDate = () => {
+		const date = new Date(`${inputDate}, ${inputTime}`)
+		console.log(inputDate, inputTime)
+		console.log(date)
+		duedate = date.toDateString()
+		duetime = `${date.getHours().toString()}: ${date.getMinutes().toString()}`
+		setScheduledTime(`${duetime}, ${duedate}`)
+		editDueDate(task.id, duedate, duetime)
+		setIsEditDate(false)
 	}
 
 	return (
@@ -73,12 +90,41 @@ const Todo = ({ task, toggleTodo, editTodo, deleteTodo }: ITodo) => {
 			</div>
 			<div className={isShow ? "todo-details" : "todo-details hide-details"}>
 				<div className="dates created-at">
-					<MdOutlineCoffeeMaker color="#AC6089" />
+					<BsCalendarEvent color="#AC6089" />
 					<p className="date">{createdTime}</p>
 				</div>
 				<div className="dates due-at">
-					<BsCalendarEvent color="#33948D" />
-					<p className="date">Sun 1 Oct 2022</p>
+					{isEditDate ? (
+						<>
+							<button onClick={handleEditDate} className="edit_due_date_btn">
+								<MdDoneAll color="#33948D" />
+							</button>
+							<input
+								className="edit_due_date"
+								required
+								type="date"
+								value={inputDate}
+								onChange={(e) => setInputDate(e.target.value)}
+							/>
+							<input
+								className="edit_due_date"
+								required
+								type="time"
+								value={inputTime}
+								onChange={(e) => setInputTime(e.target.value)}
+							/>
+						</>
+					) : (
+						<>
+							<button
+								onClick={() => setIsEditDate(true)}
+								className="edit_due_date_btn"
+							>
+								<MdOutlineCoffeeMaker color="#33948D" />
+							</button>
+							<p className="date">{scheduledTime}</p>
+						</>
+					)}
 				</div>
 			</div>
 		</div>

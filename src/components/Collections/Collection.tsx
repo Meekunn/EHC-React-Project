@@ -123,7 +123,7 @@ const Collection = ({ collectionName }: ICollectionName) => {
 
 	const addTodo = (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault()
-		add(todo, collectionName, setIsAdding)
+		add(todo, collectionName, dueTime, dueDate, setIsAdding)
 		setTodo("")
 	}
 
@@ -167,6 +167,19 @@ const Collection = ({ collectionName }: ICollectionName) => {
 			},
 			{ merge: true }
 		)
+	}
+
+	const editDueDate = async (id: string, dueDate: string, dueTime: string) => {
+		const todoRef = doc(db, `${collectionName}/${user.uid}/todoList/${id}`)
+		await setDoc(
+			todoRef,
+			{
+				dueTime,
+				dueDate,
+			},
+			{ merge: true }
+		)
+		console.log(dueDate, dueTime)
 	}
 
 	const deleteTodo = async (id: string) => {
@@ -244,7 +257,7 @@ const Collection = ({ collectionName }: ICollectionName) => {
 									<AiTwotoneEdit />
 								</button>
 							</div>
-							<TodoForm {...{ addTodo, todo, setTodo, isDueDate, setIsDueDate }} />
+							<TodoForm {...{ addTodo, todo, setTodo, setIsDueDate }} />
 							<div className="tasks-container">
 								<p>Tasks - {uncompletedTasks.length} </p>
 								<div className="tasks-wrapper">
@@ -257,6 +270,7 @@ const Collection = ({ collectionName }: ICollectionName) => {
 													toggleTodo,
 													editTodo,
 													deleteTodo,
+													editDueDate,
 												}}
 											/>
 										)

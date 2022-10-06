@@ -8,6 +8,8 @@ const useAddTodo = () => {
 	const add = async (
 		todo: string,
 		collectionName: string,
+		dueTime: string,
+		dueDate: string,
 		setIsAdding: React.Dispatch<React.SetStateAction<boolean>>
 	) => {
 		if (todo !== "") {
@@ -18,6 +20,8 @@ const useAddTodo = () => {
 				//creates a timestamp which is unique so we use this as the key when returning documents in the subcollection.
 				time: serverTimestamp(),
 				complete: false,
+				dueTime,
+				dueDate,
 			}
 			await addDoc(collectionRef, payload)
 		}

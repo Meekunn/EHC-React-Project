@@ -3,7 +3,7 @@ import { useRef, useEffect, useCallback } from "react"
 import { HiPlusSm } from "react-icons/hi"
 import { BsFillCalendarPlusFill } from "react-icons/bs"
 
-const TodoForm = ({ addTodo, todo, setTodo, isDueDate, setIsDueDate }: ITodoForm) => {
+const TodoForm = ({ addTodo, todo, setTodo, setIsDueDate }: ITodoForm) => {
 	const inputRef = useRef<HTMLInputElement>(null)
 	const trimStartTodo = useCallback((task: string) => {
 		return task.trimStart()

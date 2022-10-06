@@ -1,7 +1,6 @@
 interface ITodoForm {
 	todo: string
 	setTodo: React.Dispatch<React.SetStateAction<string>>
-	isDueDate: boolean
 	setIsDueDate: React.Dispatch<React.SetStateAction<boolean>>
 	addTodo: (e: React.MouseEvent<HTMLButtonElement>) => void
 }

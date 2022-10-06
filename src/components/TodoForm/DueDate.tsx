@@ -10,6 +10,7 @@ interface IDueDate {
 	setDueTime: React.Dispatch<React.SetStateAction<string>>
 	dueDate: string
 	setDueDate: React.Dispatch<React.SetStateAction<string>>
+	editDueDate?: (id: string, dueDate: string, dueTime: string) => Promise<void>
 }
 
 const DueDate = ({
@@ -23,6 +24,7 @@ const DueDate = ({
 	const inputRef = useRef<HTMLInputElement>(null)
 	const [inputDate, setInputDate] = useState("")
 	const [inputTime, setInputTime] = useState("")
+	const [done, setDone] = useState(false)
 
 	useEffect(() => {
 		inputRef.current?.focus()
@@ -35,6 +37,8 @@ const DueDate = ({
 		inputTime !== ""
 			? setDueTime(date.getHours().toString() + ": " + date.getMinutes().toString())
 			: setDueTime(dueTime)
+		setDone(true)
+		setIsDueDate(false)
 	}
 
 	return (
@@ -45,6 +49,7 @@ const DueDate = ({
 				</button>
 			</span>
 			<form id="due_date_time_form" onSubmit={handleSubmit}>
+				<p className={done ? "duedate_p success" : "duedate_p"}>All Set! &#128526;</p>
 				<label htmlFor="due_date">Select Due Date:</label>
 				<input
 					id="due_date"

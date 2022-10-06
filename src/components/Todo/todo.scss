@@ -127,6 +127,26 @@
 				font-size: 0.8rem;
 				color: a.$text-color;
 			}
+
+			.edit_due_date {
+				background-color: transparent;
+				outline: none;
+				color: a.$text-color;
+				border: 1px solid a.$text-color;
+				border-radius: 3px;
+				padding: 0.2rem;
+			}
+			.edit_due_date_btn {
+				background: transparent;
+				font-size: 1.2rem;
+				outline: none;
+				border: none;
+				display: flex;
+				transition: 0.2s all ease-in-out;
+			}
+			.edit_due_date_btn:hover {
+				font-size: 1.3rem;
+			}
 		}
 	}
 	.todo-details.hide-details {

@@ -7,14 +7,14 @@ import "./todo.scss"
 
 const CompletedTodo = ({ toggleTodo, task, deleteTodo }: ICompletedTodo) => {
 	const [isShow, setIsShow] = useState(false)
-	const [createdTime, setCreatedTime] = useState("")
+	const [completedTime, setCompletedTime] = useState("")
 
 	useEffect(() => {
 		const timestamp = new Date(task.time.seconds * 1000)
 		const hour = timestamp.getHours().toString()
 		const minute = timestamp.getMinutes().toString()
 		const date = timestamp.toDateString()
-		setCreatedTime(`${hour}:${minute}, ${date}`)
+		setCompletedTime(`${hour}:${minute}, ${date}`)
 	}, [])
 
 	return (
@@ -54,7 +54,7 @@ const CompletedTodo = ({ toggleTodo, task, deleteTodo }: ICompletedTodo) => {
 			<div className={isShow ? "todo-details" : "todo-details hide-details"}>
 				<div className="dates due-at">
 					<BsCalendar2Check color="#33948D" />
-					<p className="date">Sun 1 Oct 2022</p>
+					<p className="date">{completedTime}</p>
 				</div>
 			</div>
 		</div>
