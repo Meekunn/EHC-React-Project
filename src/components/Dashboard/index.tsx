@@ -7,7 +7,6 @@ import { MdWork } from "react-icons/md"
 import Navbar from "../Navbar"
 import SideNav from "../SideNav"
 import { UserAuth } from "../../HOC/AuthContext"
-import { UseCollectionName } from "../../HOC/CollectionNameContext"
 import { collection, onSnapshot, query } from "firebase/firestore"
 import "./dashboard.scss"
 import useCreateCollection from "../../hooks/useCreateCollection"
@@ -18,7 +17,6 @@ import { db } from "../../config/firebase"
 const Dashboard = () => {
 	const router = useNavigate()
 	const { userName, user } = UserAuth()
-	const { schoolColName, workColName, personalColName } = UseCollectionName()
 	const { createCollection } = useCreateCollection()
 	const [personalTotalTask, setPersonalTotalTask] = useState(0)
 	const [personalDoneTask, setPersonalDoneTask] = useState(0)
@@ -107,7 +105,11 @@ const Dashboard = () => {
 								</span>
 							</div>
 							<div className="progress-label">
-								<p>{schoolColName}</p>
+								<p>
+									{localStorage.getItem("school")
+										? localStorage.getItem("school")
+										: "School"}
+								</p>
 								<CircularProgressbar
 									value={(schoolDoneTask / schoolTotalTask) * 100}
 									text={`${schoolDoneTask}/${schoolTotalTask}`}
@@ -125,7 +127,11 @@ const Dashboard = () => {
 								</span>
 							</div>
 							<div className="progress-label">
-								<p>{personalColName}</p>
+								<p>
+									{localStorage.getItem("personal")
+										? localStorage.getItem("personal")
+										: "Personal"}
+								</p>
 								<CircularProgressbar
 									value={(personalDoneTask / personalTotalTask) * 100}
 									text={`${personalDoneTask}/${personalTotalTask}`}
@@ -140,7 +146,11 @@ const Dashboard = () => {
 								</span>
 							</div>
 							<div className="progress-label">
-								<p>{workColName}</p>
+								<p>
+									{localStorage.getItem("work")
+										? localStorage.getItem("work")
+										: "Work"}
+								</p>
 								<CircularProgressbar
 									value={(workDoneTask / workTotalTask) * 100}
 									text={`${workDoneTask}/${workTotalTask}`}

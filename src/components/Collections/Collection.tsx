@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from "react"
 import {
@@ -24,7 +25,6 @@ import { ITasks } from "../../types/index"
 import LinearProgress from "../LinearProgress"
 import { AiTwotoneEdit } from "react-icons/ai"
 import EditCollectionName from "./EditCollectionName"
-import { UseCollectionName } from "../../HOC/CollectionNameContext"
 import "./collection.scss"
 import DueDate from "../TodoForm/DueDate"
 
@@ -40,15 +40,6 @@ const Collection = ({ collectionName }: ICollectionName) => {
 	const router = useNavigate()
 	const { add } = useAddTodo()
 	const { user } = UserAuth()
-	const {
-		setIsOpen,
-		schoolColName,
-		setSchoolColName,
-		workColName,
-		setWorkColName,
-		personalColName,
-		setPersonalColName,
-	} = UseCollectionName()
 	const date = addDays(5)
 	const defaultDueDate = date.toDateString()
 	const defaultDueTime = date.getHours().toString() + ": " + date.getMinutes().toString()
@@ -61,6 +52,7 @@ const Collection = ({ collectionName }: ICollectionName) => {
 	const [isDeleting, setIsDeleting] = useState(false)
 	const [isToggling, setIsToggling] = useState(false)
 	const [isDueDate, setIsDueDate] = useState(false)
+	const [isOpen, setIsOpen] = useState(false)
 	const [dueTime, setDueTime] = useState(defaultDueTime)
 	const [dueDate, setDueDate] = useState(defaultDueDate)
 
@@ -107,15 +99,12 @@ const Collection = ({ collectionName }: ICollectionName) => {
 
 	const capitalizeName = (colName: string): string => {
 		let newName = ""
-		if (colName === "school") {
-			newName = schoolColName.charAt(0).toUpperCase() + schoolColName.substring(1)
-			setSchoolColName(newName)
-		} else if (colName === "work") {
-			newName = workColName.charAt(0).toUpperCase() + workColName.substring(1)
-			setWorkColName(newName)
-		} else if (colName === "personal") {
-			newName = personalColName.charAt(0).toUpperCase() + personalColName.substring(1)
-			setPersonalColName(newName)
+		const valueFromStorage = localStorage.getItem(colName)
+		if (valueFromStorage !== null) {
+			newName = valueFromStorage.charAt(0).toUpperCase() + valueFromStorage.substring(1)
+			localStorage.setItem(colName, newName)
+		} else {
+			localStorage.setItem(colName, colName)
 		}
 		return newName
 	}
@@ -207,7 +196,7 @@ const Collection = ({ collectionName }: ICollectionName) => {
 			<Navbar />
 			<div className="todos-wrapper">
 				<SideNav />
-				<EditCollectionName collectionName={collectionName} />
+				<EditCollectionName {...{ isOpen, setIsOpen, collectionName }} />
 				{isDueDate && (
 					<DueDate
 						{...{ isDueDate, setIsDueDate, dueDate, setDueDate, dueTime, setDueTime }}
