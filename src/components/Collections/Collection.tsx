@@ -168,7 +168,6 @@ const Collection = ({ collectionName }: ICollectionName) => {
 			},
 			{ merge: true }
 		)
-		console.log(dueDate, dueTime)
 	}
 
 	const deleteTodo = async (id: string) => {
