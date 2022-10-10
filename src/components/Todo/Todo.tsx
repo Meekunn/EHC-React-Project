@@ -33,8 +33,6 @@ const Todo = ({ task, toggleTodo, editTodo, editDueDate, deleteTodo }: ITodo) =>
 
 	const handleEditDate = () => {
 		const date = new Date(`${inputDate}, ${inputTime}`)
-		console.log(inputDate, inputTime)
-		console.log(date)
 		duedate = date.toDateString()
 		duetime = `${date.getHours().toString()}: ${date.getMinutes().toString()}`
 		setScheduledTime(`${duetime}, ${duedate}`)
