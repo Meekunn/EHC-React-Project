@@ -27,7 +27,7 @@ const SideNav = () => {
 						>
 							<IoSchool />
 						</span>
-						School
+						{localStorage.getItem("school") ? localStorage.getItem("school") : "School"}
 					</button>
 					<button
 						className="sidenav-btn"
@@ -43,7 +43,9 @@ const SideNav = () => {
 						>
 							<IoPersonAddSharp />
 						</span>
-						Personal
+						{localStorage.getItem("personal")
+							? localStorage.getItem("personal")
+							: "Personal"}
 					</button>
 					<button
 						className="sidenav-btn"
@@ -59,7 +61,7 @@ const SideNav = () => {
 						>
 							<MdWork />
 						</span>
-						Work
+						{localStorage.getItem("work") ? localStorage.getItem("work") : "Work"}
 					</button>
 				</div>
 			</div>
