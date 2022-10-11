@@ -9,100 +9,161 @@
 	margin: 0.5rem 0;
 	border: 2px solid a.$nav-background;
 	border-radius: 10px;
-	justify-content: space-between;
+	flex-direction: column;
 	transition: 0.25s all ease-in-out;
+	gap: 0.5rem;
 
-	.content {
+	.todo-content {
 		display: flex;
-		gap: 10px;
-		align-items: center;
+		justify-content: space-between;
 
-		.uncheck {
-			border: 2px solid a.$text-hover-color;
-			border-radius: 9px;
-			background: transparent;
-			padding: 2px;
-			width: 20px;
-			height: 20px;
-			position: relative;
-			-moz-user-select: none;
-			-webkit-user-select: none;
-			user-select: none;
-
-			.checkmark {
-				display: none;
-			}
-		}
-		.check {
-			background: a.$text-hover-color;
-
-			.checkmark {
-				display: block;
-				position: absolute;
-				height: 12px;
-				width: 6px;
-				bottom: 3px;
-				left: 5px;
-				border-right: 2px solid #272728;
-				border-bottom: 2px solid #272728;
-				-o-transform: rotate(45deg);
-				-ms-transform: rotate(45deg);
-				-moz-transform: rotate(45deg);
-				-webkit-transform: rotate(45deg);
-				transform: rotate(45deg);
-			}
-		}
-		.task {
-			font-size: 0.9rem;
-			font-weight: 500;
-			color: a.$text-color;
-		}
-		input {
-			font-size: 0.95rem;
-			font-weight: 500;
-			border: none;
-			border-bottom: 1px solid a.$text-hover-color;
-			background: transparent;
-			color: a.$text-hover-color;
-			padding-bottom: 2px;
-			outline: none;
+		.content {
+			display: flex;
+			gap: 10px;
+			align-items: center;
 			width: 70%;
-		}
-		.check ~ span {
-			text-decoration: line-through;
-		}
-	}
 
-	.btns {
-		display: flex;
-		gap: 10px;
-		margin-right: 10px;
+			.uncheck {
+				border: 2px solid a.$text-hover-color;
+				border-radius: 9px;
+				background: transparent;
+				padding: 2px;
+				width: 20px;
+				height: 20px;
+				position: relative;
+				-moz-user-select: none;
+				-webkit-user-select: none;
+				user-select: none;
 
-		.edit.isactive {
-			display: none;
-		}
-		.edit {
-			display: block;
-		}
-
-		button {
-			background-color: transparent;
-			border: none;
-
-			svg {
-				font-size: 1.2rem;
-				color: a.$text-hover-color;
+				.checkmark {
+					display: none;
+				}
 			}
-		}
-		button:hover {
-			svg {
+			.check {
+				background: a.$text-hover-color;
+
+				.checkmark {
+					display: block;
+					position: absolute;
+					height: 12px;
+					width: 6px;
+					bottom: 3px;
+					left: 5px;
+					border-right: 2px solid #272728;
+					border-bottom: 2px solid #272728;
+					-o-transform: rotate(45deg);
+					-ms-transform: rotate(45deg);
+					-moz-transform: rotate(45deg);
+					-webkit-transform: rotate(45deg);
+					transform: rotate(45deg);
+				}
+			}
+			.task {
+				font-size: 0.9rem;
+				font-weight: 500;
 				color: a.$text-color;
 			}
+			input {
+				font-size: 0.95rem;
+				font-weight: 500;
+				border: none;
+				border-bottom: 1px solid a.$text-hover-color;
+				background: transparent;
+				color: a.$text-hover-color;
+				padding-bottom: 2px;
+				outline: none;
+				width: 70%;
+			}
+			.check ~ span {
+				text-decoration: line-through;
+			}
 		}
+
+		.btns {
+			display: flex;
+			gap: 10px;
+			margin-right: 10px;
+
+			.edit.isactive {
+				display: none;
+			}
+			.edit {
+				display: block;
+			}
+
+			.todo-btns {
+				background-color: transparent;
+				border: none;
+
+				svg {
+					font-size: 1.2rem;
+					color: a.$text-hover-color;
+				}
+			}
+			.todo-btns:hover {
+				svg {
+					color: a.$text-color;
+				}
+			}
+		}
+	}
+	.todo-details {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		align-items: flex-start;
+		gap: 0.7rem;
+		padding: 0 0.5rem;
+		padding-top: 0.35rem;
+		border-top: 1px dotted a.$text-hover-color;
+
+		.dates {
+			display: flex;
+			gap: 0.5rem;
+			align-items: center;
+			color: a.$text-hover-color;
+
+			.date {
+				font-size: 0.8rem;
+				color: a.$text-color;
+			}
+
+			.edit_due_date {
+				background-color: transparent;
+				outline: none;
+				color: a.$text-color;
+				border: 1px solid a.$text-color;
+				border-radius: 3px;
+				padding: 0.2rem;
+			}
+			.edit_due_date_btn {
+				background: transparent;
+				font-size: 1.2rem;
+				outline: none;
+				border: none;
+				display: flex;
+				transition: 0.2s all ease-in-out;
+			}
+			.edit_due_date_btn:hover {
+				font-size: 1.3rem;
+			}
+		}
+	}
+	.todo-details.hide-details {
+		display: none;
 	}
 }
 
 .todo-wrapper:hover {
 	transform: translate3d(10px, 5px, 10px);
 	box-shadow: 3px 3px 1px a.$text-hover-color;
+}
+
+@media only screen and (min-width: 600px) {
+	.todo-wrapper {
+		.todo-details {
+			flex-direction: row;
+			align-items: center;
+		}
+	}
 }

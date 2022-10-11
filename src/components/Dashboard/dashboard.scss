@@ -20,6 +20,7 @@
 		background: linear-gradient(to top right, #d3b8ba, #f75f8c);
 		text-align: center;
 		margin: 2rem 0.5rem;
+		margin-top: 10rem;
 		-webkit-background-clip: text;
 		-moz-background-clip: text;
 		background-clip: text;
@@ -32,9 +33,9 @@
 	justify-content: flex-start;
 	margin: 0 0.2rem;
 
-	button {
+	.col-btn {
 		height: 180px;
-		width: 180px;
+		width: 200px;
 		line-height: 1.2;
 		border: 1px solid a.$nav-background;
 		border-radius: 20px;
@@ -51,14 +52,21 @@
 		box-shadow: 4px 4px #d773a7;
 		transition: 0.3s all ease-in-out;
 
-		.icons {
-			color: #fff;
-			border-radius: 15px;
+		.icons-wrapper {
 			display: flex;
-			justify-content: center;
+			justify-content: space-between;
+			width: 100%;
 			align-items: center;
-			height: 45px;
-			width: 45px;
+
+			.icons {
+				color: #fff;
+				border-radius: 15px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: 45px;
+				width: 45px;
+			}
 		}
 
 		.progress-label {
@@ -96,5 +104,6 @@
 	.typewriter {
 		font-size: 2rem;
 		text-align: left;
+		margin-top: 3rem;
 	}
 }

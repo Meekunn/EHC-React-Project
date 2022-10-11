@@ -1,0 +1,128 @@
+@use "../../styles/base" as a;
+
+.update-form-wrapper {
+	width: 80%;
+	background-color: a.$nav-background;
+	position: absolute;
+	border-radius: 15px;
+	border: 1px solid a.$nav-background;
+	top: -100%;
+	z-index: 10;
+	transition: all 0.5s ease;
+	height: fit-content;
+	font-family: a.$text-family;
+	border: 1px solid a.$text-hover-color;
+	box-shadow: 0px 0px 10px 5px rgb(80 74 74);
+}
+
+.update-form-wrapper.open {
+	position: fixed;
+	top: 15%;
+	transition: all 0.5s ease;
+}
+
+.close-btn-wrapper {
+	width: 100%;
+	display: flex;
+	justify-content: flex-end;
+	position: absolute;
+
+	.close-btn {
+		background: transparent;
+		color: a.$text-color;
+		border: none;
+		font-size: 1.1rem;
+		padding: 0.5rem 1rem;
+	}
+}
+
+#collection_name_form {
+	padding: 2rem;
+	height: 100%;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1rem;
+
+	label {
+		color: #fff;
+		font-size: 1.1rem;
+		display: flex;
+		gap: 0.3rem;
+		align-items: center;
+
+		.hide {
+			display: none;
+		}
+		.valid {
+			display: flex;
+			background: transparent;
+			color: #1dad43;
+			font-weight: 700;
+		}
+		.invalid {
+			color: #d50a0a;
+			display: flex;
+			background: transparent;
+			font-weight: 700;
+		}
+	}
+
+	p {
+		color: a.$text-color;
+		font-size: 0.7rem;
+
+		strong {
+			font-weight: 700;
+			font-size: 1rem;
+		}
+	}
+
+	input {
+		background-color: transparent;
+		outline: none;
+		color: a.$text-color;
+		font-weight: 500;
+		border: 1px solid a.$text-color;
+		font-size: 0.8rem;
+		padding: 0.5rem;
+		width: 100%;
+		border-radius: 3px;
+	}
+
+	input::placeholder {
+		font-size: 0.8rem;
+		color: rgb(131, 126, 126);
+	}
+
+	input:focus {
+		border-width: 2px;
+		border-color: a.$text-hover-color;
+	}
+
+	.submit-btn {
+		padding: 0.5rem;
+		font-weight: 700;
+		font-size: 1.1rem;
+		color: #fff;
+		background-color: a.$text-hover-color;
+		border: 1px solid a.$text-hover-color;
+		box-shadow: 0px -4px rgb(131, 126, 126) inset;
+		border-radius: 8px;
+		transition: all 0.5s ease-in-out;
+		width: 100%;
+	}
+
+	.submit-btn:hover {
+		background-color: transparent;
+		box-shadow: 0px -2px a.$text-hover-color inset;
+		color: a.$text-hover-color;
+	}
+}
+
+@media screen and (min-width: 600px) {
+	.update-form-wrapper {
+		width: 50%;
+	}
+}

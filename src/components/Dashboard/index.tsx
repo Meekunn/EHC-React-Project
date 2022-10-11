@@ -98,12 +98,18 @@ const Dashboard = () => {
 						/>
 					</div>
 					<div className="btns-wrapper">
-						<button onClick={() => createEachCollection("school")}>
-							<span className="icons" style={{ backgroundColor: "#F75F8C" }}>
-								<IoSchool />
-							</span>
+						<button onClick={() => createEachCollection("school")} className="col-btn">
+							<div className="icons-wrapper">
+								<span className="icons" style={{ backgroundColor: "#F75F8C" }}>
+									<IoSchool />
+								</span>
+							</div>
 							<div className="progress-label">
-								<p>School</p>
+								<p>
+									{localStorage.getItem("school")
+										? localStorage.getItem("school")
+										: "School"}
+								</p>
 								<CircularProgressbar
 									value={(schoolDoneTask / schoolTotalTask) * 100}
 									text={`${schoolDoneTask}/${schoolTotalTask}`}
@@ -111,12 +117,21 @@ const Dashboard = () => {
 								/>
 							</div>
 						</button>
-						<button onClick={() => createEachCollection("personal")}>
-							<span className="icons" style={{ backgroundColor: "#33948D" }}>
-								<IoPersonSharp />
-							</span>
+						<button
+							onClick={() => createEachCollection("personal")}
+							className="col-btn"
+						>
+							<div className="icons-wrapper">
+								<span className="icons" style={{ backgroundColor: "#33948D" }}>
+									<IoPersonSharp />
+								</span>
+							</div>
 							<div className="progress-label">
-								<p>Personal</p>
+								<p>
+									{localStorage.getItem("personal")
+										? localStorage.getItem("personal")
+										: "Personal"}
+								</p>
 								<CircularProgressbar
 									value={(personalDoneTask / personalTotalTask) * 100}
 									text={`${personalDoneTask}/${personalTotalTask}`}
@@ -124,12 +139,18 @@ const Dashboard = () => {
 								/>
 							</div>
 						</button>
-						<button onClick={() => createEachCollection("work")}>
-							<span className="icons" style={{ backgroundColor: "#AC6089" }}>
-								<MdWork />
-							</span>
+						<button onClick={() => createEachCollection("work")} className="col-btn">
+							<div className="icons-wrapper">
+								<span className="icons" style={{ backgroundColor: "#AC6089" }}>
+									<MdWork />
+								</span>
+							</div>
 							<div className="progress-label">
-								<p>Work</p>
+								<p>
+									{localStorage.getItem("work")
+										? localStorage.getItem("work")
+										: "Work"}
+								</p>
 								<CircularProgressbar
 									value={(workDoneTask / workTotalTask) * 100}
 									text={`${workDoneTask}/${workTotalTask}`}

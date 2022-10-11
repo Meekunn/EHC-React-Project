@@ -1,0 +1,107 @@
+@use "../../styles/base" as a;
+
+.duedate-wrapper {
+	width: 80%;
+	background-color: a.$nav-background;
+	position: absolute;
+	border-radius: 15px;
+	border: 1px solid a.$nav-background;
+	top: -100%;
+	z-index: 10;
+	transition: all 0.5s ease;
+	height: fit-content;
+	font-family: a.$text-family;
+	border: 1px solid a.$text-hover-color;
+	box-shadow: 0px 0px 10px 5px rgb(80 74 74);
+}
+
+.duedate-wrapper.open {
+	position: fixed;
+	top: 15%;
+	transition: all 0.5s ease;
+}
+
+.close-btn-wrapper {
+	width: 100%;
+	display: flex;
+	justify-content: flex-end;
+	position: absolute;
+
+	.close-btn {
+		background: transparent;
+		color: a.$text-color;
+		border: none;
+		font-size: 1.1rem;
+		padding: 0.5rem 1rem;
+	}
+}
+
+#due_date_time_form {
+	padding: 2rem;
+	height: 100%;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 0.8rem;
+
+	.duedate_p {
+		font-size: 1.2rem;
+		opacity: 0;
+		color: a.$text-color;
+		text-align: center;
+	}
+	.duedate_p.success {
+		opacity: 1;
+	}
+
+	label {
+		color: #fff;
+		font-size: 1rem;
+	}
+
+	input {
+		background-color: transparent;
+		outline: none;
+		color: a.$text-color;
+		border: 1px solid a.$text-color;
+		width: 100%;
+		border-radius: 3px;
+		padding: 0.5rem;
+	}
+
+	input::placeholder {
+		font-size: 0.8rem;
+		color: rgb(131, 126, 126);
+	}
+
+	input:focus {
+		border-width: 2px;
+		border-color: a.$text-hover-color;
+	}
+
+	.submit-btn {
+		padding: 0.5rem;
+		font-weight: 600;
+		font-size: 1rem;
+		color: #fff;
+		background-color: a.$text-hover-color;
+		border: 1px solid a.$text-hover-color;
+		box-shadow: 0px -4px rgb(131, 126, 126) inset;
+		border-radius: 8px;
+		transition: all 0.5s ease-in-out;
+		width: 100%;
+	}
+
+	.submit-btn:hover {
+		background-color: transparent;
+		box-shadow: 0px -2px a.$text-hover-color inset;
+		color: a.$text-hover-color;
+	}
+}
+
+@media screen and (min-width: 600px) {
+	.update-form-wrapper {
+		width: 50%;
+	}
+}

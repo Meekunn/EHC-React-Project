@@ -1,15 +1,22 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useRef, useEffect, useCallback } from "react"
 import { HiPlusSm } from "react-icons/hi"
+import { BsFillCalendarPlusFill } from "react-icons/bs"
 
-const TodoForm = ({ addTodo, todo, setTodo }: ITodoForm) => {
-	const formRef = useRef<HTMLInputElement>(null)
+const TodoForm = ({ addTodo, todo, setTodo, setIsDueDate }: ITodoForm) => {
+	const inputRef = useRef<HTMLInputElement>(null)
 	const trimStartTodo = useCallback((task: string) => {
 		return task.trimStart()
 	}, [])
 
 	useEffect(() => {
-		formRef.current?.focus()
+		inputRef.current?.focus()
 	}, [])
+
+	const handleClick = (e: any) => {
+		e.preventDefault()
+		setIsDueDate(true)
+	}
 
 	return (
 		<form className="todo-form">
@@ -18,12 +25,15 @@ const TodoForm = ({ addTodo, todo, setTodo }: ITodoForm) => {
 			</button>
 			<input
 				type="text"
-				ref={formRef}
+				ref={inputRef}
 				className="input"
 				placeholder="Add a task"
 				value={todo}
 				onChange={(e) => setTodo(trimStartTodo(e.target.value))}
 			/>
+			<button onClick={handleClick} className="date-btn">
+				<BsFillCalendarPlusFill />
+			</button>
 		</form>
 	)
 }
