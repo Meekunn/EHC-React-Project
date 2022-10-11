@@ -1,4 +1,4 @@
-# ✔️ EHC-TodoApp v1.1.0
+# ✔️ EHC-TodoApp v2.0
 
 A task productivity app that helps keep track of daily tasks and give that satisfaction upon completion. This version has the basic functionalities which include add, edit, delete, toggle togo. Also, it has the email and google authentication features.
 
